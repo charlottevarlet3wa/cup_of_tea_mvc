@@ -84,7 +84,7 @@ INSERT INTO `tea` (`name`, `subtitle`, `description`, `image`, `category_id`, `f
 ('Thé Noir Fumé', 'Arôme Unique', 'Un thé noir fumé au bois de cèdre, offrant une expérience gustative unique.', 'noir_fume.jpg', 1, 0),
 
 ('Thé Vert Sencha', 'Frais et Revigorant', 'Un thé vert traditionnel japonais offrant fraîcheur et finesse.', 'vert_sencha.jpg', 2, 0),
-('Thé Vert Matcha', 'Pur et Puissant', 'Le matcha offre un goût riche et une couleur éclatante.', 'vert_matcha.jpg', 2, 0),
+('Thé Vert Matcha', 'Pur et Puissant', 'Le matcha offre un goût riche et une couleur éclatante.', 'vert_matcha.jpg', 2, 1),
 ('Thé Vert Jasmin', 'Parfumé et Delicat', 'Un thé vert délicatement parfumé aux fleurs de jasmin.', 'vert_jasmin.jpg', 2, 0),
 
 ('Oolong Formosa', 'Doux et Floral', 'Un oolong de Taiwan aux notes naturellement sucrées et florales.', 'oolong_formosa.jpg', 3, 0),
@@ -193,3 +193,58 @@ INSERT INTO `format` (`tea_id`, `conditioning`, `price`) VALUES
 (15, 'Sachet individuel', 0.65),
 (15, 'Boîte de 20 sachets', 13.00),
 (15, 'Vrac 100g', 12.00);
+
+
+
+
+
+INSERT INTO `user` (`last_name`, `name`, `email`, `password`, `admin`) VALUES
+('Smith', 'John', 'john.smith@example.com', 'password123', 0),
+('Doe', 'Jane', 'jane.doe@example.com', 'password123', 0),
+('Brown', 'Michael', 'michael.brown@example.com', 'password123', 0),
+('Davis', 'Emily', 'emily.davis@example.com', 'password123', 0),
+('Wilson', 'Anna', 'anna.wilson@example.com', 'password123', 0);
+
+
+
+
+-- Commandes pour l'utilisateur avec l'ID 1 (John Smith)
+INSERT INTO `order` (`user_id`, `status`) VALUES (1, 1), (1, 1), (1, 1), (1, 1);
+
+-- Commandes pour l'utilisateur avec l'ID 2 (Jane Doe)
+INSERT INTO `order` (`user_id`, `status`) VALUES (2, 1), (2, 1), (2, 1), (2, 1);
+
+-- Commandes pour l'utilisateur avec l'ID 3 (Michael Brown)
+INSERT INTO `order` (`user_id`, `status`) VALUES (3, 1), (3, 1), (3, 1), (3, 1);
+
+-- Commandes pour l'utilisateur avec l'ID 4 (Emily Davis)
+INSERT INTO `order` (`user_id`, `status`) VALUES (4, 1), (4, 1), (4, 1), (4, 1);
+
+-- Commandes pour l'utilisateur avec l'ID 5 (Anna Wilson)
+INSERT INTO `order` (`user_id`, `status`) VALUES (5, 1), (5, 1), (5, 1), (5, 1);
+
+
+
+
+
+INSERT INTO `order_details` (`order_id`, `product_id`, `cond`, `price`) VALUES 
+(2, 11, 'Boîte de 20 sachets', 18.00),
+(1, 11, 'Boîte de 20 sachets', 18.00),
+(3, 11, 'Boîte de 20 sachets', 18.00),
+(5, 11, 'Boîte de 20 sachets', 18.00),
+(4, 11, 'Boîte de 20 sachets', 18.00),
+(6, 11, 'Boîte de 20 sachets', 18.00),
+(7, 11, 'Boîte de 20 sachets', 18.00),
+(8, 11, 'Boîte de 20 sachets', 18.00),
+(9, 11, 'Boîte de 20 sachets', 18.00),
+(10, 11, 'Boîte de 20 sachets', 18.00),
+(12, 11, 'Boîte de 20 sachets', 18.00),
+(11, 11, 'Boîte de 20 sachets', 18.00),
+(13, 11, 'Boîte de 20 sachets', 18.00),
+(15, 11, 'Boîte de 20 sachets', 18.00),
+(14, 11, 'Boîte de 20 sachets', 18.00),
+(16, 11, 'Boîte de 20 sachets', 18.00),
+(17, 11, 'Boîte de 20 sachets', 18.00),
+(18, 11, 'Boîte de 20 sachets', 18.00),
+(19, 11, 'Boîte de 20 sachets', 18.00),
+(20, 11, 'Boîte de 20 sachets', 18.00);

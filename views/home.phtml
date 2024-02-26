@@ -72,9 +72,7 @@
         <!-- <img src={ "/img/" + bestseller.image } alt={ bestseller.nom } /> -->
         <img src="public/img/tea/3.jpg" alt="Tasse de oolong" />
         <h3>{ bestseller.nom }</h3>
-        <p>
-            { bestseller.sous_titre }
-        </p>
+        <p>{ bestseller.sous_titre }</p>
         <section class="price">
             <p>
                 À partir de <strong>{ bestseller.prix } €</strong>
@@ -90,13 +88,14 @@
             <span>Notre coup de coeur</span>
         </h2>
         <!-- <img src={ "/img/" + coupDeCoeur.image } alt={ coupDeCoeur.nom } /> -->
-        <img src="public/img/tea/4.jpg" alt="Tasse de thé blanc" />
-        <h3>{ coupDeCoeur.nom }</h3>
-        <p>{ coupDeCoeur.sous_titre }</p>
+        <img src="public/img/tea/<?=  htmlspecialchars($favorite['category_id']) ?>.jpg" alt="<?=  htmlspecialchars($favorite['name']) ?>" />
+        <!-- <img src="public/img/tea/4.jpg" alt="Tasse de thé blanc" /> -->
+        <h3><?=  htmlspecialchars($favorite['name']) ?></h3>
 
+        <p><?=  htmlspecialchars($favorite['subtitle']) ?></p>
         <section class="price">
             <p>
-                À partir de <strong>{ coupDeCoeur.prix } €</strong>
+                À partir de <strong><?=  htmlspecialchars($favorite['price']) ?> €</strong>
             </p>
         </section>
         <a class="btn" href="public/img/tea/4.jpg">
