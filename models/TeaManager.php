@@ -55,7 +55,9 @@ class TeaManager extends AbstractModel
         WHERE tea.favorite = 1
         GROUP BY format.tea_id");
         $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        $results = $stmt->fetch(PDO::FETCH_ASSOC);
+        var_dump($results);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function getLatest(): array

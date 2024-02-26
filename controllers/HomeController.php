@@ -8,7 +8,7 @@ class HomeController {
 
     public function display() {
         $manager = new TeaManager();
-        // $favorite = $manager->getFavorite();
+        $favorite = $manager->getFavorite();
         $latest = $manager->getLatest();
         // $bestseller = $manager->getBestseller();
         
