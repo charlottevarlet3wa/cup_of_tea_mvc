@@ -69,16 +69,16 @@
         <h2>
             <span>Notre best-seller</span>
         </h2>
-        <!-- <img src={ "/img/" + bestseller.image } alt={ bestseller.nom } /> -->
-        <img src="public/img/tea/3.jpg" alt="Tasse de oolong" />
-        <h3>{ bestseller.nom }</h3>
-        <p>{ bestseller.sous_titre }</p>
+        <img src="public/img/tea/<?=  htmlspecialchars($bestseller['category_id']) ?>.jpg" alt="<?=  htmlspecialchars($bestseller['name']) ?>" />
+        <!-- <img src="public/img/tea/4.jpg" alt="Tasse de thé blanc" /> -->
+        <h3><?=  htmlspecialchars($bestseller['name']) ?></h3>
+
+        <p><?=  htmlspecialchars($bestseller['subtitle']) ?></p>
         <section class="price">
             <p>
-                À partir de <strong>{ bestseller.prix } €</strong>
+                À partir de <strong><?=  htmlspecialchars($bestseller['price']) ?> €</strong>
             </p>
         </section>
-        <!-- <a class="btn" href={"/tea/"+bestseller.id}> -->
         <a class="btn" href="public/img/tea/3.jpg">
             Voir ce produit
         </a>
