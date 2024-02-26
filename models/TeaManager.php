@@ -55,26 +55,27 @@ class TeaManager extends AbstractModel
         WHERE tea.favorite = 1
         GROUP BY format.tea_id");
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     public function getLatest(): array
     {
-        $stmt = $this->db->prepare("SELECT tea.subtitle, tea.description, tea.image, tea.namz, tea.id, tea.category_id, FORMAT(MIN(price), 2) as price FROM tea 
+        $stmt = $this->db->prepare("SELECT tea.subtitle, tea.description, tea.image, tea.name, tea.id, tea.category_id, FORMAT(MIN(price), 2) as price FROM tea 
         INNER JOIN format ON tea.id = format.tea_id
         GROUP BY format.tea_id ORDER BY date DESC LIMIT 1");
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        // return $stmt->fetchAll(PDO::FETCH_ASSOC); 
+        return $stmt->fetch(PDO::FETCH_ASSOC); 
     }
 
-    public function getBs(): array
+    public function getBestseller(): array
     {
         $stmt = $this->db->prepare("SELECT tea.subtitle, tea.description, tea.image, tea.name, tea.id, tea.category_id, FORMAT(MIN(price), 2) as price FROM tea 
         INNER JOIN format ON tea.id = format.tea_id
         WHERE tea.id = (SELECT product_id FROM order_details GROUP BY product_id ORDER BY COUNT(product_id) DESC LIMIT 1)
         GROUP BY format.tea_id ORDER BY date DESC");
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     // La méthode addTea() serait à implémenter selon les besoins spécifiques de l'application

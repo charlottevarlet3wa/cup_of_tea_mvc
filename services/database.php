@@ -4,7 +4,7 @@
 declare(strict_types=1);
 
 const DB_HOST = 'localhost';  // Would probably be `localhost` or `127.0.0.1` in your case (:
-const DB_PORT = '3306';
+const DB_PORT = '3308';
 const DB_NAME = 'cup_of_tea';
 const DB_USERNAME = 'root';
 // const DB_PASSWORD = '3wa';
