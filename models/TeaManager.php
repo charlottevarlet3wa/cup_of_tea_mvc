@@ -72,21 +72,17 @@ class TeaManager extends AbstractModel
 
     public function getBestseller(): array
     {
-        // $stmt = $this->db->prepare("SELECT tea.subtitle, tea.description, tea.image, tea.name, tea.id, tea.category_id, FORMAT(MIN(price), 2) as price FROM tea 
-        // INNER JOIN format ON tea.id = format.tea_id
-        // WHERE tea.id = (SELECT product_id FROM order_details GROUP BY product_id ORDER BY COUNT(product_id) DESC LIMIT 1)
-        // GROUP BY format.tea_id ORDER BY date DESC");
-
         $stmt = $this->db->prepare("SELECT tea.subtitle, tea.description, tea.image, tea.name, tea.id, tea.category_id, FORMAT(MIN(format.price), 2) as price 
         FROM tea
         INNER JOIN format ON tea.id = format.tea_id
-        -- WHERE tea.id = (SELECT product_id FROM order_details GROUP BY product_id ORDER BY COUNT(product_id) DESC LIMIT 1)
+        WHERE tea.id = (SELECT product_id FROM order_details GROUP BY product_id ORDER BY COUNT(product_id) DESC LIMIT 1)
         GROUP BY tea.id;");
         
         $stmt->execute();
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        var_dump($results);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        // var_dump($results[0]);
+        // return $stmt->fetchAll(PDO::FETCH_ASSOC)[0]; // marche pas
+        return $results[0];
     }
 
     // La méthode addTea() serait à implémenter selon les besoins spécifiques de l'application
