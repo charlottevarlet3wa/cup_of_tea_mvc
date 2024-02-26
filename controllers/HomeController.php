@@ -10,7 +10,7 @@ class HomeController {
         $manager = new TeaManager();
         $favorite = $manager->getFavorite();
         $latest = $manager->getLatest();
-        // $bestseller = $manager->getBestseller();
+        $bestseller = $manager->getBestseller();
         
         $template = "home.phtml";
         require_once "views/layout.phtml";
