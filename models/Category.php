@@ -10,21 +10,21 @@ require_once 'models/AbstractModel.php';
 class Category extends AbstractModel
 {
     public function __construct(
-        private ?string $nom = null,
+        private ?string $name = null,
         ?int $id = null
     ) {
         parent::__construct($id);
     }
 
-    // Accesseur et mutateur pour le nom de la catégorie
-    public function getNom(): ?string
+    // Accesseur et mutateur pour le name de la catégorie
+    public function getName(): ?string
     {
-        return $this->nom;
+        return $this->name;
     }
 
-    public function setNom(?string $nom): void
+    public function setName(?string $name): void
     {
-        $this->nom = $nom;
+        $this->name = $name;
     }
 
     // Validation des données de la catégorie
@@ -32,11 +32,11 @@ class Category extends AbstractModel
     {
         $errors = [];
 
-        // Validation du nom
-        if (empty($this->nom)) {
-            $errors[] = "Le nom de la catégorie ne doit pas être vide.";
-        } elseif (strlen($this->nom) > 255) {
-            $errors[] = "Le nom de la catégorie ne doit pas excéder 255 caractères.";
+        // Validation du name
+        if (empty($this->name)) {
+            $errors[] = "Le name de la catégorie ne doit pas être vide.";
+        } elseif (strlen($this->name) > 255) {
+            $errors[] = "Le name de la catégorie ne doit pas excéder 255 caractères.";
         }
 
         return $errors;
