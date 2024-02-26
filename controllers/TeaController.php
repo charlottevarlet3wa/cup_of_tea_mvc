@@ -1,16 +1,16 @@
 <?php 
 
-// class TeaController {
-//     public function display() {
-//         $template = "tea.phtml";
-//         require_once "views/layout.phtml";
-//     }
-// } 
+class TeaController {
+    public function display() {
+        $template = "tea.phtml";
+        require_once "views/layout.phtml";
+    }
+} 
 
 
 // TODO : tester
 // TODO : change route to get tea ID
-
+/*
 declare(strict_types=1);
 
 require_once 'models/Tea.php';
@@ -55,3 +55,4 @@ class TeaController
         return 0.0;
     }
 }
+*/

@@ -8,36 +8,36 @@ require_once 'models/AbstractModel.php';
 class Tea extends AbstractModel
 {
     public function __construct(
-        private ?string $nom = null,
-        private ?string $sous_titre = null,
+        private ?string $name = null,
+        private ?string $subtitle = null,
         private ?string $description = null,
         private ?string $image = null,
-        private int $id_category,
-        private int $coup_de_coeur = 0,
+        private int $category_id,
+        private int $favorite = 0,
         ?int $id = null
     ) {
         parent::__construct($id);
     }
 
     // Accesseurs et mutateurs
-    public function getNom(): ?string
+    public function getName(): ?string
     {
-        return $this->nom;
+        return $this->name;
     }
 
-    public function setNom(?string $nom): void
+    public function setName(?string $name): void
     {
-        $this->nom = $nom;
+        $this->name = $name;
     }
 
-    public function getSousTitre(): ?string
+    public function getSubtitle(): ?string
     {
-        return $this->sous_titre;
+        return $this->subtitle;
     }
 
-    public function setSousTitre(?string $sous_titre): void
+    public function setSubtitle(?string $subtitle): void
     {
-        $this->sous_titre = $sous_titre;
+        $this->subtitle = $subtitle;
     }
 
     public function getDescription(): ?string
@@ -60,24 +60,24 @@ class Tea extends AbstractModel
         $this->image = $image;
     }
 
-    public function getIdCategory(): int
+    public function getCategoryId(): int
     {
-        return $this->id_category;
+        return $this->category_id;
     }
 
-    public function setIdCategory(int $id_category): void
+    public function setCategoryId(int $category_id): void
     {
-        $this->id_category = $id_category;
+        $this->category_id = $category_id;
     }
 
-    public function getCoupDeCoeur(): int
+    public function getFavorite(): int
     {
-        return $this->coup_de_coeur;
+        return $this->favorite;
     }
 
-    public function setCoupDeCoeur(int $coup_de_coeur): void
+    public function setFavorite(int $favorite): void
     {
-        $this->coup_de_coeur = $coup_de_coeur;
+        $this->favorite = $favorite;
     }
 
     // Vous pouvez ajouter ici des méthodes spécifiques à la gestion des thés,

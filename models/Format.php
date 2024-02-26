@@ -10,43 +10,43 @@ require_once 'models/AbstractModel.php';
 class Format extends AbstractModel
 {
     public function __construct(
-        private ?int $id_the = null,
-        private ?string $conditionnement = null,
-        private ?float $prix = null,
+        private ?int $tea_id = null,
+        private ?string $conditioning = null,
+        private ?float $price = null,
         ?int $id = null
     ) {
         parent::__construct($id);
     }
 
     // Accesseurs et mutateurs
-    public function getIdThe(): ?int
+    public function getTeaId(): ?int
     {
-        return $this->id_the;
+        return $this->tea_id;
     }
 
-    public function setIdThe(?int $id_the): void
+    public function setTeaId(?int $tea_id): void
     {
-        $this->id_the = $id_the;
+        $this->tea_id = $tea_id;
     }
 
-    public function getConditionnement(): ?string
+    public function getConditioning(): ?string
     {
-        return $this->conditionnement;
+        return $this->conditioning;
     }
 
-    public function setConditionnement(?string $conditionnement): void
+    public function setConditioning(?string $conditioning): void
     {
-        $this->conditionnement = $conditionnement;
+        $this->conditioning = $conditioning;
     }
 
-    public function getPrix(): ?float
+    public function getPrice(): ?float
     {
-        return $this->prix;
+        return $this->price;
     }
 
-    public function setPrix(?float $prix): void
+    public function setPrice(?float $price): void
     {
-        $this->prix = $prix;
+        $this->price = $price;
     }
 
     // Validation des données du format
@@ -54,11 +54,11 @@ class Format extends AbstractModel
     {
         $errors = [];
 
-        if (empty($this->conditionnement)) {
+        if (empty($this->conditioning)) {
             $errors[] = "Le conditionnement ne peut pas être vide.";
         }
 
-        if ($this->prix <= 0) {
+        if ($this->price <= 0) {
             $errors[] = "Le prix doit être supérieur à 0.";
         }
 

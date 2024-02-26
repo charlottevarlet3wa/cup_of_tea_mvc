@@ -48,14 +48,16 @@
             <span>Notre nouveauté</span>
         </h2>
         <!-- <img src="/img/" + nouveaute.image alt=nouveaute.nom /> -->
-        <img src="public/img/tea/1.jpg" alt="Tasse de thé noir" />
+        <!-- <img src="public/img/tea/1.jpg" alt="Tasse de thé noir" /> -->
+        <img src="public/img/tea/<?=  htmlspecialchars($latest['category_id']) ?>.jpg" alt="<?=  htmlspecialchars($latest['name']) ?>" />
         <!-- <h3>{ nouveaute.nom }</h3> -->
-        <h3>Tasse de thé noir</h3>
+        <!-- <h3>Tasse de thé noir</h3> -->
+        <h3><?=  htmlspecialchars($latest['name']) ?></h3>
 
-        <p>{ nouveaute.sous_titre }</p>
+        <p><?=  htmlspecialchars($latest['subtitle']) ?></p>
         <section class="price">
             <p>
-                À partir de <strong>{ nouveaute.prix } €</strong>
+                À partir de <strong><?=  htmlspecialchars($latest['price']) ?> €</strong>
             </p>
         </section>
         <!-- <a class="btn" href={"/tea/"+nouveaute.id}> -->

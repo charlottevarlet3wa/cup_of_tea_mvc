@@ -21,20 +21,20 @@ class UserManager extends AbstractModel
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function updateUser(int $id, string $nom, string $prenom, string $email, string $password): bool
+    public function updateUser(int $id, string $last_name, string $name, string $email, string $password): bool
     {
         $passwordHash = password_hash($password, PASSWORD_BCRYPT, ['cost' => 10]);
 
-        $stmt = $this->db->prepare("UPDATE user SET nom = ?, prenom = ?, email = ?, password = ? WHERE id = ?");
-        return $stmt->execute([$nom, $prenom, $email, $passwordHash, $id]);
+        $stmt = $this->db->prepare("UPDATE user SET last_name = ?, name = ?, email = ?, password = ? WHERE id = ?");
+        return $stmt->execute([$last_name, $name, $email, $passwordHash, $id]);
     }
 
-    public function addUser(string $nom, string $prenom, string $email, string $password): bool
+    public function addUser(string $last_name, string $name, string $email, string $password): bool
     {
         $passwordHash = password_hash($password, PASSWORD_BCRYPT, ['cost' => 10]);
 
-        $stmt = $this->db->prepare("INSERT INTO user (nom, prenom, email, password, admin) VALUES (?, ?, ?, ?, 0)");
-        return $stmt->execute([$nom, $prenom, $email, $passwordHash]);
+        $stmt = $this->db->prepare("INSERT INTO user (last_name, name, email, password, admin) VALUES (?, ?, ?, ?, 0)");
+        return $stmt->execute([$last_name, $name, $email, $passwordHash]);
     }
 
     // TODO : authentication system
