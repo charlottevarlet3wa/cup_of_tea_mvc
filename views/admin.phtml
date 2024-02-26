@@ -1,0 +1,136 @@
+<h1>Dashboard</h1>
+<nav>
+    <!-- <button class="btn" onClick={()=> setOnglet(1)}>Liste des commandes</button>
+    <button class="btn" onClick={()=> setOnglet(2)}>Liste des thés</button>
+    <button class="btn" onClick={()=> setOnglet(3)}>Ajouter un thé</button> -->
+    <button class="btn" onclick="">Liste des commandes</button>
+    <button class="btn" onclick="">Liste des thés</button>
+    <button class="btn" onclick="">Ajouter un thé</button>
+</nav>
+<div>
+    <!-- {onglet === 1 &&
+    <Orders />
+    }
+    {onglet === 2 &&
+    <AllTeas />
+    }
+    {onglet === 3 &&
+    <AddTea />
+    } -->
+
+    <!-- Orders -->
+    <h2>Les commandes</h2>
+    <p>
+        Filtrer par
+        <select value={valueFiltre} onChange={handleChange}>
+            <option onclick="">Toutes</option>
+            <option onclick="">Non traitées</option>
+            <option onclick="">Traitées</option>
+        </select>
+    </p>
+    <table>
+        <thead>
+            <tr>
+                <th>Numéro de commande</th>
+                <th>Date</th>
+                <th>Nom du client</th>
+                <th>Montant total</th>
+                <th>Traitée</th>
+                <th></th>
+            </tr>
+
+        </thead>
+        <tbody>
+            <!-- {orders.map((order, i) => { -->
+            <!-- {(filtre == 'toutes' || filtre == order.statut) && -->
+
+            <tr key={i}>
+                <td>{order.id}</td>
+                <td>{new Date(order.date).toLocaleDateString()}</td>
+                <td>{order.prenom} {order.nom}</td>
+                <td>{order.total.toFixed(2)} €</td>
+                <td><input data-id={order.id} onChange={changeStatut} type="checkbox" checked={order.statut==1 ? true : false} /></td>
+                <td>
+                    <button onClick={showDetail} data-id={order.id} className="btn">Voir le détail</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    <!-- All Teas -->
+    <h2>Les thés</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Nom</th>
+                <th>Catégorie</th>
+                <th></th>
+            </tr>
+
+        </thead>
+        <tbody>
+            <!-- {teas.map((tea, i) => { -->
+            <tr key={i}>
+                <!-- <td><img style={{ maxWidth:'80px' }} src={'img/'+tea.image} /></td> -->
+                <td><img style="max-width:80px" src="public/img/tea/1.jpg" /></td>
+                <td>{tea.nom}</td>
+                <td>{tea.nomCat}</td>
+                <td>
+                    <button className="btn">Modifier</button>
+                    <button className="btn">Supprimer</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Add Tea -->
+    <h2>Ajouter un thé</h2>
+    <form id="add" encType="multipart/form-data">
+        <div>
+            <label htmlFor="ref">Référence</label>
+            <input type="text" id="ref" name='ref' value={ref} onChange={handleChange} />
+        </div>
+        <div>
+            <label htmlFor="cat">Catégorie</label>
+            <select id="cat" name="cat" value={cat} onChange={handleChange}>
+                {
+                cats.map((cat, i) => <option key={i} value={cat.id}>{cat.nom}</option>)
+                }
+            </select>
+
+        </div>
+        <div>
+            <label htmlFor="nom">Nom du thé</label>
+            <input type="text" id="nom" name="nom" value={nom} onChange={handleChange} />
+        </div>
+        <div>
+            <label htmlFor="soustitre">Sous-titre</label>
+            <textarea id="soustitre" name="soustitre" value={sousTitre} onChange={handleChange} />
+        </div>
+        <div>
+            <label htmlFor="description">Description</label>
+            <textarea id="description" name="description" value={description} onChange={handleChange} />
+        </div>
+        <div>
+            <label htmlFor="stock">Stock</label>
+            <input type="text" id="stock" name="stock" value={stock} onChange={handleChange} />
+        </div>
+        <div>
+            <label htmlFor="photo">Image</label>
+            <input type="file" id="photo" name="photo" />
+        </div>
+        <div>
+            <label htmlFor="cdc">
+                <input type="checkbox" id="cdc" name="cdc" value={cdc} onChange={handleChange} />
+                Coup de coeur</label>
+        </div>
+        <div>
+            <button type="button" onClick={submit} className="btn">Ajouter</button>
+        </div>
+
+
+    </form>
+
+</div>

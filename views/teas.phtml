@@ -1,0 +1,23 @@
+<section className="tea" key={i}>
+    <!-- <img src={"img/"+cat.image} alt={ cat.nom } /> -->
+    <img src="public/img/tea/1.jpg"/>
+    <h2><span>{ cat.nom }</span></h2>
+    <p className="clear">{ cat.description }</p>
+    <section className="listing-product">
+        {teas.map((tea, i) =>
+        tea.id_category == cat.id &&
+        <article key={i}>
+
+            <h3>{ tea.nom }</h3>
+            <!-- <img src={ "/img/" + tea.image } alt={ tea.nom } /> -->
+            <img src="public/img/tea/1.jpg" />
+            <section className="price">
+                <p>À partir de <strong>{ tea.prix } €</strong></p>
+            </section>
+            <!-- <a className="btn" href={"/tea/"+tea.id}>Voir ce produit</a> -->
+            <a className="btn" href="public/img/tea/1.jpg">Voir ce produit</a>
+        </article>
+
+        )}
+    </section>
+</section>

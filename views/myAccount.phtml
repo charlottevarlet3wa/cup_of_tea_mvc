@@ -1,0 +1,35 @@
+<h1>Mon compte</h1>
+
+<h2>Mes informations</h2>
+<MesInformations />
+
+<h2>Mes commandes</h2>
+<div class="flex">
+    <table class="commande">
+        <thead>
+            <tr>
+                <th>Numéro de commande</th>
+                <th>Date de la commande</th>
+                <th>Montant de la commande</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {
+            orders.map((order, i) => {
+            return(
+            <tr key={i}>
+                <td>{order.id}</td>
+                <td>{new Date(order.date).toLocaleDateString()}</td>
+                <td>{order.total.toFixed(2)} €</td>
+                <td><button data-id={order.id} onClick={details}><i class="fa fa-eye"></i></button></td>
+            </tr>)
+            })
+            }
+        </tbody>
+
+    </table>
+    {id != 0 &&
+    <DetailOrder id={id} />
+    }
+</div>

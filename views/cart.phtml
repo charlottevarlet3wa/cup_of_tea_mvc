@@ -1,0 +1,20 @@
+<h1>Votre panier</h1>
+<!-- {teas.map((tea,i) => { -->
+<article class="panier" key={i}>
+    <!-- <img src={ "/img/" + tea.img } alt={ tea.nom } /> -->
+    <img src=public/img/tea/1.jpg />
+    <h3>{tea.nom}</h3>
+    <p>{tea.qte}</p>
+    <p>{tea.price.toFixed(2)}€</p>
+    <p>
+        <!-- <button data-id={i} onClick={trash}><i className="fa fa-trash"></i></button> -->
+        <button data-id={i} onClick={trash}><i className="fa fa-trash">1</button>
+    </p>
+</article>
+
+
+{ (teas.length != 0) ?
+<p><button class="btn" onClick={validOrder}>Valider la commande</button></p>
+:
+<p>Votre panier est vide</p>
+}
