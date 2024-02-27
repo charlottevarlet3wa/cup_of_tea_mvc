@@ -1,19 +1,29 @@
 <?php
+
 class User {
     private $id;
+    private $last_name;
     private $name;
     private $email;
-    // Autres propriétés liées à l'utilisateur
+    private $password; // Consider this property's visibility regarding security
+    private $admin;
 
-    public function __construct($id, $name, $email) {
+    public function __construct($id, $last_name, $name, $email, $password, $admin) {
         $this->id = $id;
+        $this->last_name = $last_name;
         $this->name = $name;
         $this->email = $email;
+        $this->password = $password;
+        $this->admin = $admin;
     }
 
-    // Getters et setters pour les propriétés
+    // Getters
     public function getId() {
         return $this->id;
+    }
+
+    public function getLastName() {
+        return $this->last_name;
     }
 
     public function getName() {
@@ -24,17 +34,39 @@ class User {
         return $this->email;
     }
 
+    public function getPassword() {
+        return $this->password;
+    }
+
+    public function isAdmin() {
+        return $this->admin == 1;
+    }
+
+    // Setters
+    public function setLastName($last_name) {
+        $this->last_name = $last_name;
+    }
+
     public function setName($name) {
         $this->name = $name;
     }
 
     public function setEmail($email) {
-        $this->email = $email;
+        if ($this->validateEmail($email)) {
+            $this->email = $email;
+        }
     }
 
-    // Méthodes métier spécifiques à l'utilisateur
-    public function validateEmail() {
-        return filter_var($this->email, FILTER_VALIDATE_EMAIL);
+    public function setPassword($password) {
+        $this->password = password_hash($password, PASSWORD_BCRYPT, ['cost' => 10]);
     }
 
+    public function setAdmin($admin) {
+        $this->admin = $admin;
+    }
+
+    // Email validation method
+    public function validateEmail($email) {
+        return filter_var($email, FILTER_VALIDATE_EMAIL);
+    }
 }
