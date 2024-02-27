@@ -5,7 +5,7 @@
 require_once 'controllers/AboutController.php';
 require_once 'controllers/AdminController.php';
 require_once 'controllers/CartController.php';
-require_once 'controllers/CreateAccountController.php';
+require_once 'controllers/SignupController.php';
 require_once 'controllers/HomeController.php';
 require_once 'controllers/LoginController.php';
 require_once 'controllers/LogoutController.php';
@@ -35,8 +35,8 @@ switch($_GET['route']){
     case 'cart':
         $controller = new CartController();
         break; 
-    case 'create-account':
-        $controller = new CreateAccountController();
+    case 'signup':
+        $controller = new SignupController();
         break;        
     case 'login':
         $controller = new LoginController();
