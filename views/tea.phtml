@@ -1,23 +1,22 @@
-tea : <?= var_dump($tea); ?>
-
 <section id="product">
     <section id="product-detail">
         <div id="product-name">
             <h1><?= htmlspecialchars($tea['name']) ?></h1>
             <h2><?= htmlspecialchars($tea['subtitle']) ?></h2>
-            <p>Ref : <?= htmlspecialchars($tea['ref']) ?></p>
+            <p>Ref : <?= htmlspecialchars($tea['reference']) ?></p>
         </div>
     </section>
     <section id="product-quantity">
-        <img src="/img/<?= htmlspecialchars($tea['image']) ?>" alt="<?= htmlspecialchars($tea['name']) ?>" />
+        <img src="public/img/tea/<?= htmlspecialchars($tea['category_id']) ?>" alt="<?= htmlspecialchars($tea['name']) ?>" />
         <!-- <img src="public/img/tea/1.jpg" /> -->
         <div class="price">
             <select name="quantity">
-                <?php foreach ($format as $form): ?>
-                    <option data-price="<?= htmlspecialchars($form['prix']) ?>"><?= htmlspecialchars($form['conditioning']) ?></option>
+                <?php foreach ($formats as $format): ?>
+                    <option data-price="<?= htmlspecialchars($format['price']) ?>"><?= htmlspecialchars($format['conditioning']) ?></option>
                 <?php endforeach; ?>
             </select>
-            <h3><?= htmlspecialchars(number_format($price, 2)) ?>€</h3>
+            <!-- TODO : rendre dynamique avec AJAX  quand une autre option est sélectionnée ? -->
+            <h3><?= htmlspecialchars(number_format($formats[0]['price'], 2)) ?>€</h3>
             <a class="btn" href="#">Ajouter au panier</a>
             <a id="wishlist" href="#">Ajouter à ma liste d'envie</a>
         </div>
