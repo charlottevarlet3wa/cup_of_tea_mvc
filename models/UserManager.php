@@ -11,8 +11,8 @@ class UserManager extends AbstractModel
 {
     protected $db;
 
-    public function __construct($db) {
-        $this->db = $db;
+    public function __construct() {
+        $this->db = getConnection();
     }
 
     public function getUserById($id) {
@@ -36,7 +36,5 @@ class UserManager extends AbstractModel
         $stmt = $this->db->prepare("INSERT INTO user (last_name, name, email, password, admin) VALUES (?, ?, ?, ?, 0)");
         return $stmt->execute([$last_name, $name, $email, $passwordHash]);
     }
-
-    // TODO : authentication system
 
 }
