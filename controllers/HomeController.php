@@ -5,7 +5,6 @@ require_once 'models/TeaManager.php';
 
 class HomeController {
 
-
     public function display() {
         $manager = new TeaManager();
         $favorite = $manager->getFavorite();

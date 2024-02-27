@@ -1,7 +1,12 @@
 <?php 
 
+require_once 'models/Tea.php';
+require_once 'models/TeaManager.php';
+
 class TeaController {
-    public function display() {
+    public function display($teaId = null) {
+        $manager = new TeaManager();
+        $tea = $manager->getTeaById($teaId);
         $template = "tea.phtml";
         require_once "views/layout.phtml";
     }
