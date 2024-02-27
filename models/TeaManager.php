@@ -22,7 +22,10 @@ class TeaManager extends AbstractModel
         INNER JOIN format ON tea.id = format.tea_id
         INNER JOIN category ON category.id = tea.category_id
         GROUP BY format.tea_id");
+        // $stmt = $this->db->prepare("SELECT * FROM tea");
         $stmt->execute();
+        // $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        // var_dump($result);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
@@ -30,6 +33,8 @@ class TeaManager extends AbstractModel
     {
         $stmt = $this->db->prepare("SELECT * FROM category");
         $stmt->execute();
+        // $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        // var_dump($result);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 

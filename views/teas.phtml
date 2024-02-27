@@ -1,47 +1,21 @@
-<section className="tea" key={i}>
-    <!-- <img src={"img/"+cat.image} alt={ cat.nom } /> -->
-    <img src="public/img/tea/1.jpg"/>
-    <h2><span>{ cat.nom }</span></h2>
-    <p className="clear">{ cat.description }</p>
-    <section className="listing-product">
-    
-
-    <?php foreach ($cats as $cat): ?>
+<?php foreach ($cats as $cat): ?>
     <section class="tea">
-        <img src="img/<?= htmlspecialchars($cat['image']) ?>" alt="<?= htmlspecialchars($cat['nom']) ?>" />
-        <h2><span><?= htmlspecialchars($cat['nom']) ?></span></h2>
+        <img src="public/img/tea/<?= htmlspecialchars($cat['id']) ?>" alt="<?= htmlspecialchars($cat['name']) ?>" />
+        <h2><span><?= htmlspecialchars($cat['name']) ?></span></h2>
         <p class="clear"><?= htmlspecialchars($cat['description']) ?></p>
         <section class="listing-product">
-            <?php foreach ($cat['teas'] as $tea): ?>
-                <article>
-                    <h3><?= htmlspecialchars($tea['nom']) ?></h3>
-                    <img src="/img/<?= htmlspecialchars($tea['image']) ?>" alt="<?= htmlspecialchars($tea['nom']) ?>" />
-                    <section class="price">
-                        <p>À partir de <strong><?= htmlspecialchars($tea['prix']) ?> €</strong></p>
-                    </section>
-                    <a class="btn" href="/tea/<?= $tea['id'] ?>">Voir ce produit</a>
-                </article>
+            <?php foreach ($teas as $tea): ?>
+                <?php if ($tea['category_id'] == $cat['id']): ?>
+                    <article>
+                        <h3><?= htmlspecialchars($tea['name']) ?></h3>
+                        <img src="public/img/tea/<?= htmlspecialchars($tea['category_id']) ?>" alt="<?= htmlspecialchars($tea['name']) ?>" />
+                        <section class="price">
+                            <p>À partir de <strong><?= htmlspecialchars($tea['price']) ?> €</strong></p>
+                        </section>
+                        <a class="btn" href="/tea/<?= $tea['id'] ?>">Voir ce produit</a>
+                    </article>
+                <?php endif; ?>
             <?php endforeach; ?>
         </section>
     </section>
 <?php endforeach; ?>
-
-
-    
-    <!-- {teas.map((tea, i) =>
-        tea.id_category == cat.id &&
-        <article key={i}>
-
-            <h3>{ tea.nom }</h3>
-            <img src={ "/img/" + tea.image } alt={ tea.nom } />
-            <img src="public/img/tea/1.jpg" />
-            <section className="price">
-                <p>À partir de <strong>{ tea.prix } €</strong></p>
-            </section>
-            <a className="btn" href={"/tea/"+tea.id}>Voir ce produit</a>
-            <a className="btn" href="public/img/tea/1.jpg">Voir ce produit</a>
-        </article>
-
-        )} -->
-    </section>
-</section>
