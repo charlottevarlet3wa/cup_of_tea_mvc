@@ -78,8 +78,13 @@ CREATE TABLE `order_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 
+INSERT INTO `category` (`name`, `description`, `image`) VALUES 
+('Thé Noir', 'Rich and full-bodied with a deep, dark flavor profile.', 'tea/1'),
+('Thé Vert', 'Refreshing and delicate, with a subtle, natural sweetness.', 'tea/2'),
+('Oolong', 'Complex and aromatic, offering a harmonious blend of fruity and floral notes.', 'tea/3'),
+('Thé Blanc', 'Light and subtly sweet, known for its silky smooth texture.', 'tea/4'),
+('Rooibos', 'Naturally sweet and nutty, caffeine-free for enjoyment any time of day.', 'tea/5');
 
-INSERT INTO `category` (`name`) VALUES ('Thé Noir'), ('Thé Vert'), ('Oolong'), ('Thé Blanc'), ('Rooibos');
 
 INSERT INTO `tea` (`name`, `subtitle`, `description`, `image`, `category_id`, `favorite`) VALUES 
 ('Thé Noir Premium', 'Intense et Profond', 'Un thé noir aux arômes riches et à la saveur intense.', 'noir_premium.jpg', 1, 0),
