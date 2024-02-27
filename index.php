@@ -1,9 +1,5 @@
 <?php
 
-//instancie ce controller et lance l'affichage de la page
-// $controller = new HomeController();
-// $controller->display();
-
 
 //charge les différents controllers
 require_once 'controllers/AboutController.php';
@@ -52,7 +48,10 @@ switch($_GET['route']){
         $controller = new MyAccountController();
         break; 
     case 'tea':
+        // $controller = new TeaController();
+        $teaId = isset($_GET['id']) ? $_GET['id'] : null;
         $controller = new TeaController();
+        $controller->display($teaId);
         break;        
     case 'teas':
         $controller = new TeasController();

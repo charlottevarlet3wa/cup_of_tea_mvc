@@ -1,5 +1,3 @@
--- TODO : adapter et tester
-
 SET NAMES utf8;
 SET time_zone = '+00:00';
 SET foreign_key_checks = 0;
@@ -34,6 +32,7 @@ CREATE TABLE `category` (
 DROP TABLE IF EXISTS `tea`;
 CREATE TABLE `tea` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `reference` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `subtitle` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin,
   `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_bin,
@@ -44,6 +43,7 @@ CREATE TABLE `tea` (
   PRIMARY KEY (`id`),
   FOREIGN KEY (`category_id`) REFERENCES `category`(`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
 
 DROP TABLE IF EXISTS `format`;
 CREATE TABLE `format` (
@@ -86,27 +86,26 @@ INSERT INTO `category` (`name`, `description`, `image`) VALUES
 ('Rooibos', 'Naturally sweet and nutty, caffeine-free for enjoyment any time of day.', 'tea/5');
 
 
-INSERT INTO `tea` (`name`, `subtitle`, `description`, `image`, `category_id`, `favorite`) VALUES 
-('Thé Noir Premium', 'Intense et Profond', 'Un thé noir aux arômes riches et à la saveur intense.', 'noir_premium.jpg', 1, 0),
-('Thé Noir Classique', 'Riche en Goût', 'Un classique indémodable pour tous les amateurs de thé noir.', 'noir_classique.jpg', 1, 0),
-('Thé Noir Fumé', 'Arôme Unique', 'Un thé noir fumé au bois de cèdre, offrant une expérience gustative unique.', 'noir_fume.jpg', 1, 0),
+INSERT INTO `tea` (`reference`, `name`, `subtitle`, `description`, `image`, `category_id`, `favorite`) VALUES 
+('REF0001', 'Thé Noir Premium', 'Intense et Profond', 'Un thé noir aux arômes riches et à la saveur intense.', 'noir_premium.jpg', 1, 0),
+('REF0002', 'Thé Noir Classique', 'Riche en Goût', 'Un classique indémodable pour tous les amateurs de thé noir.', 'noir_classique.jpg', 1, 0),
+('REF0003', 'Thé Noir Fumé', 'Arôme Unique', 'Un thé noir fumé au bois de cèdre, offrant une expérience gustative unique.', 'noir_fume.jpg', 1, 0),
 
-('Thé Vert Sencha', 'Frais et Revigorant', 'Un thé vert traditionnel japonais offrant fraîcheur et finesse.', 'vert_sencha.jpg', 2, 0),
-('Thé Vert Matcha', 'Pur et Puissant', 'Le matcha offre un goût riche et une couleur éclatante.', 'vert_matcha.jpg', 2, 1),
-('Thé Vert Jasmin', 'Parfumé et Delicat', 'Un thé vert délicatement parfumé aux fleurs de jasmin.', 'vert_jasmin.jpg', 2, 0),
+('REF0004', 'Thé Vert Sencha', 'Frais et Revigorant', 'Un thé vert traditionnel japonais offrant fraîcheur et finesse.', 'vert_sencha.jpg', 2, 0),
+('REF0005', 'Thé Vert Matcha', 'Pur et Puissant', 'Le matcha offre un goût riche et une couleur éclatante.', 'vert_matcha.jpg', 2, 1),
+('REF0006', 'Thé Vert Jasmin', 'Parfumé et Delicat', 'Un thé vert délicatement parfumé aux fleurs de jasmin.', 'vert_jasmin.jpg', 2, 0),
 
-('Oolong Formosa', 'Doux et Floral', 'Un oolong de Taiwan aux notes naturellement sucrées et florales.', 'oolong_formosa.jpg', 3, 0),
-('Oolong Tieguanyin', 'Complexe et Aromatique', 'Un des thés oolong les plus réputés de Chine.', 'oolong_tieguanyin.jpg', 3, 0),
-('Oolong Milk', 'Crémeux et Confortable', 'Un oolong unique avec des notes douces et crémeuses.', 'oolong_milk.jpg', 3, 0),
+('REF0007', 'Oolong Formosa', 'Doux et Floral', 'Un oolong de Taiwan aux notes naturellement sucrées et florales.', 'oolong_formosa.jpg', 3, 0),
+('REF0008', 'Oolong Tieguanyin', 'Complexe et Aromatique', 'Un des thés oolong les plus réputés de Chine.', 'oolong_tieguanyin.jpg', 3, 0),
+('REF0009', 'Oolong Milk', 'Crémeux et Confortable', 'Un oolong unique avec des notes douces et crémeuses.', 'oolong_milk.jpg', 3, 0),
 
-('Thé Blanc Pai Mu Tan', 'Léger et Rafraîchissant', 'Un thé blanc aux saveurs subtiles et à l’arôme délicat.', 'blanc_paimutan.jpg', 4, 0),
-('Thé Blanc Fleur de Sakura', 'Délicatement Parfumé', 'Un thé blanc marié aux fleurs de cerisier pour une saveur douce.', 'blanc_sakura.jpg', 4, 0),
-('Thé Blanc Silver Needle', 'Prestigieux et Raffiné', 'Le plus prestigieux des thés blancs, aux bourgeons duveteux.', 'blanc_silverneedle.jpg', 4, 0),
+('REF0010', 'Thé Blanc Pai Mu Tan', 'Léger et Rafraîchissant', 'Un thé blanc aux saveurs subtiles et à l’arôme délicat.', 'blanc_paimutan.jpg', 4, 0),
+('REF0011', 'Thé Blanc Fleur de Sakura', 'Délicatement Parfumé', 'Un thé blanc marié aux fleurs de cerisier pour une saveur douce.', 'blanc_sakura.jpg', 4, 0),
+('REF0012', 'Thé Blanc Silver Needle', 'Prestigieux et Raffiné', 'Le plus prestigieux des thés blancs, aux bourgeons duveteux.', 'blanc_silverneedle.jpg', 4, 0),
 
-('Rooibos Nature', 'Sans Caféine', 'Un rooibos pur offrant une infusion douce et apaisante.', 'rooibos_nature.jpg', 5, 0),
-('Rooibos Vanille', 'Doux et Aromatisé', 'Un rooibos enrichi de vanille pour une douceur réconfortante.', 'rooibos_vanille.jpg', 5, 0),
-('Rooibos Citron', 'Vivifiant et Frais', 'Un rooibos agrémenté de citron pour une touche de fraîcheur.', 'rooibos_citron.jpg', 5, 0);
-
+('REF0013', 'Rooibos Nature', 'Sans Caféine', 'Un rooibos pur offrant une infusion douce et apaisante.', 'rooibos_nature.jpg', 5, 0),
+('REF0014', 'Rooibos Vanille', 'Doux et Aromatisé', 'Un rooibos enrichi de vanille pour une douceur réconfortante.', 'rooibos_vanille.jpg', 5, 0),
+('REF0015', 'Rooibos Citron', 'Vivifiant et Frais', 'Un rooibos agrémenté de citron pour une touche de fraîcheur.', 'rooibos_citron.jpg', 5, 0);
 
 
 -- Formats pour Thé Noir Premium (ID 1)
