@@ -37,4 +37,19 @@ class UserManager extends AbstractModel
         return $stmt->execute([$last_name, $name, $email, $passwordHash]);
     }
 
+    public function loginUser(string $email, string $password)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM user WHERE email = :email");
+        $stmt->execute(['email' => $email]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($user && password_verify($password, $user['password'])) {
+            // Password is correct, return user data
+            return $user;
+        }
+
+        // Email not found or password does not match
+        return false;
+    }
+
 }
