@@ -7,6 +7,8 @@ class TeaController {
     public function display($teaId = null) {
         $manager = new TeaManager();
         $tea = $manager->getTeaById($teaId);
+        $formats = $manager->getFormatsByTea($teaId);
+        // $prices = 
         $template = "tea.phtml";
         require_once "views/layout.phtml";
     }
