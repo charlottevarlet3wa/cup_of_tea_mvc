@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
-require_once 'database.php'; // Assumed path to your database connection setup
+require_once 'services/database.php';
+require_once 'models/AbstractModel.php';
 
-class OrderManager
+
+class OrderManager extends AbstractModel
 {
     protected $db;
 
@@ -39,14 +41,15 @@ class OrderManager
 
     public function getAllOrders(): array
     {
-        $stmt = $this->db->query("SELECT `order`.statut, user.nom, user.prenom, `order`.date, `order`.id, SUM(price) as total FROM `order` INNER JOIN order_details ON `order`.id = order_details.order_id INNER JOIN user ON user.id = `order`.user_id GROUP BY order_id ORDER BY `order`.id DESC");
+        // TODO check why doubles keys ('name' => 'John', 0 => 'John');
+        $stmt = $this->db->query("SELECT `order`.status, user.last_name, user.name, `order`.date, `order`.id, SUM(price) as total FROM `order` INNER JOIN order_details ON `order`.id = order_details.order_id INNER JOIN user ON user.id = `order`.user_id GROUP BY order_id ORDER BY `order`.id DESC");
         return $stmt->fetchAll();
     }
 
-    public function updateStatus($orderId, $statut): bool
+    public function updateStatus($orderId, $status): bool
     {
-        $stmt = $this->db->prepare("UPDATE `order` SET statut = ? WHERE id = ?");
-        return $stmt->execute([$statut, $orderId]);
+        $stmt = $this->db->prepare("UPDATE `order` SET status = ? WHERE id = ?");
+        return $stmt->execute([$status, $orderId]);
     }
 
     public function getOrderByUser($userId): array
