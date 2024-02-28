@@ -2,6 +2,7 @@
 $order = $orders[count($orders) - 1]; ?>
 
 <h1>Dashboard</h1>
+
 <nav>
     <!-- <button class="btn" onClick={()=> setOnglet(1)}>Liste des commandes</button>
     <button class="btn" onClick={()=> setOnglet(2)}>Liste des thés</button>
@@ -60,12 +61,12 @@ $order = $orders[count($orders) - 1]; ?>
                     </form>
 <!-- TODO : where place js ? -->
 <!-- TODO : submit form sans recharger la page -->
-<script>
+<!-- <script>
 document.getElementById('orderStatus').addEventListener('change', function() {
     document.getElementById('statusForm').submit();
 });
+</script> -->
 
-</script>
                 </td>
                 <td><button onclick=showDetail data-id={order.id} className="btn">Voir le détail</button></td>
                 <!-- <td>{order.id}</td>
@@ -109,7 +110,33 @@ document.getElementById('orderStatus').addEventListener('change', function() {
         </tbody>
     </table>
 
+
+    <!-- <script>console.log("Hellooww from admin.phtml !");</script> -->
+
+<!-- <button onclick=testeMoi()>TESTE MOI DETESTE MOI</button> -->
+<button onclick=toggleStatus(0)>TESTE MOI DETESTE MOI</button>
+<div id="hehe">Tu l'as ?</div>
+
+
+<input id="checkbox" type="checkbox" name="checkbox" />
+
+
+<script src="/cup_of_tea_php/public/js/admin.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+    
+
     <!-- Add Tea -->
+    <!-- 
     <h2>Ajouter un thé</h2>
     <form id="add" encType="multipart/form-data">
         <div>
@@ -156,6 +183,5 @@ document.getElementById('orderStatus').addEventListener('change', function() {
 
 
     </form>
-
+ -->
 </div>
-
