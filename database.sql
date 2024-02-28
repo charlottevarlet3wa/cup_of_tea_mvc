@@ -216,19 +216,19 @@ INSERT INTO `user` (`last_name`, `name`, `email`, `password`, `admin`) VALUES
 
 
 -- Commandes pour l'utilisateur avec l'ID 1 (John Smith)
-INSERT INTO `order` (`user_id`, `status`) VALUES (1, 1), (1, 1), (1, 1), (1, 1);
+INSERT INTO `order` (`user_id`, `status`) VALUES (1, 1), (1, 0), (1, 0), (1, 1);
 
 -- Commandes pour l'utilisateur avec l'ID 2 (Jane Doe)
-INSERT INTO `order` (`user_id`, `status`) VALUES (2, 1), (2, 1), (2, 1), (2, 1);
+INSERT INTO `order` (`user_id`, `status`) VALUES (2, 1), (2, 0), (2, 0), (2, 1);
 
 -- Commandes pour l'utilisateur avec l'ID 3 (Michael Brown)
-INSERT INTO `order` (`user_id`, `status`) VALUES (3, 1), (3, 1), (3, 1), (3, 1);
+INSERT INTO `order` (`user_id`, `status`) VALUES (3, 1), (3, 0), (3, 1), (3, 1);
 
 -- Commandes pour l'utilisateur avec l'ID 4 (Emily Davis)
-INSERT INTO `order` (`user_id`, `status`) VALUES (4, 1), (4, 1), (4, 1), (4, 1);
+INSERT INTO `order` (`user_id`, `status`) VALUES (4, 0), (4, 1), (4, 1), (4, 0);
 
 -- Commandes pour l'utilisateur avec l'ID 5 (Anna Wilson)
-INSERT INTO `order` (`user_id`, `status`) VALUES (5, 1), (5, 1), (5, 1), (5, 1);
+INSERT INTO `order` (`user_id`, `status`) VALUES (5, 0), (5, 0), (5, 1), (5, 1);
 
 
 

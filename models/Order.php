@@ -12,7 +12,7 @@ class Order extends AbstractModel
     public function __construct(
         private ?DateTime $date = null,
         private ?int $user_id = null,
-        private ?int $statut = 0,
+        private ?int $status = 0,
         ?int $id = null
     ) {
         parent::__construct($id);
@@ -43,14 +43,14 @@ class Order extends AbstractModel
         $this->user_id = $user_id;
     }
 
-    public function getStatut(): ?int
+    public function getStatus(): ?int
     {
-        return $this->statut;
+        return $this->status;
     }
 
-    public function setStatut(?int $statut): void
+    public function setStatus(?int $status): void
     {
-        $this->statut = $statut;
+        $this->status = $status;
     }
 
     // Validation des données de la commande
@@ -62,7 +62,7 @@ class Order extends AbstractModel
             $errors[] = "L'identifiant de l'utilisateur est invalide.";
         }
 
-        if ($this->statut < 0 || $this->statut > 1) { // Exemple de validation, ajustez selon vos besoins
+        if ($this->status < 0 || $this->status > 1) { // Exemple de validation, ajustez selon vos besoins
             $errors[] = "Le statut spécifié est invalide.";
         }
 

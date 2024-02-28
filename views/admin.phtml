@@ -1,3 +1,6 @@
+<?php var_dump($orders[count($orders) - 1]);
+$order = $orders[count($orders) - 1]; ?>
+
 <h1>Dashboard</h1>
 <nav>
     <!-- <button class="btn" onClick={()=> setOnglet(1)}>Liste des commandes</button>
@@ -45,14 +48,35 @@
             <!-- {(filtre == 'toutes' || filtre == order.statut) && -->
 
             <tr key={i}>
-                <td>{order.id}</td>
+                <td><?= htmlspecialchars($order['id']) ?></td>
+                <td><?= (new DateTime(htmlspecialchars($order['date']), new DateTimeZone('Europe/Paris')))->format('Y-m-d H:i:s'); ?></td>           
+                <td><?= htmlspecialchars($order['name']) . " " . htmlspecialchars($order['last_name']) ?></td>
+                <td><?= htmlspecialchars(number_format((float)$order['total'], 2, '.', '')) ?> €</td>
+<!-- TODO : format strings in another file ? -->
+                <td>
+                    <form id="statusForm" method="POST">
+                        <input type="checkbox" id="orderStatus" name="status" value=1>
+                        <input type="hidden" name="orderId" value=1>
+                    </form>
+<!-- TODO : where place js ? -->
+<!-- TODO : submit form sans recharger la page -->
+<script>
+document.getElementById('orderStatus').addEventListener('change', function() {
+    document.getElementById('statusForm').submit();
+});
+
+</script>
+                </td>
+                <td><button onclick=showDetail data-id={order.id} className="btn">Voir le détail</button></td>
+                <!-- <td>{order.id}</td>
                 <td>{new Date(order.date).toLocaleDateString()}</td>
                 <td>{order.prenom} {order.nom}</td>
                 <td>{order.total.toFixed(2)} €</td>
                 <td><input data-id={order.id} onChange={changeStatut} type="checkbox" checked={order.statut==1 ? true : false} /></td>
                 <td>
                     <button onClick={showDetail} data-id={order.id} className="btn">Voir le détail</button>
-                </td>
+                </td> -->
+<!-- TODO : use AJAX -->
             </tr>
         </tbody>
     </table>
@@ -134,3 +158,4 @@
     </form>
 
 </div>
+
