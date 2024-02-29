@@ -3,6 +3,9 @@
 require_once 'models/Order.php';
 require_once 'models/OrderManager.php';
 
+require_once 'models/Tea.php';
+require_once 'models/TeaManager.php';
+
 class AdminController {    
     
     public function __construct()
@@ -18,6 +21,9 @@ class AdminController {
     public function display() {
         $manager = new OrderManager();
         $orders = $manager->getAllOrders();
+        
+        $teaManager = new TeaManager();
+        $teas = $teaManager->getAllTeas();
 
         $template = "admin.phtml";
         require_once "views/layout.phtml";
