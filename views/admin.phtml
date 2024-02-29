@@ -14,18 +14,7 @@
 
 
 
-<section id="orders">
-    <!-- {onglet === 1 &&
-    <Orders />
-    }
-    {onglet === 2 &&
-    <AllTeas />
-    }
-    {onglet === 3 &&
-    <AddTea />
-    } -->
-
-    <!-- Orders -->
+<section id="orders" style='display:none'>
     <h2>Les commandes</h2>
     <p>
         Filtrer par
@@ -73,17 +62,13 @@
 </section>
 
 <section id="order-details">
-    <!-- <h2>Détail de la commande n° <?= htmlspecialchars($order['id']) ?></h2>
-    <p>Passée le {new Date(order.date).toLocaleDateString()}</p>
-    <p><strong>Informations client : </strong>{order.prenom} {order.nom}</p>
-    <p>Statut: { (order.statut == 1)? 'Traitée' : 'Non traitée' }</p>
-    <p><strong>Details : </strong></p>
-    {
-        details.map((detail, i ) => <p>{detail.nom} - {detail.cond} - {detail.price.toFixed(2)} €</p>)
-    } -->
-    <!-- <button class="btn" onclick={retour}>Retour à la liste</button> -->
-    <!-- <button class="btn" onclick=sayHello()>Retour à la liste</button> -->
 </section>
+
+
+
+<?php var_dump($teas); 
+// $tea = $teas[0]; ?>
+
 
 <section id="teas">
     <!-- All Teas -->
@@ -100,16 +85,19 @@
         </thead>
         <tbody>
             <!-- {teas.map((tea, i) => { -->
-            <tr key={i}>
+            <?php foreach($teas as $tea): ?>
+            <tr>
                 <!-- <td><img style={{ maxWidth:'80px' }} src={'img/'+tea.image} /></td> -->
-                <td><img style="max-width:80px" src="public/img/tea/1.jpg" /></td>
-                <td>{tea.nom}</td>
-                <td>{tea.nomCat}</td>
+                <td><img style="max-width: 80px" src="public/img/tea/<?= $tea['category_id'] ?>" /></td>
+                <!-- <td><img style="max-width:80px" src="public/img/tea/1.jpg" /></td> -->
+                <td><?= htmlspecialchars($tea['name']) ?></td>
+                <td><?= htmlspecialchars($tea['catName']) ?></td>
                 <td>
                     <button className="btn">Modifier</button>
                     <button className="btn">Supprimer</button>
                 </td>
             </tr>
+            <?php endforeach ?>
         </tbody>
     </table>
 </section>
@@ -127,7 +115,7 @@
 
 
 
-<section id="add-tea">
+<section id="add-tea" style='display:none'>
     
     <h2>Ajouter un thé</h2>
     <!-- TODO : why script can't be recognized after the form ? -->
