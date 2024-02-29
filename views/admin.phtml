@@ -1,5 +1,5 @@
-<?php var_dump($orders);
-?>
+<!-- <?php var_dump($orders);
+?> -->
 
 <h1>Dashboard</h1>
 
@@ -7,9 +7,9 @@
     <!-- <button class="btn" onClick={()=> setOnglet(1)}>Liste des commandes</button>
     <button class="btn" onClick={()=> setOnglet(2)}>Liste des thés</button>
     <button class="btn" onClick={()=> setOnglet(3)}>Ajouter un thé</button> -->
-    <button class="btn" onclick="">Liste des commandes</button>
-    <button class="btn" onclick="">Liste des thés</button>
-    <button class="btn" onclick="">Ajouter un thé</button>
+    <button class="btn" onclick="displaySection(0)">Liste des commandes</button>
+    <button class="btn" onclick="displaySection(1)">Liste des thés</button>
+    <button class="btn" onclick="displaySection(2)">Ajouter un thé</button>
 </nav>
 
 
@@ -116,7 +116,6 @@
 
 
 
-<script src="/cup_of_tea_php/public/js/admin.js"></script>
 
 
 
@@ -128,11 +127,11 @@
 
 
 
+<section id="add-tea">
     
-
-    <!-- Add Tea -->
-    <!-- 
     <h2>Ajouter un thé</h2>
+    <!-- TODO : why script can't be recognized after the form ? -->
+    <script src="/cup_of_tea_php/public/js/admin.js"></script>
     <form id="add" encType="multipart/form-data">
         <div>
             <label htmlFor="ref">Référence</label>
@@ -175,8 +174,21 @@
         <div>
             <button type="button" onClick={submit} className="btn">Ajouter</button>
         </div>
-
-
     </form>
- -->
-</div>
+    
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

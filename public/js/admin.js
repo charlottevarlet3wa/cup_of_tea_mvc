@@ -81,6 +81,8 @@ function sayHello(){
 
 let ordersElem = document.getElementById('orders');
 let orderDetailsElem = document.getElementById('order-details');
+let teasElem = document.getElementById('teas');
+let addTeaElem = document.getElementById('add-tea');
 
 function showDetails(orderId){
     console.log(orderId);
@@ -121,3 +123,13 @@ function showList(){
 //     xmlhttp.send();
 //     }
 //   }
+
+const sections = [ordersElem, orderDetailsElem, teasElem, addTeaElem];
+console.log(sections);
+
+function displaySection(sectionIndex){
+    for(let i=0; i<sections.length; i++){
+        sections[i].style.display = 'none';
+    }
+    sections[sectionIndex].style.display = 'block';
+}
