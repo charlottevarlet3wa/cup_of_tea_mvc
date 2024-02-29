@@ -1,5 +1,5 @@
-<?php var_dump($orders[count($orders) - 1]);
-$order = $orders[count($orders) - 1]; ?>
+<?php var_dump($orders);
+?>
 
 <h1>Dashboard</h1>
 
@@ -11,7 +11,10 @@ $order = $orders[count($orders) - 1]; ?>
     <button class="btn" onclick="">Liste des thés</button>
     <button class="btn" onclick="">Ajouter un thé</button>
 </nav>
-<div>
+
+
+
+<section id="orders">
     <!-- {onglet === 1 &&
     <Orders />
     }
@@ -26,10 +29,10 @@ $order = $orders[count($orders) - 1]; ?>
     <h2>Les commandes</h2>
     <p>
         Filtrer par
-        <select value={valueFiltre} onChange={handleChange}>
-            <option onclick="">Toutes</option>
-            <option onclick="">Non traitées</option>
-            <option onclick="">Traitées</option>
+        <select name="filter" id="filter-select">
+            <option value="all">Toutes</option>
+            <option value="unprocessed">Non traitées</option>
+            <option value="processed">Traitées</option>
         </select>
     </p>
     <table>
@@ -44,10 +47,11 @@ $order = $orders[count($orders) - 1]; ?>
             </tr>
 
         </thead>
-        <tbody>
+        <tbody id="orders-list">
             <!-- {orders.map((order, i) => { -->
             <!-- {(filtre == 'toutes' || filtre == order.statut) && -->
-
+        <?php 
+            foreach($orders as $order): ?>
             <tr key={i}>
                 <td><?= htmlspecialchars($order['id']) ?></td>
                 <td><?= (new DateTime(htmlspecialchars($order['date']), new DateTimeZone('Europe/Paris')))->format('Y-m-d H:i:s'); ?></td>           
@@ -56,33 +60,32 @@ $order = $orders[count($orders) - 1]; ?>
 <!-- TODO : format strings in another file ? -->
                 <td>
                     <form id="statusForm" method="POST">
-                        <input type="checkbox" id="orderStatus" name="status" value=1>
-                        <input type="hidden" name="orderId" value=1>
+                        <!-- TODO : remplacer sayHello() par updateStatus(index) -->
+                        <input type="checkbox" class="orderStatus" name="status" <?= $order['status'] == 1 ? "checked" : ""; ?> onchange=sayHello() >
+                        <input type="hidden" name="orderId" >
                     </form>
-<!-- TODO : where place js ? -->
-<!-- TODO : submit form sans recharger la page -->
-<!-- <script>
-document.getElementById('orderStatus').addEventListener('change', function() {
-    document.getElementById('statusForm').submit();
-});
-</script> -->
-
                 </td>
-                <td><button onclick=showDetail data-id={order.id} className="btn">Voir le détail</button></td>
-                <!-- <td>{order.id}</td>
-                <td>{new Date(order.date).toLocaleDateString()}</td>
-                <td>{order.prenom} {order.nom}</td>
-                <td>{order.total.toFixed(2)} €</td>
-                <td><input data-id={order.id} onChange={changeStatut} type="checkbox" checked={order.statut==1 ? true : false} /></td>
-                <td>
-                    <button onClick={showDetail} data-id={order.id} className="btn">Voir le détail</button>
-                </td> -->
-<!-- TODO : use AJAX -->
+                <td><button onclick="showDetails(<?=$order['id']?>)" class="btn">Voir le détail</button></td>
             </tr>
+        <?php endforeach ?>
         </tbody>
     </table>
+</section>
 
+<section id="order-details">
+    <!-- <h2>Détail de la commande n° <?= htmlspecialchars($order['id']) ?></h2>
+    <p>Passée le {new Date(order.date).toLocaleDateString()}</p>
+    <p><strong>Informations client : </strong>{order.prenom} {order.nom}</p>
+    <p>Statut: { (order.statut == 1)? 'Traitée' : 'Non traitée' }</p>
+    <p><strong>Details : </strong></p>
+    {
+        details.map((detail, i ) => <p>{detail.nom} - {detail.cond} - {detail.price.toFixed(2)} €</p>)
+    } -->
+    <!-- <button class="btn" onclick={retour}>Retour à la liste</button> -->
+    <!-- <button class="btn" onclick=sayHello()>Retour à la liste</button> -->
+</section>
 
+<section id="teas">
     <!-- All Teas -->
     <h2>Les thés</h2>
     <table>
@@ -109,16 +112,16 @@ document.getElementById('orderStatus').addEventListener('change', function() {
             </tr>
         </tbody>
     </table>
-
+</section>
 
     <!-- <script>console.log("Hellooww from admin.phtml !");</script> -->
 
 <!-- <button onclick=testeMoi()>TESTE MOI DETESTE MOI</button> -->
-<button onclick=toggleStatus(0)>TESTE MOI DETESTE MOI</button>
+<!-- <button onclick=toggleStatus(0)>TESTE MOI DETESTE MOI</button>
 <div id="hehe">Tu l'as ?</div>
 
 
-<input id="checkbox" type="checkbox" name="checkbox" />
+<input id="checkbox" type="checkbox" name="checkbox" /> -->
 
 
 <script src="/cup_of_tea_php/public/js/admin.js"></script>

@@ -69,21 +69,23 @@ switch($_GET['route']){
         break; 
 
 
-
-    case 'test':
-        $controller = new TestController();
-        $controller->echoTest();
-        break;
-    
-    case 'phptest':
-        $controller = new TestController();
-        $controller->phpTest();
-        break;
-
     case 'order-status':
         $isStatus = isset($_POST['status']) ? $_POST['status'] : null;
+        $orderId = isset($_POST['orderId']) ? $_POST['orderId'] : null;
         $controller = new TestController();
-        $controller->setStatus($isStatus);
+        $controller->setStatus($orderId, $isStatus);
+        break;
+
+    case 'order-filter':
+        $filter = isset($_POST['filter']) ? $_POST['filter'] : null;
+        $controller = new TestController();
+        $controller->filterOrders($filter);
+        break;
+
+    case 'show-details':
+        $orderId = isset($_POST['orderId']) ? $_POST['orderId'] : null;
+        $controller = new TestController();
+        $controller->showDetails($orderId);
         break;
 }
 
