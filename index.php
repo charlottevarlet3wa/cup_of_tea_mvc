@@ -87,5 +87,21 @@ switch($_GET['route']){
         $controller = new TestController();
         $controller->showDetails($orderId);
         break;
+    
+    case 'add-tea':
+        echo "ADD TEA !";
+        $ref = isset($_POST['ref']) ? $_POST['ref'] : null;
+        $name = isset($_POST['name']) ? $_POST['name'] : null;
+        $subtitle = isset($_POST['subtitle']) ? $_POST['subtitle'] : null;
+        $description = isset($_POST['description']) ? $_POST['description'] : null;
+        $image = isset($_POST['image']) ? $_POST['image'] : null;
+        $cat = isset($_POST['cat']) ? $_POST['cat'] : null;
+        $isFavorite = isset($_POST['isFavorite']) ? $_POST['isFavorite'] : 0;
+        
+        $controller = new AdminController();
+        $controller->addTea($ref, $name);
+
+        // $controller->addTea($ref, $cat, $name, $subtitle, $description, $image, $isFavorite);
+        break;
 }
 
