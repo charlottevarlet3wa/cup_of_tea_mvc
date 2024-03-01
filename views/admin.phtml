@@ -66,11 +66,11 @@
 
 
 
-<?php var_dump($teas); 
-// $tea = $teas[0]; ?>
+<!-- <?php var_dump($teas); 
+// $tea = $teas[0]; ?> -->
 
 
-<section id="teas">
+<section id="teas" style='display:none'>
     <!-- All Teas -->
     <h2>Les thés</h2>
     <table>
@@ -84,7 +84,6 @@
 
         </thead>
         <tbody>
-            <!-- {teas.map((tea, i) => { -->
             <?php foreach($teas as $tea): ?>
             <tr>
                 <!-- <td><img style={{ maxWidth:'80px' }} src={'img/'+tea.image} /></td> -->
@@ -113,61 +112,68 @@
 
 
 
+<?php var_dump($cats);?>
 
-
-<section id="add-tea" style='display:none'>
+<section id="add-tea">
     
     <h2>Ajouter un thé</h2>
     <!-- TODO : why script can't be recognized after the form ? -->
-    <script src="/cup_of_tea_php/public/js/admin.js"></script>
-    <form id="add" encType="multipart/form-data">
+
+    <!-- <form id="add" encType="multipart/form-data"> -->
+    <form id="add" method="POST" action="/cup_of_tea_php/?route=add-tea">
+        <!-- TODO : maybe automatically prefill according to the database . (ref = REF{lastref + 1}) -->
         <div>
             <label htmlFor="ref">Référence</label>
-            <input type="text" id="ref" name='ref' value={ref} onChange={handleChange} />
+            <input type="text" id="ref" name='ref' placeholder="REF0001" onChange="" />
         </div>
         <div>
             <label htmlFor="cat">Catégorie</label>
-            <select id="cat" name="cat" value={cat} onChange={handleChange}>
-                {
+            <select id="cat" name="cat" placeholder="Thé noir" onChange="">
+                <!-- {
                 cats.map((cat, i) => <option key={i} value={cat.id}>{cat.nom}</option>)
-                }
+                } -->
+                <?php foreach($cats as $cat): ?>
+                    <option value=<?= htmlspecialchars($cat['id']) ?>><?= htmlspecialchars($cat['name']) ?></option>
+                <?php endforeach ?>
             </select>
-
         </div>
         <div>
-            <label htmlFor="nom">Nom du thé</label>
-            <input type="text" id="nom" name="nom" value={nom} onChange={handleChange} />
+            <label htmlFor="name">Nom du thé</label>
+            <input type="text" id="name" name="name" placeholder="Thé Vert Matcha" onChange="" />
         </div>
         <div>
-            <label htmlFor="soustitre">Sous-titre</label>
-            <textarea id="soustitre" name="soustitre" value={sousTitre} onChange={handleChange} />
+            <label htmlFor="subtitle">Sous-titre</label>
+            <textarea id="subtitle" name="subtitle" placeholder="Pur et Puissant" onChange=""></textarea>
         </div>
         <div>
             <label htmlFor="description">Description</label>
-            <textarea id="description" name="description" value={description} onChange={handleChange} />
+            <textarea id="description" name="description" placeholder="Le matcha offre un goût riche et une couleur éclatante." onChange=""></textarea>
         </div>
-        <div>
+        <!-- TODO : ajouter la colonne stock dans la table tea -->
+        <!-- <div>
             <label htmlFor="stock">Stock</label>
-            <input type="text" id="stock" name="stock" value={stock} onChange={handleChange} />
+            <input type="text" id="stock" name="stock" value={stock} onChange="" />
+        </div> -->
+        <div>
+            <label htmlFor="image">Image</label>
+            <input type="file" id="image" name="image" />
         </div>
         <div>
-            <label htmlFor="photo">Image</label>
-            <input type="file" id="photo" name="photo" />
-        </div>
-        <div>
-            <label htmlFor="cdc">
-                <input type="checkbox" id="cdc" name="cdc" value={cdc} onChange={handleChange} />
+            <label htmlFor="favorite">
+                <input type="checkbox" id="favorite" name="favorite" onchange="" />
                 Coup de coeur</label>
         </div>
         <div>
-            <button type="button" onClick={submit} className="btn">Ajouter</button>
+            <button type="submit" onclick=sayHello() class="btn">Ajouter</button>
         </div>
     </form>
+
     
 </section>
 
 
 
+<script src="/cup_of_tea_php/public/js/admin.js"></script>
 
 
 

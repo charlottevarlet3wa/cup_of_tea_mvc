@@ -133,3 +133,12 @@ function displaySection(sectionIndex){
     }
     sections[sectionIndex].style.display = 'block';
 }
+
+
+
+
+/* ADD TEA */
+
+function addTea(){
+    
+}
