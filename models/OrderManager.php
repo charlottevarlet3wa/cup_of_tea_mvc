@@ -47,11 +47,6 @@ class OrderManager extends AbstractModel
         return $stmt->fetchAll();
     }
 
-    public function updateStatus($orderId, $status): bool
-    {
-        $stmt = $this->db->prepare("UPDATE `order` SET status = ? WHERE id = ?");
-        return $stmt->execute([$status, $orderId]);
-    }
 
     public function getOrderByUser($userId): array
     {
@@ -96,5 +91,15 @@ class OrderManager extends AbstractModel
         $stmt->execute([$orderId]);
         $order = $stmt->fetch();
         return $order ?: null;
+    }
+
+    
+    public function updateStatus($orderId): bool
+    {
+        $status = $this->getOrderById($orderId)['status'];
+        // Meilleure manière d'inverser avec des booléens, une conversion et l'opposé ?
+        $newStatus = $status == 1 ? 0 : 1;
+        $stmt = $this->db->prepare("UPDATE `order` SET status = ? WHERE id = ?");
+        return $stmt->execute([$newStatus, $orderId]);
     }
 }

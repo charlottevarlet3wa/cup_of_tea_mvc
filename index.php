@@ -73,7 +73,8 @@ switch($_GET['route']){
         $isStatus = isset($_POST['status']) ? $_POST['status'] : null;
         $orderId = isset($_POST['orderId']) ? $_POST['orderId'] : null;
         $controller = new TestController();
-        $controller->setStatus($orderId, $isStatus);
+        $controller->updateStatus($orderId, $isStatus);
+        echo "orderId : " . $orderId . " _ status : " . $isStatus;
         break;
 
     case 'order-filter':

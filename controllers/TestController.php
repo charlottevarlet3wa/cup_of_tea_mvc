@@ -10,14 +10,13 @@ require_once 'models/OrderManager.php';
 
 class TestController { 
 
-    public function setStatus($isStatus){
-        // echo "status : " . $isStatus;
-        $manager = new OrderManager();
-        $manager->updateStatus(2, $isStatus);
-    }
+    // public function setStatus($isStatus){
+    //     // echo "status : " . $isStatus;
+    //     $manager = new OrderManager();
+    //     $manager->updateStatus(2, $isStatus);
+    // }
 
-    public function setStatus2($orderId, $isStatus){
-        // echo "status : " . $isStatus;
+    public function updateStatus($orderId, $isStatus){
         $manager = new OrderManager();
         $manager->updateStatus($orderId, $isStatus);
     }

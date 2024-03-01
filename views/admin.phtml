@@ -1,5 +1,5 @@
-<!-- <?php var_dump($orders);
-?> -->
+<?php var_dump($orders);
+?>
 
 <h1>Dashboard</h1>
 
@@ -50,7 +50,8 @@
                 <td>
                     <form id="statusForm" method="POST">
                         <!-- TODO : remplacer sayHello() par updateStatus(index) -->
-                        <input type="checkbox" class="orderStatus" name="status" <?= $order['status'] == 1 ? "checked" : ""; ?> onchange=sayHello() >
+                        <!-- <input type="checkbox" class="orderStatus" name="status" <?= $order['status'] == 1 ? "checked" : ""; ?> onchange=sayHello() > -->
+                        <input type="checkbox" class="orderStatus" name="status" <?= $order['status'] == 1 ? "checked" : ""; ?> onchange="updateStatus(<?= $order['id'] ?>)" >
                         <input type="hidden" name="orderId" >
                     </form>
                 </td>
@@ -103,16 +104,7 @@
 
 
 
-
-
-
-
-
-
-
-
-
-<?php var_dump($cats);?>
+<!-- <?php var_dump($cats);?> -->
 
 <section id="add-tea">
     

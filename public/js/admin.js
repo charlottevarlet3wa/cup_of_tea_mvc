@@ -1,27 +1,40 @@
 /* ORDERS */
 
 // TODO : which one to keep ? toggleStatus(orderIndex) or toggleStatus(status) ?
-function toggleStatus(status){
+// function toggleStatus(status){
+//     const xmlhttp = new XMLHttpRequest();
+//     xmlhttp.onload = function() {
+//         console.log(this.responseText);
+//     }
+//     xmlhttp.open("POST", "/cup_of_tea_php/?route=order-status");
+//     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+//     xmlhttp.send("status="+status);
+// }
+
+// function updateStatus(orderIndex){
+//     this.addEventListener('change', function() {
+//         if(this.checked){
+//             console.log("checked");
+//             toggleStatus(orderIndex, 1);
+//         } else {
+//             console.log("unchecked");
+//             toggleStatus(orderIndex, 0);
+//         }
+//     });
+// }
+
+function updateStatus(orderId){
+    let checkbox = this;
     const xmlhttp = new XMLHttpRequest();
     xmlhttp.onload = function() {
         console.log(this.responseText);
     }
     xmlhttp.open("POST", "/cup_of_tea_php/?route=order-status");
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xmlhttp.send("status="+status);
+    xmlhttp.send("orderId="+orderId);
 }
 
-function toggleStatus(orderIndex){
-    this.addEventListener('change', function() {
-        if(this.checked){
-            console.log("checked");
-            toggleStatus(orderIndex, 1);
-        } else {
-            console.log("unchecked");
-            toggleStatus(orderIndex, 0);
-        }
-    });
-}
+
 
 document.getElementById('filter-select').addEventListener('change', function() {
     var filterValue = this.value;
