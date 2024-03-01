@@ -125,7 +125,7 @@ function showList(){
 //   }
 
 const sections = [ordersElem, orderDetailsElem, teasElem, addTeaElem];
-console.log(sections);
+// console.log(sections);
 
 function displaySection(sectionIndex){
     for(let i=0; i<sections.length; i++){
@@ -139,6 +139,25 @@ function displaySection(sectionIndex){
 
 /* ADD TEA */
 
-function addTea(){
-    
+function addTea() {
+    let formData = new FormData();
+    let image = document.getElementById('image').files[0];
+    let isFavorite = document.getElementById('favorite').checked ? 1 : 0;
+
+    formData.append('ref', document.getElementById('ref').value);
+    formData.append('name', document.getElementById('name').value);
+    formData.append('subtitle', document.getElementById('subtitle').value);
+    formData.append('description', document.getElementById('description').value);
+    formData.append('image', image);
+    formData.append('cat', document.getElementById('cat').value);
+    formData.append('isFavorite', isFavorite);
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            console.log(this.responseText);
+        }
+    };
+    xhttp.open("POST", "/cup_of_tea_php/?route=add-tea", true);
+    xhttp.send(formData);
 }

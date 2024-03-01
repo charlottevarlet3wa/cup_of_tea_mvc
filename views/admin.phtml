@@ -120,7 +120,8 @@
     <!-- TODO : why script can't be recognized after the form ? -->
 
     <!-- <form id="add" encType="multipart/form-data"> -->
-    <form id="add" method="POST" action="/cup_of_tea_php/?route=add-tea">
+    <!-- <form id="add" method="POST" action="/cup_of_tea_php/?route=add-tea"> -->
+    <form id="add" method="POST" enctype="multipart/form-data">
         <!-- TODO : maybe automatically prefill according to the database . (ref = REF{lastref + 1}) -->
         <div>
             <label htmlFor="ref">Référence</label>
@@ -164,11 +165,12 @@
                 Coup de coeur</label>
         </div>
         <div>
-            <button type="submit" onclick=sayHello() class="btn">Ajouter</button>
+            <!-- <button type="submit" onclick=sayHello() class="btn">Ajouter</button> -->
+            <button type="button" onclick=addTea() class="btn">Ajouter</button>
         </div>
     </form>
 
-    
+<button onclick=addTea()>push</button>
 </section>
 
 
