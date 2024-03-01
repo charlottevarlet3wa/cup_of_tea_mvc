@@ -87,14 +87,14 @@ class TeaManager extends AbstractModel
         return $results[0];
     }
 
-    // public function addTea($reference, $name, $subtitle, $description, $image, $categoryId, $favorite)
-    public function addTea($ref, $name)
+    public function addTea($reference, $name, $subtitle, $description, $imageName, $categoryId, $favorite)
+    // public function addTea($ref, $name)
     {
         $stmt = $this->db->prepare("INSERT INTO `tea` (`reference`, `name`, `subtitle`, `description`, `image`, `category_id`, `favorite`) 
         VALUES (?, ?, ?, ?, ?, ?, ?)");
         // $stmt->execute([$reference, $name, $subtitle, $description, $image, $categoryId, $favorite]);
-        // $stmt->execute([$reference, $name, $subtitle, $description, $image, $categoryId, $favorite]);
-        $stmt->execute([$ref, $name, "1", "1", "1", 1, "1"]);
+        $stmt->execute([$reference, $name, $subtitle, $description, $imageName, $categoryId, $favorite]);
+        // $stmt->execute([$ref, $name, "1", "1", "1", 1, "1"]);
         // TODO : enregistrer l'image
         // TODO : ajouter la date de l'insertion du nouveau thé dans la db automatiquement
     }

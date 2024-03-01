@@ -97,11 +97,14 @@ switch($_GET['route']){
         $image = isset($_POST['image']) ? $_POST['image'] : null;
         $cat = isset($_POST['cat']) ? $_POST['cat'] : null;
         $isFavorite = isset($_POST['isFavorite']) ? $_POST['isFavorite'] : 0;
-        
-        $controller = new AdminController();
-        $controller->addTea($ref, $name);
+    
+        if (isset($_FILES['image'])) {
+            $imageName = $_FILES['image']['name'];
+            $imageTmpName = $_FILES['image']['tmp_name'];
+        }
 
-        // $controller->addTea($ref, $cat, $name, $subtitle, $description, $image, $isFavorite);
+        $controller = new AdminController();
+        $controller->addTea($ref, $name, $subtitle, $description, $imageName, $cat, $isFavorite, $imageTmpName);
         break;
 }
 
