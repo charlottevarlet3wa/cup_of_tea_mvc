@@ -1,20 +1,105 @@
-<h1>Votre panier</h1>
-<!-- {teas.map((tea,i) => { -->
-<article class="panier" key={i}>
-    <!-- <img src={ "/img/" + tea.img } alt={ tea.nom } /> -->
-    <img src=public/img/tea/1.jpg />
-    <h3>{tea.nom}</h3>
-    <p>{tea.qte}</p>
-    <p>{tea.price.toFixed(2)}€</p>
-    <p>
-        <!-- <button data-id={i} onClick={trash}><i className="fa fa-trash"></i></button> -->
-        <button data-id={i} onClick={trash}><i className="fa fa-trash">1</button>
-    </p>
-</article>
+<?php 
+    $cart = $_SESSION['cart'];
+?>
+
+<h1>Mon panier</h1>
+
+<h2>Mes informations</h2>
+<!-- <MesInformations /> -->
+
+<script>
+    function hi(){
+        console.log("hi");
+    }
+</script>
+
+<h2>Mes commandes</h2>
+<div class="flex">
+    <table class="commande">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Produit</th>
+                <th>Format</th>
+                <th>Quantité</th>
+                <th>Prix Unitaire</th>
+                <th>Total</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="cart-body">
+            <!--  foreach ($cart as $teaId => $teaDetails): ?> -->
+            <?php 
+                $total = 0;
+                $index = 0;
+                $teaIndex = 0; 
+                foreach ($cart as $tea): ?>
+                <?php 
+                    $formatIndex = 0;
+                    foreach ($tea['formats'] as $format): ?>
+                    <tr>
+                        <td><?= $index ?></td>
+                        <td><?= $tea['name'] ?></td>
+                        <td><?= $format['format'] ?></td>
+                        <td>
+                            <select name="quantity-select" id="quantity-select" onchange="changeQuantity(<?= array_keys($cart)[$teaIndex]?>, <?= array_keys($tea['formats'])[$formatIndex] ?>, this.value)">
+                                <?php for($i=1; $i < 10; $i++): ?>
+                                    <option value=<?= $i ?> <?= $i == $format['quantity'] ? 'selected' : '' ?>><?= $i ?></option>
+                                <?php endfor; ?>
+                            </select>    
+                        </td>
+                        <td><?= $format['price'] ?>€</td>
+                        <td><?= $format['quantity'] * $format['price'] ?>€</td>
+                        <!-- <script>console.log(?= $index ?>)</script> -->
+                        <!-- <td><button onclick="changeQuantity(?= $teaIndex ?>, <?= $formatIndex ?>, 0)">Remove</button></td> -->
+                        <td><button onclick="changeQuantity(<?= array_keys($cart)[$teaIndex]?>, <?= array_keys($tea['formats'])[$formatIndex] ?>, 0)">Remove</button></td>
+                        <!-- TODO removeAll as chagneQuantity (teaId, 0); -->
+                    <tr>
+                <?php 
+                $formatIndex++; $index++; $total += $format['price'] * $format['quantity']; endforeach ?>
+            <?php $teaIndex++; endforeach ?>
+            <tr>
+                <td>Total</td>
+                <td style="background-color:#F2F2F2" colspan="4"></td>
+                <td>
+                    <?= $total . "€" ?>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<script src="/cup_of_tea_php/public/js/cart.js"></script>
 
 
-{ (teas.length != 0) ?
-<p><button class="btn" onClick={validOrder}>Valider la commande</button></p>
-:
-<p>Votre panier est vide</p>
-}
+<!-- 
+<h2>Mes commandes</h2>
+<div class="flex">
+    <table class="commande">
+        <thead>
+            <tr>
+                <th>Numéro de commande</th>
+                <th>Date de la commande</th>
+                <th>Montant de la commande</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {
+            orders.map((order, i) => {
+            return(
+            <tr key={i}>
+                <td>{order.id}</td>
+                <td>{new Date(order.date).toLocaleDateString()}</td>
+                <td>{order.total.toFixed(2)} €</td>
+                <td><button data-id={order.id} onClick={details}><i class="fa fa-eye"></i></button></td>
+            </tr>)
+            })
+            }
+        </tbody>
+
+    </table>
+    {id != 0 &&
+    <DetailOrder id={id} />
+    }
+</div> -->

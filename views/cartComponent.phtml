@@ -1,0 +1,26 @@
+<?php 
+    function calculateTotal() {
+      $total = 0;
+      foreach($_SESSION['cart'] as $tea){
+        foreach($tea['formats'] as $format){
+            $total += $format['price'] * $format['quantity'];
+        }
+    }
+      return $total;
+  }
+
+  function getCartCount(){
+    $count = 0;
+    foreach($_SESSION['cart'] as $tea){
+      foreach($tea['formats'] as $format){
+        $count += $format['quantity'];
+      }
+    }
+    return $count;
+  }
+?>
+
+<span><a href="/cup_of_tea_php/?route=cart">Mon panier</a></span><span id="cart-count" class="sup"><?= getCartCount() ?></span>
+          <!-- <strong>{montant.toFixed(2)}€</strong> -->
+          <strong id="cart-total">
+          <?= "Total : " . calculateTotal() . " €" ?></strong>

@@ -10,8 +10,8 @@ class HomeController {
         $favorite = $manager->getFavorite();
         $latest = $manager->getLatest();
         $bestseller = $manager->getBestseller();
-        
         $template = "home.phtml";
+        $cart = "cartComponent.phtml";
         require_once "views/layout.phtml";
     }
 }

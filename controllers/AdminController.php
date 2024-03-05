@@ -10,8 +10,6 @@ class AdminController {
     
     public function __construct()
     {
-
-        // Si on est dans une requête post, alors on lance la méthode addRoom(). 
         if (!empty($_POST) && isset($_POST['orderId'])) {
             $this->updateStatus($_POST['orderId'], $_POST['status']);
         }

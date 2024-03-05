@@ -1,3 +1,9 @@
+<?php 
+    var_dump($tea);
+    echo "formats : ";
+    var_dump($formats);
+?>
+
 <section id="product">
     <section id="product-detail">
         <div id="product-name">
@@ -10,19 +16,27 @@
         <img src="public/img/tea/<?= htmlspecialchars($tea['category_id']) ?>" alt="<?= htmlspecialchars($tea['name']) ?>" />
         <!-- <img src="public/img/tea/1.jpg" /> -->
         <div class="price">
-            <select name="quantity">
-                <?php foreach ($formats as $format): ?>
-                    <option data-price="<?= htmlspecialchars($format['price']) ?>"><?= htmlspecialchars($format['conditioning']) ?></option>
-                <?php endforeach; ?>
+            <select id="format-select" name="format" onchange="updatePriceFromFormat()">
+                <?php 
+                $index = 0;
+                foreach ($formats as $format): ?>
+                    <option value=<?= $index ?>><?= htmlspecialchars($format['conditioning']) ?></option>
+                <?php $index++; endforeach; ?>
             </select>
-            <!-- TODO : rendre dynamique avec AJAX  quand une autre option est sélectionnée ? -->
-            <h3><?= htmlspecialchars(number_format($formats[0]['price'], 2)) ?>€</h3>
-            <a class="btn" href="#">Ajouter au panier</a>
+            <h3 id="format-price"><?= htmlspecialchars(number_format($formats[0]['price'], 2)) ?>€</h3>
+            <!-- TODO : possibilité de commander plusieurs exemplaires du même article -->
+            <button class="btn" onclick="addToCart()">Ajouter au panier</button>
             <a id="wishlist" href="#">Ajouter à ma liste d'envie</a>
         </div>
     </section>
     <section id="product-description"><?= $tea['description'] ?></section>
 </section>
+
+<input type="hidden" id="tea-id" value="<?= htmlspecialchars($tea['id']) ?>">
+<input type="hidden" id="formats" value="<?= htmlspecialchars(json_encode($formats)) ?>">
+<button onclick="addToCart()">Add to cart</button>
+<script src="/cup_of_tea_php/public/js/tea.js"></script>
+
 
 
 

@@ -10,8 +10,10 @@ class TeaController {
         $formats = $manager->getFormatsByTea($teaId);
         // $prices = 
         $template = "tea.phtml";
+        $cart = "cartComponent.phtml";
         require_once "views/layout.phtml";
     }
+
 } 
 
 
