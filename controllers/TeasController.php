@@ -10,6 +10,7 @@ class TeasController {
         $cats = $manager->getAllCategories();
 
         $template = "teas.phtml";
+        $cart = "cartComponent.phtml";
         require_once "views/layout.phtml";
     }
 }

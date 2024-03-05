@@ -29,7 +29,7 @@ class SignupController {
         $email = trim($_POST['email']);
         $password = trim($_POST['password']);
 
-        var_dump($name, $last_name, $email, $password);
+        // var_dump($name, $last_name, $email, $password);
 
         $manager = new UserManager();
 

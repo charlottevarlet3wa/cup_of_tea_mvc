@@ -12,47 +12,51 @@
     <link rel="stylesheet" href="public/css/normalize.css">
 </head>
 
+
 <body>
-<!-- TODO : where place scripts ? -->
-    <header>
-        <img class="ribbon" src="public/img/ribbon.svg" alt="élu meilleur thé en 2016" />
-        <section id="topbar">Livraison offerte à partir de 65€ d'achat !</section>
-        <div class="container">
-            <section id="logo">
-                <a href="/">
-                    <img src="public/img/logo.png" alt="Logo de Cup of Tea" />
-                </a>
-            <section id="cart">
-              <span><a href="/cup_of_tea_php/?route=cart">Mon panier</a></span><span className="sup">{teas.length}</span>
-              <strong>{montant.toFixed(2)}€</strong>
-            </section>
-            </section>
-            <nav>
-                <!-- <a href="/teas">Thés</a> -->
-                <a href="/cup_of_tea_php/?route=teas">Thés</a>
-                <a href="/cup_of_tea_php/?route=about">Notre histoire</a>
-                <!-- TODO : remplacer par du PHP -->
-                <!-- {/* gestion des onglets en fonction de la connexion ou non d'un utilisateur */}
-            {(idUser == null || idUser == undefined) 
+<?php 
+// var_dump($_SESSION['cart']); 
+?>
+
+  <!-- TODO : where place scripts ? -->
+  <header>
+    <img class="ribbon" src="public/img/ribbon.svg" alt="élu meilleur thé en 2016" />
+    <section id="topbar">Livraison offerte à partir de 65€ d'achat !</section>
+    <div class="container">
+      <section id="logo">
+        <a href="/">
+          <img src="public/img/logo.png" alt="Logo de Cup of Tea" />
+        </a>
+        <section id="cart">
+          <?php if(isset($cart)) require_once $cart; ?>
+        </section>
+      </section>
+      <nav>
+        <!-- <a href="/teas">Thés</a> -->
+        <a href="/cup_of_tea_php/?route=teas">Thés</a>
+        <a href="/cup_of_tea_php/?route=about">Notre histoire</a>
+        <!-- TODO : remplacer par du PHP -->
+        <!-- {/* gestion des onglets en fonction de la connexion ou non d'un utilisateur */}
+        {(idUser == null || idUser == undefined) 
                 ?  
                 <a href="/connexion">Me connecter</a> 
                 : 
                 <span><a href="/deconnexion">Me deconnecter</a>
                 <a href="/moncompte">Mon compte</a></span>
-            } -->
-                <a href="/cup_of_tea_php/?route=login">Me connecter</a>
+              } -->
+              <a href="/cup_of_tea_php/?route=login">Me connecter</a>
             </nav>
-        </div>
-
-    </header>
-
-    <main>
-        <?php require_once $template; ?>
-    </main>
-
+          </div>
+          
+        </header>
+        
+        <main>
+          <?php require_once $template; ?>
+        </main>
+        
     <footer>
-    <section id="info">
-      <article>
+      <section id="info">
+        <article>
         <i class="fa fa-lock"></i>
         <small>Paiement sécurisé</small>
       </article>

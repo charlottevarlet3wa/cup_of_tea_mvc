@@ -1,10 +1,15 @@
 <?php
+session_start();
 
+if (!isset($_SESSION['cart'])) {
+    $_SESSION['cart'] = array();
+}
 
 //charge les différents controllers
 require_once 'controllers/AboutController.php';
 require_once 'controllers/AdminController.php';
 require_once 'controllers/CartController.php';
+require_once 'controllers/CartComponentController.php';
 require_once 'controllers/SignupController.php';
 require_once 'controllers/HomeController.php';
 require_once 'controllers/LoginController.php';
@@ -22,6 +27,7 @@ if(!isset($_GET['route'])){
 else{
     $url = $_GET['route'];
 }
+
 
 //instancie le controller adéquate et lance l'affichage de la page
 switch($_GET['route']){
@@ -90,7 +96,6 @@ switch($_GET['route']){
         break;
     
     case 'add-tea':
-        echo "ADD TEA !";
         $ref = isset($_POST['ref']) ? $_POST['ref'] : null;
         $name = isset($_POST['name']) ? $_POST['name'] : null;
         $subtitle = isset($_POST['subtitle']) ? $_POST['subtitle'] : null;
@@ -106,6 +111,39 @@ switch($_GET['route']){
 
         $controller = new AdminController();
         $controller->addTea($ref, $name, $subtitle, $description, $imageName, $cat, $isFavorite, $imageTmpName);
+        break;
+
+    case 'add-to-cart':
+        $teaId = isset($_POST['teaId']) ? $_POST['teaId'] : null;
+        $formatId = isset($_POST['formatId']) ? $_POST['formatId'] : null;
+        $controller = new CartComponentController();
+        $controller->addToCart($teaId, $formatId);
+        break;
+
+    case 'remove-from-cart':
+        $teaId = isset($_POST['teaId']) ? $_POST['teaId'] : null;
+        $formatId = isset($_POST['formatId']) ? $_POST['formatId'] : null;
+        $controller = new CartComponentController();
+        $controller->removeFromCart($teaId, $formatId);
+        break;
+
+    case 'change-cart-quantity':
+        $teaId = isset($_POST['teaId']) ? $_POST['teaId'] : null;
+        $formatId = isset($_POST['formatId']) ? $_POST['formatId'] : null;
+        $quantity = isset($_POST['quantity']) ? $_POST['quantity'] : null;
+        echo "tea ID : " . $teaId . " _ formatId : " . $formatId . " _ quantity : " . $quantity;
+        $controller = new CartComponentController();
+        $controller->changeCartQuantity($teaId, $formatId, $quantity);
+        break;
+
+    case 'display-cart':
+        $controller = new CartController();
+        $controller->displayCart();
+        break;
+
+        case 'display-cart-header':
+        $controller = new CartComponentController();
+        $controller->calculateTotal();
         break;
 }
 
