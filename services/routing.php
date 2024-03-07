@@ -2,7 +2,7 @@
 
 // TODO : adapter
 
-/*
+
 declare(strict_types=1);
 
 require_once './configs/settings.php';
@@ -30,7 +30,6 @@ class Router
 
     
 }
-*/
 
 
 

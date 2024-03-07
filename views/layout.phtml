@@ -6,10 +6,10 @@
     <base href="http://localhost/cup_of_tea_php/" />
     <link rel="icon" href="public/img/title.png" />
     <title>Votre Application</title>
-    <link rel="stylesheet" href="public/css/style.css">
-    <link rel="stylesheet" href="public/css/base.css">
-    <link rel="stylesheet" href="public/css/font-awesome.min.css">
-    <link rel="stylesheet" href="public/css/normalize.css">
+    <link rel="stylesheet" href="/cup_of_tea_php/public/css/style.css">
+    <link rel="stylesheet" href="/cup_of_tea_php/public/css/base.css">
+    <link rel="stylesheet" href="/cup_of_tea_php/public/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/cup_of_tea_php/public/css/normalize.css">
 </head>
 
 
@@ -24,7 +24,7 @@
     <section id="topbar">Livraison offerte à partir de 65€ d'achat !</section>
     <div class="container">
       <section id="logo">
-        <a href="/">
+        <a href="/cup_of_tea_php/home">
           <img src="public/img/logo.png" alt="Logo de Cup of Tea" />
         </a>
         <section id="cart">
@@ -33,8 +33,8 @@
       </section>
       <nav>
         <!-- <a href="/teas">Thés</a> -->
-        <a href="/cup_of_tea_php/?route=teas">Thés</a>
-        <a href="/cup_of_tea_php/?route=about">Notre histoire</a>
+        <a href="/cup_of_tea_php/teas">Thés</a>
+        <a href="/cup_of_tea_php/about">Notre histoire</a>
         <!-- TODO : remplacer par du PHP -->
         <!-- {/* gestion des onglets en fonction de la connexion ou non d'un utilisateur */}
         {(idUser == null || idUser == undefined) 
@@ -44,7 +44,7 @@
                 <span><a href="/deconnexion">Me deconnecter</a>
                 <a href="/moncompte">Mon compte</a></span>
               } -->
-              <a href="/cup_of_tea_php/?route=login">Me connecter</a>
+              <a href="/cup_of_tea_php/login">Me connecter</a>
             </nav>
           </div>
           

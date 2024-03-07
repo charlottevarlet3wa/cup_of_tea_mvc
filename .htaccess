@@ -1,0 +1,15 @@
+RewriteEngine On
+# Ne réécrivez pas les fichiers ou dossiers existants
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+
+
+# Réécriture pour la route spécifique 'tea' avec un ID
+RewriteCond %{REQUEST_URI} !\.(css|js|png|jpg|jpeg|gif|svg)$ [NC]
+RewriteRule ^tea/([0-9]+)$ index.php?route=tea&id=$1 [L,QSA]
+
+# Réécriture des autres requêtes vers index.php en passant 'route' en tant que paramètre GET
+RewriteCond %{REQUEST_URI} !\.(css|js|png|jpg|jpeg|gif|svg)$ [NC]
+RewriteRule ^(.+)$ index.php?route=$1 [QSA,L]
+
