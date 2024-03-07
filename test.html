@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+
+<tr>
+    <td>0</td>
+    <td>Thé Noir Premium</td>
+    <td>Boîte de 20 sachets</td>
+    <td>
+        <select name="quantity-select" onchange="changeQuantity(1, 1, this.value)">
+            <option value="1" >1</option>
+            <option value="2" >2</option>
+            <option value="3" >3</option>
+            <option value="4" >4</option>
+            <option value="5" selected>5</option>
+            <option value="6" >6</option>
+            <option value="7" >7</option>
+            <option value="8" >8</option>
+            <option value="9" >9</option>
+            <option value="10" >10</option>
+        </select>
+    </td>
+    <td>10.00€</td>
+    <td>50.00€</td>
+    <td style="background-color: #F2F2F2">
+        <button class="btn grey-btn" onclick="changeQuantity(1, 1, 0)">X</button>
+    </td>
+</tr>
+<tr>
+    <td>Total</td>
+    <td style='background-color:#F2F2F2' colspan='4'>
+    </td><td>50.00€</td>
+</tr>
+
+    
+</body>
+</html>

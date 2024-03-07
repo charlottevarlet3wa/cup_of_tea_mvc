@@ -1,16 +1,25 @@
 <?php
-/*
+
 
 declare(strict_types=1);
 
+session_start();
+
+if (!isset($_SESSION['cart'])) {
+    $_SESSION['cart'] = array();
+}
+
+
+/*
 require_once './services/routing.php'; 
 require_once './configs/settings.php';
 
 // Determine the requested page
-$page = $_GET['page'] ?? DEFAULT_ROUTE;
+$route = $_GET['route'] ?? DEFAULT_ROUTE;
+$route = array_key_exists($route, AVAILABLE_ROUTES) ? $route : 'home';
 
 // Create router
-$router = new Router($page);
+$router = new Router($route);
 
 // Include controller
 $router->autoloadController();
@@ -24,13 +33,7 @@ $controllerInstance = $router->getController();
 // } else {
     $controllerInstance->display();
 // }
-
 */
-session_start();
-
-if (!isset($_SESSION['cart'])) {
-    $_SESSION['cart'] = array();
-}
 
 
 //charge les différents controllers
@@ -92,7 +95,6 @@ switch($_GET['route']){
         $controller->display();
         break; 
     case 'tea':
-        // $controller = new TeaController();
         $teaId = isset($_GET['id']) ? $_GET['id'] : null;
         $controller = new TeaController();
         $controller->display($teaId);
@@ -103,12 +105,13 @@ switch($_GET['route']){
         break; 
 
 
+
+
     case 'order-status':
         $isStatus = isset($_POST['status']) ? $_POST['status'] : null;
         $orderId = isset($_POST['orderId']) ? $_POST['orderId'] : null;
         $controller = new TestController();
         $controller->updateStatus($orderId, $isStatus);
-        // echo "orderId : " . $orderId . " _ status : " . $isStatus;
         break;
 
     case 'order-filter':
@@ -159,7 +162,6 @@ switch($_GET['route']){
         $teaId = isset($_POST['teaId']) ? $_POST['teaId'] : null;
         $formatId = isset($_POST['formatId']) ? $_POST['formatId'] : null;
         $quantity = isset($_POST['quantity']) ? $_POST['quantity'] : null;
-        echo "tea ID : " . $teaId . " _ formatId : " . $formatId . " _ quantity : " . $quantity;
         $controller = new CartComponentController();
         $controller->changeCartQuantity($teaId, $formatId, $quantity);
         break;
@@ -183,5 +185,10 @@ switch($_GET['route']){
         $controller = new MyAccountController();
         $controller->showDetail($orderId);
         break;
-}
 
+
+    default:
+        header('Location: http://localhost/cup_of_tea_php/home');
+        exit;
+        break;
+}
