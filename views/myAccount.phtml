@@ -1,38 +1,45 @@
+<?php
+    // echo "user id : " . $_SESSION['user_id'];
+    // $user = $_SESSION['user_id'];
+    // echo "user : ";
+    // var_dump($user);
+    $disabled = true;
+    // TODO : mettre les variables dans MyAccountController
+?>
+
 <h1>Mon compte</h1>
 
 <h2>Mes informations</h2>
 <form>
             <div>
                 <label htmlFor="nom">Nom</label>
-                <input type="text" id="nom" value={nom} disabled={dis} onChange={handleChange} />
+                <input type="text" id="nom" value=<?= htmlspecialchars($user['last_name']) ?> <?= $disabled ? "disabled" : ""?> onChange={handleChange} />
             </div>
 
             <div>
                 <label htmlFor="prenom">Prénom</label>
-                <input type="text" id="prenom" value={prenom} disabled={dis} onChange={handleChange} />
+                <input type="text" id="prenom" value=<?= htmlspecialchars($user['name']) ?> <?= $disabled ? "disabled" : ""?> onChange={handleChange} />
             </div>
 
             <div>
                 <label htmlFor="email">Email</label>
-                <input type="email" id="email" value={email} disabled={dis} onChange={handleChange} />
+                <input type="email" id="email" value=<?= htmlspecialchars($user['email']) ?> <?= $disabled ? "disabled" : ""?> onChange={handleChange} />
             </div>
 
-            <div>
+            <!-- <div>
                 <label htmlFor="password">Votre mot de passe</label>
                 <input
                     type="password"
                     id="password"
-                    value={password}
                     onChange={handleChange}
+                    ?= $disabled ? "disabled" : ""?>
                 />
-            </div>
-            {/* si il y a un message alors on l'affiche*/}
-            { message != "" && 
-                <p>{message}</p>
-            }
-            <button type="button" onClick={modifier}>{ dis==true ? 'Modifier':'Valider les modifications'}</button>
+            </div> -->
+            <p><?= $disabled? "<a href=''>Changer le mot de passe</a>" : "" ?></p>
+            <p id="message"><?= isset($message) ? $message : "" ?></p>
+            <button id="ebable-change-btn" class="grey-btn" type="button" onclick="enableChange()">Modifier</button>
+            <button id="change-btn" class="grey-btn" type="button" onclick="changeInfo()" style="display:none">Valider les modifications</button>
         </form>
-
 
 <h2>Mes commandes</h2>
 <div class="flex">  
@@ -46,21 +53,23 @@
             </tr>
         </thead>
         <tbody>
-            {
-            orders.map((order, i) => {
-            return(
-            <tr key={i}>
-                <td>{order.id}</td>
-                <td>{new Date(order.date).toLocaleDateString()}</td>
-                <td>{order.total.toFixed(2)} €</td>
-                <td><button data-id={order.id} onClick={details}><i class="fa fa-eye"></i></button></td>
-            </tr>)
-            })
-            }
+            <?php 
+            $index = 0;
+            foreach($orders as $order): ?>
+            <tr>
+                <td><?= count($orders) - $index ?></td>
+                <td><?= $order['date'] ?></td>
+                <td><?= number_format($order['total'], 2) ?> €</td>
+                <td><button onclick="showDetail(<?= $order['id'] ?>)"><i class="fa fa-eye"></i></button></td>
+            </tr>
+            <?php
+            $index++;
+            endforeach ?>
         </tbody>
 
     </table>
-    {id != 0 &&
-    <DetailOrder id={id} />
-    }
 </div>
+<div id="order-detail">
+</div>
+
+<script src="/cup_of_tea_php/public/js/myAccount.js"></script>

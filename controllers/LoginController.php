@@ -7,14 +7,14 @@ class LoginController {
 
     public function __construct()
     {
-
-        // Si on est dans une requête post, alors on lance la méthode addRoom(). 
         if (!empty($_POST) && isset($_POST['email'])) {
             $this->loginUser();
         }
     }
 
     public function display() {
+        $errorMessage = isset($_SESSION['error_message']) ? $_SESSION['error_message'] : '';
+        unset($_SESSION['error_message']);
         $template = "login.phtml";
         require_once "views/layout.phtml";
     }
@@ -25,6 +25,21 @@ class LoginController {
         $email = trim($_POST['email']);
         $password = trim($_POST['password']);
         $manager = new UserManager();
-        $manager->loginUser($email, $password);
+        $user = $manager->loginUser($email, $password);
+
+        
+        if ($user) {
+            $_SESSION['user_id'] = $user['id'];
+            session_regenerate_id();
+            header("Location: /cup_of_tea_php/?route=my-account");
+            exit;
+        } else {
+            // Login failed
+            // Set a message to be displayed to the user
+            $_SESSION['error_message'] = 'Incorrect password.';
+            // Make sure to pass this message to the view
+            header("Location: /cup_of_tea_php/?route=login");
+            exit;        
+        }
     }
 }

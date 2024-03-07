@@ -93,7 +93,20 @@ class CartComponentController {
                 $total += $format['price'] * $format['quantity'];
             }
         }
-        return $total;
+        return number_format($total, 2);
+    }
+
+    function calculateCount() {
+        $count = 0;
+        // foreach ($_SESSION['cart'] as $item) {
+        //     $total += $item['price'] * $item['quantity'];
+        // }
+        foreach($_SESSION['cart'] as $tea){
+            foreach($tea['formats'] as $format){
+                $count += $format['quantity'];
+            }
+        }
+        return $count;
     }
 
     function displayCartHeader(){

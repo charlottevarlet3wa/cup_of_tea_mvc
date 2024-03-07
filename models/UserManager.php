@@ -16,7 +16,7 @@ class UserManager extends AbstractModel
     }
 
     public function getUserById($id) {
-        $stmt = $this->db->prepare("SELECT * FROM users WHERE id = :id");
+        $stmt = $this->db->prepare("SELECT * FROM user WHERE id = :id");
         $stmt->execute(['id' => $id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }

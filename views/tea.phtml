@@ -1,7 +1,7 @@
 <?php 
-    var_dump($tea);
-    echo "formats : ";
-    var_dump($formats);
+    // var_dump($tea);
+    // echo "formats : ";
+    // var_dump($formats);
 ?>
 
 <section id="product">
@@ -13,7 +13,7 @@
         </div>
     </section>
     <section id="product-quantity">
-        <img src="public/img/tea/<?= htmlspecialchars($tea['category_id']) ?>" alt="<?= htmlspecialchars($tea['name']) ?>" />
+        <img src="public/img/product/<?= htmlspecialchars($tea['image']) ?>" alt="<?= htmlspecialchars($tea['name']) ?>" />
         <!-- <img src="public/img/tea/1.jpg" /> -->
         <div class="price">
             <select id="format-select" name="format" onchange="updatePriceFromFormat()">
@@ -34,7 +34,6 @@
 
 <input type="hidden" id="tea-id" value="<?= htmlspecialchars($tea['id']) ?>">
 <input type="hidden" id="formats" value="<?= htmlspecialchars(json_encode($formats)) ?>">
-<button onclick="addToCart()">Add to cart</button>
 <script src="/cup_of_tea_php/public/js/tea.js"></script>
 
 
