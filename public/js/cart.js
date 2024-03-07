@@ -44,9 +44,11 @@ function updateCartDisplay(){
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            let response = JSON.parse(this.responseText);
-            cartHeaderTotal = response.total;
-            cartHeaderCount = response.count;
+            // console.log("réponse : " + this.responseText);
+            cartBody.innerHTML = this.responseText;
+            // let response = JSON.parse(this.responseText);
+            // cartHeaderTotal = response.total;
+            // cartHeaderCount = response.count;
         }
     };
     xhttp.open("POST", "/cup_of_tea_php/?route=display-cart", true);
