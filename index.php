@@ -1,9 +1,37 @@
 <?php
+/*
+
+declare(strict_types=1);
+
+require_once './services/routing.php'; 
+require_once './configs/settings.php';
+
+// Determine the requested page
+$page = $_GET['page'] ?? DEFAULT_ROUTE;
+
+// Create router
+$router = new Router($page);
+
+// Include controller
+$router->autoloadController();
+
+// Instanciate controller
+$controllerInstance = $router->getController();
+
+// Depending on the page, handle accordingly
+// if ($page === 'toggle_pin') {
+//     $controllerInstance->togglePin();
+// } else {
+    $controllerInstance->display();
+// }
+
+*/
 session_start();
 
 if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = array();
 }
+
 
 //charge les différents controllers
 require_once 'controllers/AboutController.php';
@@ -68,7 +96,7 @@ switch($_GET['route']){
         $teaId = isset($_GET['id']) ? $_GET['id'] : null;
         $controller = new TeaController();
         $controller->display($teaId);
-        break;        
+        break;
     case 'teas':
         $controller = new TeasController();
         $controller->display();
@@ -80,7 +108,7 @@ switch($_GET['route']){
         $orderId = isset($_POST['orderId']) ? $_POST['orderId'] : null;
         $controller = new TestController();
         $controller->updateStatus($orderId, $isStatus);
-        echo "orderId : " . $orderId . " _ status : " . $isStatus;
+        // echo "orderId : " . $orderId . " _ status : " . $isStatus;
         break;
 
     case 'order-filter':
