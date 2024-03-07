@@ -1,5 +1,8 @@
 <h1>Connexion</h1>
-<p style="color:red" id="message"></p>
+<!-- <p style="color:red" id="message"></p> -->
+<?php if (!empty($errorMessage)): ?>
+    <p style="color:red" id="message"><?= htmlspecialchars($errorMessage) ?></p>
+<?php endif; ?>
 <form id="loginForm" method="POST">
     <div>
         <label for="email">Votre email</label>

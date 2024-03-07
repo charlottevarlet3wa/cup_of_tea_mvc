@@ -12,7 +12,7 @@ class Tea extends AbstractModel
         private ?string $subtitle = null,
         private ?string $description = null,
         private ?string $image = null,
-        private int $category_id,
+        private int $category_id = 0,
         private int $favorite = 0,
         ?int $id = null
     ) {

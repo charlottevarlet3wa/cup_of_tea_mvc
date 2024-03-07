@@ -32,13 +32,21 @@ function changeQuantity(teaId, formatId, quantity){
 }
 
 let cartBody = document.getElementById('cart-body');
+let cartTable = document.getElementById('cart-table');
+let empty = document.getElementById('empty-message');
+
+let cartHeaderTotal = document.getElementById('cart-total');
+let cartHeaderCount = document.getElementById('cart-count');
+
+
 
 function updateCartDisplay(){
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            console.log(this.responseText);
-            cartBody.innerHTML = this.responseText;
+            let response = JSON.parse(this.responseText);
+            cartHeaderTotal = response.total;
+            cartHeaderCount = response.count;
         }
     };
     xhttp.open("POST", "/cup_of_tea_php/?route=display-cart", true);
@@ -47,7 +55,6 @@ function updateCartDisplay(){
 }
 
 
-// let cartHeaderTotal = document.getElementById('cart-total');
 
 // function updateCartHeaderDisplay(){
 //     var xhttp = new XMLHttpRequest();

@@ -7,9 +7,15 @@ class CartController {
         $template = "cart.phtml";
         require_once "views/layout.phtml";
     }
+    
     public function displayCart(){
         $cart = $_SESSION['cart'];
         $cartHtml = "";
+
+        if(empty($cart)){
+            echo "empty";
+            return;
+        }
 
         $total = 0;
         $index = 0;
@@ -29,9 +35,9 @@ class CartController {
                 }
                 $cartHtml .= "</select>";
                 $cartHtml .= "</td>";
-                $cartHtml .= "<td>" . htmlspecialchars($format['price']) . "€</td>";
-                $cartHtml .= "<td>" . htmlspecialchars($format['quantity'] * $format['price']) . "€</td>";
-                $cartHtml .= '<td><button onclick="changeQuantity(' . htmlspecialchars($teaId) . ', ' . htmlspecialchars($formatId) . ', 0)">Remove</button></td>';
+                $cartHtml .= "<td>" . number_format(htmlspecialchars($format['price']), 2) . "€</td>";
+                $cartHtml .= "<td>" . number_format(htmlspecialchars($format['quantity'] * $format['price']), 2) . "€</td>";
+                $cartHtml .= '<td style="background-color: #F2F2F2"><button class="btn grey-btn" onclick="changeQuantity(' . htmlspecialchars($teaId) . ', ' . htmlspecialchars($formatId) . ', 0)">X</button></td>';
                 $cartHtml .= "</tr>";
                 $formatIndex++;
                 $index++;
@@ -43,7 +49,7 @@ class CartController {
         $cartHtml .= "<td>Total</td>";
         $cartHtml .= "<td style='background-color:#F2F2F2' colspan='4'></td>";
         $cartHtml .= "<td>";
-        $cartHtml .= $total . "€";
+        $cartHtml .= number_format($total, 2) . "€";
         $cartHtml .= "</td>";
         $cartHtml .= "</tr>";
     

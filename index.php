@@ -141,9 +141,19 @@ switch($_GET['route']){
         $controller->displayCart();
         break;
 
-        case 'display-cart-header':
+    case 'display-cart-header':
         $controller = new CartComponentController();
-        $controller->calculateTotal();
+        $response = [
+            'total' => $controller->calculateTotal(),
+            'count' => $controller->calculateCount()
+        ];
+        echo json_encode($response);
+        break;
+
+    case 'account-show-detail';
+        $orderId = $_POST['orderId'];
+        $controller = new MyAccountController();
+        $controller->showDetail($orderId);
         break;
 }
 
