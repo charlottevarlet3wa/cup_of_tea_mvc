@@ -83,6 +83,11 @@ switch($_GET['route']){
         $controller->display();
         break;        
     case 'login':
+        if(isset($_SESSION['user_id'])){
+            header('Location: http://localhost/cup_of_tea_php/my-account');
+            exit;
+            break;
+        }
         $controller = new LoginController();
         $controller->display();
         break; 
@@ -91,6 +96,11 @@ switch($_GET['route']){
         $controller->display();
         break;        
     case 'my-account':
+        if(!isset($_SESSION['user_id'])){
+            header('Location: http://localhost/cup_of_tea_php/login');
+            exit;
+            break;
+        }
         $controller = new MyAccountController();
         $controller->display();
         break; 
@@ -148,6 +158,7 @@ switch($_GET['route']){
         $teaId = isset($_POST['teaId']) ? $_POST['teaId'] : null;
         $formatId = isset($_POST['formatId']) ? $_POST['formatId'] : null;
         $controller = new CartComponentController();
+        // echo "route add to cart ;)";
         $controller->addToCart($teaId, $formatId);
         break;
 
