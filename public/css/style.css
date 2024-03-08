@@ -80,12 +80,15 @@ main h3 {
 	font-weight: 500;
 	text-align: center;
 	background-color:#ccc;
-	color:#666;
+	/* color:#666; */
 	border:none;
+	color: #B09067;
+	font-size: smaller;
 }
 
 .grey-btn:hover {
-	background-color: rgba(0,0,0,0.4);
+	/* background-color: rgba(0,0,0,0.4); */
+	background-color: #B09067;
 	color: #eee;
 }
 
@@ -109,6 +112,26 @@ form input[type=text], form input[type=password], form input[type=email]{
 	border-color:rgba(176,144,103,0.75);
 	border-style: solid;
 	border-width: 1px;
+	padding: 0px 10px;
+	color: rgba(0,0,0,0.5);
+}
+
+/* Changing the background color of input fields that have been autofilled by the browser */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active  {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+    -webkit-text-fill-color: rgba(0,0,0,0.5) !important;
+}
+
+/* For Firefox */
+input:-moz-autofill,
+input:-moz-autofill:hover, 
+input:-moz-autofill:focus, 
+input:-moz-autofill:active  {
+    box-shadow: 0 0 0 30px white inset !important;
+    text-fill-color: rgba(0,0,0,0.5) !important;
 }
 
 form textarea{
@@ -417,10 +440,19 @@ header nav a:hover {
 	text-align: right;
 }
 
-#product-quantity select {
-	width: 300px;
+/* #product-quantity select { */
+select {
+	width: auto;
 	padding: 5px;
+	border-color: rgba(176,144,103,0.75);
+	color: rgba(0,0,0,0.6);
+	text-align: center;
 }
+
+#format-select {
+	width: 300px;
+}
+
 
 #wishlist::before {
 	content: "\F004";
