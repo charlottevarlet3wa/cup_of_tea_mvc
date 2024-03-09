@@ -3,53 +3,55 @@
     // $user = $_SESSION['user_id'];
     // echo "user : ";
     // var_dump($user);
-    $disabled = true;
     // TODO : mettre les variables dans MyAccountController
+
 ?>
 
 <h1>Mon compte</h1>
 
-<h2>Mes informations</h2>
-<form>
-            <div>
-                <label htmlFor="nom">Nom</label>
-                <input type="text" id="nom" value=<?= htmlspecialchars($user['last_name']) ?> <?= $disabled ? "disabled" : ""?> onChange={handleChange} />
-            </div>
+<h2><span class="grey">Mes informations</span></h2>
+<form method="POST">
+    <div>
+        <label htmlFor="last-name">Nom</label>
+        <input type="text" id="last-name" name="last-name" value=<?= htmlspecialchars($user['last_name']) ?> disabled onChange={handleChange} />
+    </div>
 
-            <div>
-                <label htmlFor="prenom">Prénom</label>
-                <input type="text" id="prenom" value=<?= htmlspecialchars($user['name']) ?> <?= $disabled ? "disabled" : ""?> onChange={handleChange} />
-            </div>
+    <div>
+        <label htmlFor="name">Prénom</label>
+        <input type="text" id="name" name="name" value=<?= htmlspecialchars($user['name']) ?> disabled onChange={handleChange} />
+    </div>
 
-            <div>
-                <label htmlFor="email">Email</label>
-                <input type="email" id="email" value=<?= htmlspecialchars($user['email']) ?> <?= $disabled ? "disabled" : ""?> onChange={handleChange} />
-            </div>
+    <div>
+        <label htmlFor="email">Email</label>
+        <input type="email" id="email" name="email" value=<?= htmlspecialchars($user['email']) ?> disabled onChange={handleChange} />
+    </div>
 
-            <!-- <div>
-                <label htmlFor="password">Votre mot de passe</label>
-                <input
-                    type="password"
-                    id="password"
-                    onChange={handleChange}
-                    ?= $disabled ? "disabled" : ""?>
-                />
-            </div> -->
-            <p><?= $disabled? "<a href=''>Changer le mot de passe</a>" : "" ?></p>
-            <p id="message"><?= isset($message) ? $message : "" ?></p>
-            <button id="ebable-change-btn" class="grey-btn" type="button" onclick="enableChange()">Modifier</button>
-            <button id="change-btn" class="grey-btn" type="button" onclick="changeInfo()" style="display:none">Valider les modifications</button>
-        </form>
+    <div>
+        <label htmlFor="old-password">Ancien mot de passe</label>
+        <input type="password" id="old-password" name="old-password" disabled />
+    </div>
 
-<h2>Mes commandes</h2>
+    <div>
+        <label htmlFor="new-password">Nouveau mot de passe</label>
+        <input type="password" id="new-password" name="new-password" disabled />
+    </div>
+
+        <p id="message"><?= isset($message) ? $message : "" ?></p>
+        <button id="enable-change-btn" class="btn" type="button" onclick="enableChange()">Modifier</button>
+        <!-- <p><a href=''>Changer le mot de passe</a></p> -->
+        <!-- <p><a href="/cup_of_tea_php/logout">Me déconnecter</a></p> -->
+        <button id="change-btn" class="btn" type="submit" style="display:none">Valider les modifications</button>
+    </form>
+    
+    <h2><span class="grey">Mes commandes</span></h2>
 <div class="flex">  
-    <table class="commande">
+    <table id="orders" class="commande">
         <thead>
             <tr>
                 <th>Numéro de commande</th>
                 <th>Date de la commande</th>
                 <th>Montant de la commande</th>
-                <th></th>
+                <th>Détail</th>
             </tr>
         </thead>
         <tbody>
@@ -60,16 +62,15 @@
                 <td><?= count($orders) - $index ?></td>
                 <td><?= $order['date'] ?></td>
                 <td><?= number_format($order['total'], 2) ?> €</td>
-                <td><button onclick="showDetail(<?= $order['id'] ?>)"><i class="fa fa-eye"></i></button></td>
+                <td><button class="detail-btn" onclick="showDetail(<?= $index . ', ' . $order['id'] ?>)"><i class="fa fa-eye"></i></button></td>
             </tr>
             <?php
             $index++;
             endforeach ?>
         </tbody>
-
+        
     </table>
 </div>
-<div id="order-detail">
-</div>
+
 
 <script src="/cup_of_tea_php/public/js/myAccount.js"></script>

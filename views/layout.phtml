@@ -16,7 +16,7 @@
 <body>
 <?php 
 // var_dump($_SESSION['cart']); 
-var_dump(isset($_SESSION['user_id']) ? $_SESSION['user_id'] : "no user id"); 
+// var_dump(isset($_SESSION['user_id']) ? $_SESSION['user_id'] : "no user id"); 
 ?>
 
   <!-- TODO : where place scripts ? -->
@@ -36,24 +36,21 @@ var_dump(isset($_SESSION['user_id']) ? $_SESSION['user_id'] : "no user id");
         <!-- <a href="/teas">Thés</a> -->
         <a href="/cup_of_tea_php/teas">Thés</a>
         <a href="/cup_of_tea_php/about">Notre histoire</a>
-        <!-- TODO : remplacer par du PHP -->
-        <!-- {/* gestion des onglets en fonction de la connexion ou non d'un utilisateur */}
-        {(idUser == null || idUser == undefined) 
-                ?  
-                <a href="/connexion">Me connecter</a> 
-                : 
-                <span><a href="/deconnexion">Me deconnecter</a>
-                <a href="/moncompte">Mon compte</a></span>
-              } -->
-              <a href="/cup_of_tea_php/login">Me connecter</a>
-            </nav>
-          </div>
+        <?php if(!isset($_SESSION['user_id'])): ?>
+          <a href="/cup_of_tea_php/login">Me connecter</a>
+        <?php elseif($_GET['route'] == 'my-account'): ?>
+          <a href="/cup_of_tea_php/logout">Me déconnecter</a>
+        <?php else: ?>
+          <a href="/cup_of_tea_php/my-account">Mon compte</a>
+         <?php endif ?>
+      </nav>
+    </div>
           
-        </header>
+  </header>
         
-        <main class="container">
-          <?php require_once $template; ?>
-        </main>
+  <main class="container">
+    <?php require_once $template; ?>
+  </main>
         
     <footer>
       <section id="info">

@@ -29,6 +29,21 @@ class UserManager extends AbstractModel
         return $stmt->execute([$last_name, $name, $email, $passwordHash, $id]);
     }
 
+
+    public function updateUserInfo($id, $lastName = null, $name = null, $email = null, $oldPassword = null, $newPassword = null) {
+        $message = "";
+        $success = true;
+        $user = $this->getUserById($id);
+
+        $lastName = $lastName ? $lastName : $user['last_name'];
+        $name = $name ? $name : $user['name'];
+        $email = $email ? $email : $user['email'];
+        $newPassword = password_verify($oldPassword, $user['password']) ?  password_hash($newPassword, PASSWORD_BCRYPT, ['cost' => 10]) : $user['password'];
+
+        $stmt = $this->db->prepare("UPDATE user SET last_name = ?, name = ?, email = ?, password = ? WHERE id = ?");
+        return $stmt->execute([$lastName, $name, $email, $newPassword, $id]);
+    }
+
     public function addUser(string $last_name, string $name, string $email, string $password): bool
     {
         $passwordHash = password_hash($password, PASSWORD_BCRYPT, ['cost' => 10]);

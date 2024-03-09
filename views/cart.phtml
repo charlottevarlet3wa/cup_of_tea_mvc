@@ -6,7 +6,7 @@
 
 <p id="empty-message"><?php if (empty($cart)): ?>Le panier est vide.<?php endif; ?></p>
 <?php if (!empty($cart)): ?>
-<div class="flex">
+<div>
     <table class="commande" id="cart-table">
         <thead>
             <tr>
@@ -46,9 +46,9 @@
                 <?php 
                 $formatIndex++; $index++; $total += $format['price'] * $format['quantity']; endforeach ?>
             <?php $teaIndex++; endforeach ?>
-            <tr>
-                <td>Total</td>
-                <td style="background-color:#F2F2F2" colspan="4"></td>
+            <tr class="total">
+                <!-- <td>Total</td> -->
+                <td style="background-color:#F2F2F2" colspan="5"></td>
                 <td>
                     <?= number_format($total, 2) . "€" ?>
                 </td>
@@ -56,6 +56,9 @@
         </tbody>
     </table>
 </div>
-<?php endif; ?>
-<script src="/cup_of_tea_php/public/js/cart.js"></script>
 
+<button class="btn">Valider la sélection</button>
+
+<?php endif; ?>
+
+<script src="/cup_of_tea_php/public/js/cart.js"></script>

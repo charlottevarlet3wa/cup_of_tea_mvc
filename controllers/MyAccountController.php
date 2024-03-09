@@ -6,6 +6,17 @@ require_once 'models/Order.php';
 require_once 'models/OrderManager.php';
 
 class MyAccountController {
+    public function __construct()
+    {
+        if (!empty($_POST)) {
+            if(isset($_POST['last-name'])){
+                $this->changeUserInfo();
+            }
+
+        }
+    }
+
+
     public function display() {
         $userId = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
 
@@ -32,4 +43,21 @@ class MyAccountController {
         }
         echo $detailHtml;
     }
+
+    public function changeUserInfo()
+    {
+        $id = $_SESSION['user_id'];
+        $lastName = ucfirst(trim($_POST['last-name']));
+        $name = ucfirst(trim($_POST['name']));
+        $email = trim($_POST['email']);
+        $oldPassword = trim($_POST['old-password']);
+        $newPassword = trim($_POST['new-password']);
+
+        // var_dump($name, $lastName, $email, $oldPassword, $newPassword);
+
+        $manager = new UserManager();
+
+        $manager->updateUserInfo($id, $lastName, $name, $email, $oldPassword, $newPassword);
+    }
+
 }

@@ -1,4 +1,7 @@
+
 /* FONT FACE */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
 @font-face {
 	font-family: "Amaranth";
 	src: url("../fonts/amaranth.otf");
@@ -45,9 +48,13 @@ main h2:after {
 	margin-top: -17px;
 }
 
-main h2 span {
+main h2 span{
 	background-color: white;
 	padding: 10px;
+}
+
+main h2 span.grey{
+	background-color: #F2F2F2;
 }
 
 main h3 {
@@ -69,9 +76,14 @@ main h3 {
 	border: none;
 }
 
-.btn:active, .grey-btn:active {
+.btn:active, .grey-btn:active, .detail-btn:active {
 	position: relative;
 	top: 2px;
+}
+
+.grey-btn:hover, .detail-btn:hover {
+	position: relative;
+	transform: translateY(-1px);
 }
 
 .grey-btn {
@@ -81,7 +93,8 @@ main h3 {
 	text-align: center;
 	background-color:#ccc;
 	/* color:#666; */
-	border:none;
+	border: none;
+	box-shadow:0px 1px #B09067;
 	color: #B09067;
 	font-size: smaller;
 }
@@ -90,6 +103,20 @@ main h3 {
 	/* background-color: rgba(0,0,0,0.4); */
 	background-color: #B09067;
 	color: #eee;
+}
+
+/* my-account */
+.detail-btn {
+	padding:4px 8px;
+	border-radius: 2px;
+	font-weight: 500;
+	text-align: center;
+	background-color:rgba(255, 255, 255, 0.8);
+	/* color:#666; */
+	border: none;
+	box-shadow:0px 1px #B09067;
+	color: #B09067;
+	font-size: smaller;
 }
 
 
@@ -140,6 +167,7 @@ form textarea{
 	border-color:rgba(176,144,103,0.75);
 	border-style: solid;
 	border-width: 1px;
+	padding: 5px 10px;
 }
 
 form input[type=checkbox]{
@@ -181,7 +209,7 @@ header {
 	margin-top: 25px;
 }
 
-#cart {
+/* #cart {
 	text-align: right;
 	display:flex;
 }
@@ -193,8 +221,21 @@ header {
 	font-size: 2rem;
 	padding: 10px;
 	margin: 0 5px;
-	border: 1px solid white;
-	border-radius: 50%
+	/* border: 1px solid white; */
+	/*
+	border: 2px solid #f8ffd4;
+	border-radius: 50% 1% 50% 0%;
+	background: linear-gradient(40deg, #ff0, transparent 40%);
+	color: #f8ffd4;
+}
+
+#cart:hover strong::before {
+	color: white;
+}
+
+#cart:hover strong {
+	color: white;
+	transform: translateY(-4px);
 }
 
 #cart p {
@@ -203,11 +244,13 @@ header {
 
 #cart strong {
 	font-size: 2rem;
+	font-weight: 500;
 }
 
 #cart a{
 	color:#fff;
-	text-decoration: underline;
+	/* text-decoration: underline; */
+	/*
 }
 
 #cart .sup{
@@ -222,7 +265,66 @@ header {
 	font-size:0.7em;
 	justify-content: center;
 	align-items: center;
+} */
+
+#cart:hover {
+	transform: translateY(-1px);
 }
+
+#cart:active {
+	transform: translateY(1px);
+	opacity: 0.1;
+}
+
+#cart:hover #cart-count-icon{
+	color: white;
+}
+
+#cart-count-container{
+    padding: 10px;
+    position: relative;
+    
+  }
+
+  #cart-count-icon{
+    position: relative;
+    width:50px;
+    text-align: center;
+    content: "\F07A";
+    font-family: "FontAwesome";
+    font-size: 2rem;
+    padding: 10px;
+    border: 2px solid #f8ffd4;
+    border-radius: 1% 50% 0% 50%;
+    background: linear-gradient(40deg, #ff0, transparent 40%);
+    color: #f8ffd4;     
+  }
+
+  #cart-count{
+    position:absolute;
+    top: 1px;
+    right: 0px;
+    padding: 10px;
+    border-radius: 50%;
+    width:30px;
+    height:30px;
+    line-height: 10px;
+    background-color: #f8ffd4;
+    color:#96B011;
+    font-weight: bold;
+    display:flex;
+    border-radius: 50%;
+    font-size:0.7em;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #cart-total{
+    font-weight: 500;
+	position: relative;
+	transform: translateY(20px);
+	color:white;
+  }
 
 .panier{
 	display:flex;
@@ -361,12 +463,12 @@ header nav a:hover {
 	display: -ms-flexbox;
 	display: flex;
 	text-align: center;
+	justify-content: space-around;
+	gap: 0 80px;
 }
 
-.listing-product img {
-	width: 70%;
-	margin: 0 auto;
-}
+
+
 
 /* Partie Product */
 #product {
@@ -489,6 +591,24 @@ select {
 	padding: 10px;
 }
 
+
+/* MY-ACCOUNT */
+
+#order-details {
+	background-color: #F2F2F2;
+	padding: 5px 10px;
+	position: relative;
+	margin-left:auto;
+	margin-right:auto;
+	text-align: left;
+}
+
+#order-details td:last-child{
+	text-align: center;
+	vertical-align: top;
+}
+
+
 /* FOOTER */
 footer {
 	margin-top: 50px;
@@ -605,7 +725,11 @@ table td{
 	padding:10px;
 }
 
-
+tr.total td{
+	background-color: #676767;
+	color: #fff;
+	font-weight: 600;
+}
 
 .commande tr:nth-child(odd), table tr:nth-child(odd){
 	background-color: #ccc;

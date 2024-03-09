@@ -44,6 +44,11 @@ function updateCartDisplay(){
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
+            if(this.responseText == "empty"){
+                cartTable.style.display = "none";
+                empty.innerHTML = "Le panier est vide";
+                return;
+            }
             // console.log("réponse : " + this.responseText);
             cartBody.innerHTML = this.responseText;
             // let response = JSON.parse(this.responseText);
