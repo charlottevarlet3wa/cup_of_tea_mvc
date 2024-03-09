@@ -20,7 +20,13 @@
   }
 ?>
 
-<span><a href="/cup_of_tea_php/cart">Mon panier</a></span><span id="cart-count" class="sup"><?= getCartCount() ?></span>
-          <!-- <strong>{montant.toFixed(2)}€</strong> -->
-          <strong id="cart-total">
-          <?= "Total : " . calculateTotal() . " €" ?></strong>
+
+<a href="/cup_of_tea_php/cart">
+<div id="cart" class="flex">
+  <div id="cart-count-container">
+    <div id="cart-count-icon"><i class="fa fa-shopping-cart"></i></div>
+    <div id="cart-count"><?= getCartCount() ?></div>
+  </div>
+  <p id="cart-total"><?= calculateTotal() . " €" ?></p>
+</div>
+</a>

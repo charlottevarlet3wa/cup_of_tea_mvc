@@ -71,9 +71,23 @@ switch($_GET['route']){
         $controller->display();
         break; 
     case 'admin':
-        $controller = new AdminController();
-        $controller->display();
-        break;        
+        if (!isset($_SESSION['user_id'])) {
+            header('Location: http://localhost/cup_of_tea_php/home');
+            exit;
+        }
+    
+        $manager = new UserManager();
+        $user = $manager->getUserById($_SESSION['user_id']);
+    
+        if ($user['admin']) {
+            $controller = new AdminController();
+            $controller->display();
+        } else {
+            header('Location: http://localhost/cup_of_tea_php/home');
+            exit;
+        }
+        break;
+              
     case 'cart':
         $controller = new CartController();
         $controller->display();
@@ -92,9 +106,10 @@ switch($_GET['route']){
         $controller->display();
         break; 
     case 'logout':
-        $controller = new LogoutController();
-        $controller->display();
-        break;        
+        unset($_SESSION['user_id']);
+        session_regenerate_id(true);
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
+        break;       
     case 'my-account':
         if(!isset($_SESSION['user_id'])){
             header('Location: http://localhost/cup_of_tea_php/login');
@@ -197,7 +212,9 @@ switch($_GET['route']){
         $controller->showDetail($orderId);
         break;
 
-
+    case 'change-user-info':
+        
+        break;
     default:
         header('Location: http://localhost/cup_of_tea_php/home');
         exit;
