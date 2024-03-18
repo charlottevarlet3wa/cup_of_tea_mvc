@@ -50,7 +50,7 @@ class PaymentController
             // $amount = $_SESSION['cart'];
 
             // $amount *= 100;
-            $amount = calculateTotal() * 100;
+            $amount = $this->calculateTotal() * 100;
 
             try {
                 // En mode test, Stripe fournit des cartes bancaires pré-tokenisées :
