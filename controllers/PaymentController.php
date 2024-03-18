@@ -35,18 +35,21 @@ class PaymentController
 
             $exp_date = explode('/', $exp_date);
 
-            if (isset($_POST['amount'])) {
-                $amount = htmlspecialchars(strip_tags($_POST['amount']));
-                if ($amount == 'custom') {
-                    $amount = htmlspecialchars(strip_tags($_POST['customAmount']));
-                }
-            }
+            // if (isset($_POST['amount'])) {
+            //     $amount = htmlspecialchars(strip_tags($_POST['amount']));
+            //     if ($amount == 'custom') {
+            //         $amount = htmlspecialchars(strip_tags($_POST['customAmount']));
+            //     }
+            // }
+            
+                        // if (!is_numeric($amount) || $amount <= 0 || $amount > 1000000) {
+                        //     die("Montant invalide");
+                        // }
 
-            if (!is_numeric($amount) || $amount <= 0 || $amount > 1000000) {
-                die("Montant invalide");
-            }
+            // $amount = $_SESSION['cart'];
 
-            $amount *= 100;
+            // $amount *= 100;
+            $amount = calculateTotal() * 100;
 
             try {
                 // En mode test, Stripe fournit des cartes bancaires pré-tokenisées :
@@ -87,5 +90,15 @@ class PaymentController
     ]);
     */
         }
+    }
+
+    function calculateTotal() {
+        $total = 0;
+        foreach($_SESSION['cart'] as $tea){
+            foreach($tea['formats'] as $format){
+                $total += $format['price'] * $format['quantity'];
+            }
+        }
+        return number_format($total, 2);
     }
 }
