@@ -749,6 +749,25 @@ table thead tr{
 	margin-left:20px;
 }
 
+/* ADDRESS */
+/* 
+.address-form{
+	display: flex;
+	flex-direction: column;
+	gap: 0px;
+	width: 300px;
+}
+
+*/
+
+input {
+	color: rgba(0, 0, 0, 0.5);
+}
+
+.error {
+	color: red;
+}
+
 @media screen and (max-width: 1024px) {
 	.ribbon {
 		width: 80px;

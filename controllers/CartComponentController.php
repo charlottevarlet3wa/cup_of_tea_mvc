@@ -98,9 +98,6 @@ class CartComponentController {
 
     function calculateCount() {
         $count = 0;
-        // foreach ($_SESSION['cart'] as $item) {
-        //     $total += $item['price'] * $item['quantity'];
-        // }
         foreach($_SESSION['cart'] as $tea){
             foreach($tea['formats'] as $format){
                 $count += $format['quantity'];

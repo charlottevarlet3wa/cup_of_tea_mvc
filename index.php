@@ -35,6 +35,13 @@ $controllerInstance = $router->getController();
 // }
 */
 
+// Stripe
+require 'vendor/autoload.php';
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
+\Stripe\Stripe::setApiKey($_ENV['STRIPE_SECRET_KEY']);
 
 //charge les différents controllers
 require_once 'controllers/AboutController.php';
@@ -48,6 +55,9 @@ require_once 'controllers/LogoutController.php';
 require_once 'controllers/MyAccountController.php';
 require_once 'controllers/TeaController.php';
 require_once 'controllers/TeasController.php';
+require_once 'controllers/PaymentController.php';
+require_once 'controllers/SuccessController.php';
+require_once 'controllers/AddressController.php';
 
 require_once 'controllers/TestController.php';
 
@@ -126,6 +136,33 @@ switch($_GET['route']){
         break;
     case 'teas':
         $controller = new TeasController();
+        $controller->display();
+        break; 
+    case 'payment':
+        if(!isset($_SESSION['user_id'])){
+            header('Location: http://localhost/cup_of_tea_php/login');
+            exit;
+            break;
+        }
+        $controller = new PaymentController();
+        $controller->display();
+        break; 
+    case 'success':
+        if(!isset($_SESSION['user_id'])){
+            header('Location: http://localhost/cup_of_tea_php/login');
+            exit;
+            break;
+        }
+        $controller = new SuccessController();
+        $controller->display();
+        break; 
+    case 'address':
+        if(!isset($_SESSION['user_id'])){
+            header('Location: http://localhost/cup_of_tea_php/login');
+            exit;
+            break;
+        }
+        $controller = new AddressController();
         $controller->display();
         break; 
 

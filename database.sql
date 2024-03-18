@@ -77,6 +77,20 @@ CREATE TABLE `order_details` (
   FOREIGN KEY (`product_id`) REFERENCES `tea`(`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
+DROP TABLE IF EXISTS `address`;
+CREATE TABLE address (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    street_number VARCHAR(255),
+    street_name VARCHAR(255),
+    postal_code INT,
+    town VARCHAR(255),
+    country VARCHAR(255),
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+
+
 
 INSERT INTO `category` (`name`, `description`, `image`) VALUES 
 ('Thé Noir', 'Rich and full-bodied with a deep, dark flavor profile.', 'tea/1'),

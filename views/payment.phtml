@@ -1,0 +1,45 @@
+<h1>Informations de paiement</h1>
+<div class="payment-form">
+    <div class="amount">
+        <p>Veuillez saisir vos informations de paiement.</p>
+        <form method="post">
+            <div class="amount-options">
+                <div class="numbers">
+                    <div>
+                        <input type="radio" id="ten" name="amount" value="1000">
+                        <label for="ten">10€</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="twenty" name="amount" value="2000">
+                        <label for="twenty">20€</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="fifty" name="amount" value="5000">
+                        <label for="fifty">50€</label>
+                    </div>
+                </div>
+
+
+                <input type="radio" id="custom" name="amount" value="custom">
+                <label for="custom">Montant personnalisé</label>
+                <input type="number" id="customAmount" name="customAmount">€
+            </div>
+    </div>
+
+
+
+
+    <div class="input-group">
+        <input type="text" name="card_number" placeholder="Numéro de carte">
+    </div>
+    <div class="input-group">
+        <input type="text" name="exp_date" placeholder="Date d'expiration (MM/AAAA)">
+    </div>
+    <div class="input-group">
+        <input type="text" name="cvv" placeholder="CVV">
+    </div>
+    <button type="submit" class="submit-btn">Payer</button>
+
+
+    </form>
+</div>
