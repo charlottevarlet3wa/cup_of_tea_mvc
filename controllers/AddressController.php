@@ -22,10 +22,10 @@ class AddressController {
     }
 
     public function display() {
-        $error = $_SESSION['error_message'] ?? 'no message';
-        unset($_SESSION['error_message']); // Clear the error message after displaying
-        $success = $_SESSION['success_message'] ?? 'no message';
-        unset($_SESSION['success_message']); // Clear the error message after displaying
+        $error = $_SESSION['error_message'] ?? '';
+        unset($_SESSION['error_message']);
+        $success = $_SESSION['success_message'] ?? '';
+        unset($_SESSION['success_message']);
 
         $template = "address.phtml";
         $cart = "cartComponent.phtml";

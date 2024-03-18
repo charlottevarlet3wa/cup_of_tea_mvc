@@ -8,13 +8,6 @@ require_once 'models/AbstractModel.php';
 class Address extends AbstractModel
 {
     public function __construct(
-        // private ?int $user_id = null,
-        // private ?string $street_number = null,
-        // private ?string $street_name = null,
-        // private ?int $postal_code = null,
-        // private ?string $town = null,
-        // private ?string $country = null,
-        // ?int $id = null
         private ?int $user_id = null,
         private string $street_number = '',
         private string $street_name = '',
