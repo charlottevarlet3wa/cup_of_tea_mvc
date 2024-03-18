@@ -35,10 +35,8 @@ class LoginController {
             exit;
         } else {
             // Login failed
-            // Set a message to be displayed to the user
             $_SESSION['error_message'] = 'Incorrect password.';
-            // Make sure to pass this message to the view
-            header("Location: /cup_of_tea_php/?route=login");
+            header("Location: /cup_of_tea_php/login");
             exit;        
         }
     }

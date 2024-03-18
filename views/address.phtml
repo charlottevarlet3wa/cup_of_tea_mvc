@@ -1,0 +1,25 @@
+<h1>Adresse</h1>
+<p>Veuillez saisir vos informations de livraison.</p>
+<form class="address-form" method="post">
+    <div>
+        <label for="street">N° et nom de rue</label>
+        <input type="string" id="street" name="street" required>
+    </div>
+    <div>
+        <label for="postal-code">Code postal</label>
+        <input type="number" id="postal-code" name="postal-code" required>
+    </div>
+    <div>
+        <label for="town">Ville</label>
+        <input type="string" id="town" name="town" required>
+    </div>
+    <div>
+        <label for="country">Pays</label>
+        <input type="string" id="country" name="country" required>
+    </div>
+    <button type="submit" class="btn">Confirmer</button>
+</form>
+<?php if (!empty($error)): ?>
+    <p style="color:red" class="error"><?= htmlspecialchars($error) ?></p>
+    <p style="color:green" class="success"><?= htmlspecialchars($success) ?></p>
+<?php endif; ?>
