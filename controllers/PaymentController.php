@@ -15,6 +15,7 @@ class PaymentController
     }
 
     public function display(){
+        $amount = $this->calculateTotal();
         $template = "payment.phtml";
         $cart = "cartComponent.phtml";
         require_once "views/layout.phtml";
