@@ -45,9 +45,9 @@ class CartController {
             }
             $teaIndex++;
         }
-        $cartHtml .= "<tr>";
-        $cartHtml .= "<td>Total</td>";
-        $cartHtml .= "<td style='background-color:#F2F2F2' colspan='4'></td>";
+        $cartHtml .= "<tr class='total'>";
+        // $cartHtml .= "<td>Total</td>";
+        $cartHtml .= "<td style='background-color:#F2F2F2' colspan='5'></td>";
         $cartHtml .= "<td>";
         $cartHtml .= number_format($total, 2) . "€";
         $cartHtml .= "</td>";
