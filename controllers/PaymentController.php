@@ -23,8 +23,6 @@ class PaymentController
 
     function processPayment()
     {
-
-
         // Initialisation du client stripe
         $stripe = new \Stripe\StripeClient($_ENV['STRIPE_SECRET_KEY']);
 
