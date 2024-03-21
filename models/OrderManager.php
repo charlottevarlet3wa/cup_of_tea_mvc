@@ -20,7 +20,7 @@ class OrderManager extends AbstractModel
         try {
             $this->db->beginTransaction();
 
-            $stmt = $this->db->prepare('INSERT INTO `order` (date, user_id) VALUES (NOW(), ?)');
+            $stmt = $this->db->prepare('INSERT INTO `order` (date, user_id, status) VALUES (NOW(), ?, 0)');
             $stmt->execute([$userId]);
             $orderId = $this->db->lastInsertId();
 
