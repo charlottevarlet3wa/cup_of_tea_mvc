@@ -1,8 +1,5 @@
+<div class="center-container">
 <h1>Connexion</h1>
-<!-- <p style="color:red" id="message"></p> -->
-<?php if (!empty($errorMessage)): ?>
-    <p style="color:red" id="message"><?= htmlspecialchars($errorMessage) ?></p>
-<?php endif; ?>
 <form id="loginForm" method="POST">
     <div>
         <label for="email">Votre email</label>
@@ -12,8 +9,12 @@
         <label for="password">Votre mot de passe</label>
         <input type="password" id="password" name="password" required />
     </div>
+    <?php if (!empty($errorMessage)): ?>
+        <p style="color:red" class="error" id="message"><?= htmlspecialchars($errorMessage) ?></p>
+    <?php endif; ?>
     <button class="btn" type="submit">Se connecter</button>
 </form>
 <p>
     <a href="http://localhost/cup_of_tea_php/signup">Je n'ai pas encore de compte</a>
 </p>
+</div>

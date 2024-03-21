@@ -8,6 +8,8 @@
 
 <p id="empty-message"><?php if (empty($cart)): ?>Le panier est vide.<?php endif; ?></p>
 <?php if (!empty($cart)): ?>
+
+    <!-- 
 <div>
     <table class="commande" id="cart-table">
         <thead>
@@ -49,7 +51,6 @@
                 $formatIndex++; $index++; $total += $format['price'] * $format['quantity']; endforeach ?>
             <?php $teaIndex++; endforeach ?>
             <tr class="total">
-                <!-- <td>Total</td> -->
                 <td style="background-color:#F2F2F2" colspan="5"></td>
                 <td>
                     <?= number_format($total, 2) . "€" ?>
@@ -58,9 +59,114 @@
         </tbody>
     </table>
 </div>
+ -->
+
+<style>
+    table {
+        margin-top: 0;
+    margin-bottom: var(--typography-spacing-vertical);
+    color: var(--color);
+    font-style: normal;
+    font-weight: var(--font-weight);
+    font-size: var(--font-size);
+    }
+
+    :where(table) {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    text-indent: 0;
+    }
+
+    tfoot td, tfoot th, thead td, thead th {
+        --border-width: 3px;
+    }
+
+    td, th {
+    padding: 28px 10px;
+    /* border-bottom: var(--border-width) solid var(--table-border-color); */
+    color: var(--color);
+    font-weight: var(--font-weight);
+    font-size: var(--font-size);
+    text-align: left;
+    text-align: start;
+}
+
+tbody tr {
+    border-bottom: 1px solid grey;
+}
+
+tfoot {
+    border-top:3px solid grey;
+    font-weight: bold;
+    font-size: large;
+}
+
+thead {
+    font-weight: bold;
+    border-bottom: 3px solid grey;
+}
+
+
+
+</style>
+
+<div class="center-container">
+<table>
+    <thead>
+        <tr>
+            <th></th>
+            <th>Produit</th>
+            <th>Format</th>
+            <th>Quantité</th>
+            <th>Prix Unit.</th>
+            <th>Total</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>3</td>
+            <td>Thé Vert Bio</td>
+            <td>100g</td>
+            <td>1</td>
+            <td>5€</td>
+            <td>5€</td>
+            <td><button class="grey-btn" onclick="event.preventDefault()">X</button></td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Thé Noir Classique</td>
+            <td>100g</td>
+            <td>2</td>
+            <td>4€</td>
+            <td>8€</td>
+            <td><button class="grey-btn" onclick="event.preventDefault()">X</button></td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Infusion Fruits Rouges</td>
+            <td>100g</td>
+            <td>1</td>
+            <td>6€</td>
+            <td>6€</td>
+            <td><button class="grey-btn" onclick="event.preventDefault()">X</button></td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <th></th>
+            <th colspan="4">Total</th>
+            <th>19€</th>
+            <th></th>
+        </tr>
+    </tfoot>
+</table>
+
+<br>
 
 <a href="http://localhost/cup_of_tea_php/address" class="btn">Valider la sélection</a>
-
+</div>
 <?php endif; ?>
 
 <script src="/cup_of_tea_php/public/js/cart.js"></script>
