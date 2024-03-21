@@ -10,9 +10,6 @@ function addToCart() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            console.log(this.responseText);
-            console.log("added to cart !");
-            // console.log("added");
             updateCartHeader();
         }
     };
@@ -22,15 +19,11 @@ function addToCart() {
 }
 
 function updateCartHeader(){
-    // console.log("update cart header");
-    // console.log("cart count : " + cartCount);
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             let response = JSON.parse(this.responseText);
-            // console.log("cart header updated !");
-            // console.log(JSON.parse(this.responseText).total);
-            cartTotal.innerHTML = " Total : " + response.total + " €";
+            cartTotal.innerHTML = response.total + " €";
             cartCount.innerHTML = response.count;
         }
     };
@@ -45,7 +38,6 @@ let formatsJson = document.getElementById('formats').value;
 let formats = JSON.parse(formatsJson);
 
 function updatePriceFromFormat(){
-    // console.log('formats : ' + formats);
     let formatId = document.getElementById('format-select').value;
     document.getElementById('format-price').innerHTML = formats[formatId].price + "€";
 }

@@ -23,7 +23,6 @@
                 <?php $index++; endforeach; ?>
             </select>
             <h3 id="format-price"><?= htmlspecialchars(number_format($formats[0]['price'], 2)) ?>€</h3>
-            <!-- TODO : possibilité de commander plusieurs exemplaires du même article -->
             <button class="btn" onclick="addToCart()">Ajouter au panier</button>
             <a id="wishlist" href="#">Ajouter à ma liste d'envie</a>
         </div>
