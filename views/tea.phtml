@@ -13,8 +13,7 @@
         </div>
     </section>
     <section id="product-quantity">
-        <img src="public/img/product/<?= htmlspecialchars($tea['image']) ?>" alt="<?= htmlspecialchars($tea['name']) ?>" />
-        <!-- <img src="public/img/tea/1.jpg" /> -->
+        <img src="public/img/<?= htmlspecialchars($tea['image']) ?>" alt="<?= htmlspecialchars($tea['name']) ?>" />
         <div class="price">
             <select id="format-select" name="format" onchange="updatePriceFromFormat()">
                 <?php 

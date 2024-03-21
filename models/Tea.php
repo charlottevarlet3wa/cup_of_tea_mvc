@@ -8,15 +8,28 @@ require_once 'models/AbstractModel.php';
 class Tea extends AbstractModel
 {
     public function __construct(
-        private ?string $name = null,
-        private ?string $subtitle = null,
-        private ?string $description = null,
-        private ?string $image = null,
-        private int $category_id = 0,
-        private int $favorite = 0,
+        private int $category_id,
+        private string $name,
+        private string $subtitle,
+        private string $image,
+        private string $description,
+        private string $reference,
+        private string $date,
+        private int $stock = 50, // TODO : input avec stock pour enlever la valeur par défaut
+        private bool $favorite = false,
         ?int $id = null
-    ) {
-        parent::__construct($id);
+        ) {
+            parent::__construct($id);
+        }
+        
+    public function getCategoryId(): int
+    {
+        return $this->category_id;
+    }
+
+    public function setCategoryId(int $category_id): void
+    {
+        $this->category_id = $category_id;
     }
 
     // Accesseurs et mutateurs
@@ -40,16 +53,6 @@ class Tea extends AbstractModel
         $this->subtitle = $subtitle;
     }
 
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    public function setDescription(?string $description): void
-    {
-        $this->description = $description;
-    }
-
     public function getImage(): ?string
     {
         return $this->image;
@@ -60,17 +63,48 @@ class Tea extends AbstractModel
         $this->image = $image;
     }
 
-    public function getCategoryId(): int
+    public function getDescription(): ?string
     {
-        return $this->category_id;
+        return $this->description;
     }
 
-    public function setCategoryId(int $category_id): void
+    public function setDescription(?string $description): void
     {
-        $this->category_id = $category_id;
+        $this->description = $description;
     }
 
-    public function getFavorite(): int
+    public function getReference(): ?string
+    {
+        return $this->reference;
+    }
+
+    public function setReference(?string $reference): void
+    {
+        $this->reference = $reference;
+    }
+
+    public function getStock(): ?int
+    {
+        return $this->stock;
+    }
+
+    public function setStock(?int $stock): void
+    {
+        $this->stock = $stock;
+    }
+
+    public function getDate(): ?string
+    {
+        return $this->date;
+    }
+
+    public function setDate(?string $date): void
+    {
+        $this->date = $date;
+    }
+
+
+    public function getFavorite(): bool
     {
         return $this->favorite;
     }
