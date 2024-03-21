@@ -10,10 +10,10 @@ require_once 'models/AbstractModel.php';
 class Format extends AbstractModel
 {
     public function __construct(
+        ?int $id = null,
         private ?int $tea_id = null,
-        private ?string $conditioning = null,
         private ?float $price = null,
-        ?int $id = null
+        private ?string $conditioning = null
     ) {
         parent::__construct($id);
     }
@@ -28,6 +28,16 @@ class Format extends AbstractModel
     {
         $this->tea_id = $tea_id;
     }
+    
+    public function getPrice(): ?float
+    {
+        return $this->price;
+    }
+    
+    public function setPrice(?float $price): void
+    {
+        $this->price = $price;
+    }
 
     public function getConditioning(): ?string
     {
@@ -37,16 +47,6 @@ class Format extends AbstractModel
     public function setConditioning(?string $conditioning): void
     {
         $this->conditioning = $conditioning;
-    }
-
-    public function getPrice(): ?float
-    {
-        return $this->price;
-    }
-
-    public function setPrice(?float $price): void
-    {
-        $this->price = $price;
     }
 
     // Validation des données du format
