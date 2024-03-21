@@ -10,7 +10,7 @@ foreach ($cats as $cat): ?>
                     <article>
                         <h3><?= htmlspecialchars($tea['name']) ?></h3>
                         <!-- <img src="public/img/tea/<?= htmlspecialchars($tea['category_id']) ?>" alt="<?= htmlspecialchars($tea['name']) ?>" /> -->
-                        <img src="public/img/product/<?= htmlspecialchars($tea['image']) ?>" alt="<?= htmlspecialchars($tea['name']) ?>" />
+                        <img src="public/img/<?= htmlspecialchars($tea['image']) ?>" alt="<?= htmlspecialchars($tea['name']) ?>" />
                         <section class="price">
                             <p>À partir de <strong><?= htmlspecialchars($tea['price']) ?> €</strong></p>
                         </section>

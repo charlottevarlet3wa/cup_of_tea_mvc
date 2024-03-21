@@ -159,7 +159,7 @@ CREATE TABLE IF NOT EXISTS `order_details` (
 ) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `orderdetail`
+-- Déchargement des données de la table `order_details`
 --
 
 INSERT INTO `order_details` (`id`, `order_id`, `product_id`, `cond`, `price`) VALUES
@@ -188,7 +188,7 @@ INSERT INTO `order_details` (`id`, `order_id`, `product_id`, `cond`, `price`) VA
 -- --------------------------------------------------------
 
 --
--- Structure de la table `thes`
+-- Structure de la table `tea`
 --
 
 -- ! change order : reference, category_id, favorite, date, image, description
@@ -206,7 +206,7 @@ CREATE TABLE IF NOT EXISTS `tea` (
   `date` date NOT NULL,
   `favorite` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `id_category` (`id_category`)
+  KEY `category_id` (`category_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 --
