@@ -1,7 +1,6 @@
 <section id="noel">
     <h1>C'est noël chez Cup of Tea, profitez-en !</h1>
     <img src="public/img/offre-noel.jpg" alt="Offre spéciale pour noel ! Dès 45€ d'achat, le photophore de noël vous sera offert. Et dès 85€ un thé vert au prune et coing de 100 gramme vous sera offert" />
-    <!-- AJOUT de br -->
     <br>
     <small>Pour toute commande effectuée avant le 20 décembre</small>
 </section>
@@ -47,11 +46,9 @@
         <h2>
             <span>Notre nouveauté</span>
         </h2>
-        <!-- <img src="/img/" + nouveaute.image alt=nouveaute.nom /> -->
-        <!-- <img src="public/img/tea/1.jpg" alt="Tasse de thé noir" /> -->
+
         <img src="public/img/tea/<?=  htmlspecialchars($latest['category_id']) ?>.jpg" alt="<?=  htmlspecialchars($latest['name']) ?>" />
-        <!-- <h3>{ nouveaute.nom }</h3> -->
-        <!-- <h3>Tasse de thé noir</h3> -->
+
         <h3><?=  htmlspecialchars($latest['name']) ?></h3>
 
         <p><?=  htmlspecialchars($latest['subtitle']) ?></p>
@@ -60,9 +57,8 @@
                 À partir de <strong><?=  htmlspecialchars($latest['price']) ?> €</strong>
             </p>
         </section>
-        <!-- <a class="btn" href={"/tea/"+nouveaute.id}> -->
-        <a class="btn" href="public/img/tea/2.jpg">
-        <!-- <a class="btn" href="http://localhost/cup_of_tea_php/?route=tea&tea_id=2"> -->
+            
+        <a class="btn" href="/cup_of_tea_php/tea/<?= $latest['id'] ?>">
             Voir ce produit
         </a>
     </article>
@@ -71,7 +67,6 @@
             <span>Notre best-seller</span>
         </h2>
         <img src="public/img/tea/<?=  htmlspecialchars($bestseller['category_id']) ?>.jpg" alt="<?=  htmlspecialchars($bestseller['name']) ?>" />
-        <!-- <img src="public/img/tea/4.jpg" alt="Tasse de thé blanc" /> -->
         <h3><?=  htmlspecialchars($bestseller['name']) ?></h3>
 
         <p><?=  htmlspecialchars($bestseller['subtitle']) ?></p>
@@ -80,7 +75,7 @@
                 À partir de <strong><?=  htmlspecialchars($bestseller['price']) ?> €</strong>
             </p>
         </section>
-        <a class="btn" href="public/img/tea/3.jpg">
+        <a class="btn" href="/cup_of_tea_php/tea/<?= $bestseller['id'] ?>">
             Voir ce produit
         </a>
     </article>
@@ -88,9 +83,7 @@
         <h2>
             <span>Notre coup de coeur</span>
         </h2>
-        <!-- <img src={ "/img/" + coupDeCoeur.image } alt={ coupDeCoeur.nom } /> -->
         <img src="public/img/tea/<?=  htmlspecialchars($favorite['category_id']) ?>.jpg" alt="<?=  htmlspecialchars($favorite['name']) ?>" />
-        <!-- <img src="public/img/tea/4.jpg" alt="Tasse de thé blanc" /> -->
         <h3><?=  htmlspecialchars($favorite['name']) ?></h3>
 
         <p><?=  htmlspecialchars($favorite['subtitle']) ?></p>
@@ -99,7 +92,7 @@
                 À partir de <strong><?=  htmlspecialchars($favorite['price']) ?> €</strong>
             </p>
         </section>
-        <a class="btn" href="public/img/tea/4.jpg">
+        <a class="btn" href="/cup_of_tea_php/tea/<?= $favorite['id'] ?>">
             Voir ce produit
         </a>
     </article>
