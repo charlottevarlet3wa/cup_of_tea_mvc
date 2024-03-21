@@ -143,7 +143,7 @@ INSERT INTO `order` (`id`, `date`, `user_id`, `status`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `orderdetail`
+-- Structure de la table `order_details`
 --
 
 DROP TABLE IF EXISTS `order_details`;
