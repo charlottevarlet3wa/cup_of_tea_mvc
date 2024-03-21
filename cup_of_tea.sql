@@ -34,13 +34,13 @@ CREATE TABLE IF NOT EXISTS `category` (
   `description` text NOT NULL,
   `image` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `categorie`
 --
 
-INSERT INTO `categorie` (`id`, `nom`, `description`, `image`) VALUES
+INSERT INTO `category` (`id`, `name`, `description`, `image`) VALUES
 (1, 'Thé noir', 'Le thé noir, que les chinois appellent thé rouge en référence à la couleur cuivrée de son infusion, est un thé complètement oxydé. La fabrication du thé noir se fait en cinq étapes : le flétrissage, le roulage, l\'oxydation, la torréfaction et le triage. Cette dernière opération permet de différencier les différents grades.', 'tea/1.jpg'),
 (2, 'Thé vert', 'Réputé pour ses nombreuses vertus grâce à sa richesse en antioxydants, le thé vert désaltère, tonifie, apaise, fortifie, et procure une incontestable sensation de bien-être. Délicat et peu amer, il est apprécié à tout moment de la journée et propose une palette d\'arômes très variés : végétal, minéral, floral, fruité.', 'tea/2.jpg'),
 (3, 'Oolong', 'Les Oolong, que les chinois appellent thés bleu-vert en référence à la couleur de leurs feuilles infusées, sont des thés semi-oxydés : leur oxydation n\'a pas été menée à son terme. Spécialités de Chine et de Taïwan, il en existe une grande variété, en fonction de la région de culture, de l\'espèce du théier ou encore du processus de fabrication.', 'tea/3.jpg'),
@@ -53,21 +53,22 @@ INSERT INTO `categorie` (`id`, `nom`, `description`, `image`) VALUES
 -- Structure de la table `format`
 --
 
+-- ! price et conditioning inversés
 DROP TABLE IF EXISTS `format`;
 CREATE TABLE IF NOT EXISTS `format` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_the` int(11) NOT NULL,
-  `prix` decimal(5,2) NOT NULL,
-  `conditionnement` varchar(100) NOT NULL,
+  `tea_id` int(11) NOT NULL,
+  `price` decimal(5,2) NOT NULL,
+  `conditioning` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `id_the` (`id_the`)
+  KEY `tea_id` (`tea_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `format`
 --
 
-INSERT INTO `format` (`id`, `id_the`, `prix`, `conditionnement`) VALUES
+INSERT INTO `format` (`id`, `tea_id`, `price`, `conditioning`) VALUES
 (1, 1, '5.00', 'Pochette de 100gr'),
 (2, 1, '12.00', 'Pochette de 500gr'),
 (3, 1, '20.00', 'Pochette de 1kg'),
@@ -115,7 +116,7 @@ CREATE TABLE IF NOT EXISTS `order` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `date` date NOT NULL,
   `user_id` int(11) NOT NULL,
-  `statut` int(11) NOT NULL DEFAULT '0',
+  `status` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
@@ -124,7 +125,7 @@ CREATE TABLE IF NOT EXISTS `order` (
 -- Déchargement des données de la table `order`
 --
 
-INSERT INTO `order` (`id`, `date`, `user_id`, `statut`) VALUES
+INSERT INTO `order` (`id`, `date`, `user_id`, `status`) VALUES
 (1, '2022-07-20', 6, 0),
 (2, '2022-07-20', 6, 1),
 (3, '2022-07-20', 6, 1),
@@ -145,8 +146,8 @@ INSERT INTO `order` (`id`, `date`, `user_id`, `statut`) VALUES
 -- Structure de la table `orderdetail`
 --
 
-DROP TABLE IF EXISTS `orderdetail`;
-CREATE TABLE IF NOT EXISTS `orderdetail` (
+DROP TABLE IF EXISTS `order_details`;
+CREATE TABLE IF NOT EXISTS `order_details` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `order_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
@@ -161,7 +162,7 @@ CREATE TABLE IF NOT EXISTS `orderdetail` (
 -- Déchargement des données de la table `orderdetail`
 --
 
-INSERT INTO `orderdetail` (`id`, `order_id`, `product_id`, `cond`, `price`) VALUES
+INSERT INTO `order_details` (`id`, `order_id`, `product_id`, `cond`, `price`) VALUES
 (1, 2, 6, 'Sachet de 100gr', '3.00'),
 (2, 2, 2, 'Pochette de 500gr', '17.00'),
 (3, 3, 2, 'Pochette de 500gr', '17.00'),
@@ -190,18 +191,20 @@ INSERT INTO `orderdetail` (`id`, `order_id`, `product_id`, `cond`, `price`) VALU
 -- Structure de la table `thes`
 --
 
-DROP TABLE IF EXISTS `thes`;
-CREATE TABLE IF NOT EXISTS `thes` (
+-- ! change order : reference, category_id, favorite, date, image, description
+-- ! added : stock
+DROP TABLE IF EXISTS `tea`;
+CREATE TABLE IF NOT EXISTS `tea` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_category` int(11) NOT NULL,
-  `nom` varchar(100) NOT NULL,
-  `sous_titre` varchar(150) NOT NULL,
+  `category_id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `subtitle` varchar(150) NOT NULL,
   `image` varchar(255) NOT NULL,
   `description` text NOT NULL,
-  `ref` varchar(50) NOT NULL,
+  `reference` varchar(50) NOT NULL,
   `stock` int(5) NOT NULL,
   `date` date NOT NULL,
-  `coup_de_coeur` tinyint(1) NOT NULL,
+  `favorite` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_category` (`id_category`)
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
@@ -210,7 +213,7 @@ CREATE TABLE IF NOT EXISTS `thes` (
 -- Déchargement des données de la table `thes`
 --
 
-INSERT INTO `thes` (`id`, `id_category`, `nom`, `sous_titre`, `image`, `description`, `ref`, `stock`, `date`, `coup_de_coeur`) VALUES
+INSERT INTO `tea` (`id`, `category_id`, `name`, `subtitle`, `image`, `description`, `reference`, `stock`, `date`, `favorite`) VALUES
 (1, 1, 'Blue of London', 'Thé noir à la bergamote', 'product/product3_big.jpg', '<p>Blue of London est un Earl Grey d\'exception qui associe un des meilleurs thés noirs au monde, le Yunnan, et une bergamote fraîche et délicate. Un mélange remarquable d\'équilibre et de finesse.</p>\r\n					<p>Le Earl Grey est un grand classique anglais, depuis que Charles Grey, comte (earl en anglais) de Falodon et Ministre des Affaires étrangères du Royaume britannique au milieu du XIX ème siècle, reçut d\'un mandarin chinois une vieille recette consistant à aromatiser son thé avec de la bergamote.</p>\r\n					<p><strong>Profitez d\'une remise de 5% sur la pochette de 500g (prix déjà remisé).</strong></p>\r\n					<p><strong>Profitez d\'une remise de 10% sur le lot de 2 pochettes de 500g (prix déjà remisé).</strong></p>', '133742', 12, '2022-06-14', 0),
 (2, 1, 'Thé des lords', 'Thé noir (Sri Lanka, Chine) (97%), arôme bergamote (2%), pétales de carthame', 'product/product6_big.jpg', '<strong>Le thé Des Lords est un emblématique</strong> <p>Earl Grey, un thé noir dont les arômes de bergamote et de pétale de carthame font toute sa renommée. Sa finesse et sa douceur lui donne sa noblesse.<br>\r\nPour les amoureux de la bergamote, le thé Des Lords est le plus parfumé de toute la gamme des Earl Grey proposée par Palais Des Thés.<br>\r\nUn sachet de thé noir qui se laisse infuser 4 à 5 minutes, dans une eau bien chaude, pour diffuser toute sa puissance et libérer ses saveurs. Appréciez ces quelques minutes de bonheur !</p>\r\n\r\n<p>\r\nPour votre santé, évitez de manger trop gras, trop sucré, trop salé.</p>', '22985', 12, '2022-07-06', 0),
 (3, 2, 'Thé du hammam', 'Rooibos (Afrique du Sud) (94%), arômes (dont fraise 2%), pétales de fleurs (carthame, rose, souci)', 'product/product1_big.jpg', '<p>Le thé Hammam est agrémenté, selon la plus pure tradition orientale, de pétales de fleurs. Sa fragrance extraordinaire naît de la subtile association du thé vert de Chine, réputé pour sa fraîcheur et ses vertus désaltérantes, et des parfums gourmands de fruits. Le thé du Hammam est un des must-have de la maison Palais des Thés.\r\nPour encore plus de gourmandise, ce thé est idéal avec un morceau de chocolat blanc, qui lui donnera finesse et onctuosité.</p>\r\n<p>Ce rooibos se déguste aussi bien chaud que glacé. Infusez 15g de votre thé par litre d\'eau à température ambiante pendant 30 minutes.</p>', '10635', 8, '2022-07-06', 1),
@@ -236,8 +239,8 @@ INSERT INTO `thes` (`id`, `id_category`, `nom`, `sous_titre`, `image`, `descript
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nom` varchar(100) NOT NULL,
-  `prenom` varchar(100) NOT NULL,
+  `last_name` varchar(100) NOT NULL,
+  `name` varchar(100) NOT NULL,
   `email` varchar(150) NOT NULL,
   `password` varchar(255) NOT NULL,
   `admin` tinyint(1) NOT NULL,
@@ -248,10 +251,10 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Déchargement des données de la table `user`
 --
 
-INSERT INTO `user` (`id`, `nom`, `prenom`, `email`, `password`, `admin`) VALUES
-(2, 'vilport', 'cécile', 'cecilevilport@gmail.com', '$2b$10$xuLT1aICrDPj4DP6iAZlOOq///d7xFwfgUGpXCePvkxx8hJLgHwem', 0),
-(6, 'Hugo', 'Victore', 'victorhugo@gmail.com', '$2b$10$PvBz0l3ms.gZSfNTNh9YfOLZcv9TB8W3aego5mxRfuPh4iuZX/POK', 0),
-(7, 'vilport', 'cécile', 'cecile@gmail.com', '$2b$10$0mFH7XE/87WX5mr5MI2HLO7ZbASp6IORq5/gzuGny.K71hWW1CjGS', 0);
+INSERT INTO `user` (`id`, `last_name`, `name`, `email`, `password`, `admin`) VALUES
+(1, 'vilport', 'cécile', 'cecilevilport@gmail.com', '$2b$10$xuLT1aICrDPj4DP6iAZlOOq///d7xFwfgUGpXCePvkxx8hJLgHwem', 0),
+(2, 'Hugo', 'Victore', 'victorhugo@gmail.com', '$2b$10$PvBz0l3ms.gZSfNTNh9YfOLZcv9TB8W3aego5mxRfuPh4iuZX/POK', 0),
+(3, 'vilport', 'cécile', 'cecile@gmail.com', '$2b$10$0mFH7XE/87WX5mr5MI2HLO7ZbASp6IORq5/gzuGny.K71hWW1CjGS', 0);
 
 --
 -- Contraintes pour les tables déchargées
@@ -261,7 +264,7 @@ INSERT INTO `user` (`id`, `nom`, `prenom`, `email`, `password`, `admin`) VALUES
 -- Contraintes pour la table `format`
 --
 ALTER TABLE `format`
-  ADD CONSTRAINT `format_ibfk_1` FOREIGN KEY (`id_the`) REFERENCES `thes` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `format_ibfk_1` FOREIGN KEY (`tea_id`) REFERENCES `tea` (`id`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `order`
@@ -272,15 +275,15 @@ ALTER TABLE `order`
 --
 -- Contraintes pour la table `orderdetail`
 --
-ALTER TABLE `orderdetail`
-  ADD CONSTRAINT `orderdetail_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `order` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `orderdetail_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `thes` (`id`);
+ALTER TABLE `order_details`
+  ADD CONSTRAINT `order_details_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `order` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `order_detaild_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `tea` (`id`);
 
 --
 -- Contraintes pour la table `thes`
 --
-ALTER TABLE `thes`
-  ADD CONSTRAINT `thes_ibfk_1` FOREIGN KEY (`id_category`) REFERENCES `categorie` (`id`);
+ALTER TABLE `tea`
+  ADD CONSTRAINT `tea_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
