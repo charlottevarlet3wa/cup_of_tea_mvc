@@ -6,10 +6,10 @@
     <base href="http://localhost/cup_of_tea_php/" />
     <link rel="icon" href="public/img/title.png" />
     <title>Votre Application</title>
-    <link rel="stylesheet" href="/cup_of_tea_php/public/css/style.css">
     <link rel="stylesheet" href="/cup_of_tea_php/public/css/base.css">
     <link rel="stylesheet" href="/cup_of_tea_php/public/css/font-awesome.min.css">
     <link rel="stylesheet" href="/cup_of_tea_php/public/css/normalize.css">
+    <link rel="stylesheet" href="/cup_of_tea_php/public/css/style.css">
 </head>
 
 
@@ -28,7 +28,7 @@
         <a href="/cup_of_tea_php/home">
           <img src="public/img/logo.png" alt="Logo de Cup of Tea" />
         </a>
-        <section id="cart">
+        <section style="display:<?= isset($cart)? 'block' : 'none' ?>" id="cart">
           <?php if(isset($cart)) require_once $cart; ?>
         </section>
       </section>
