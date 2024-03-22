@@ -41,7 +41,8 @@ class CartComponentController {
                         'price' => $format['price'],
                         'quantity' => 1
                     ]
-                ]
+                ],
+                'stock' => $tea['stock']
             ];
         }
 

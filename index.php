@@ -210,7 +210,6 @@ switch($_GET['route']){
         $teaId = isset($_POST['teaId']) ? $_POST['teaId'] : null;
         $formatId = isset($_POST['formatId']) ? $_POST['formatId'] : null;
         $controller = new CartComponentController();
-        // echo "route add to cart ;)";
         $controller->addToCart($teaId, $formatId);
         break;
 

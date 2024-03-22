@@ -5,8 +5,6 @@ let formatId = document.getElementById('format-select').value;
 function addToCart() {
     let teaId = document.getElementById('tea-id').value;
     let formatId = document.getElementById('format-select').value;
-    console.log('teaId : ' + teaId + 'format select : ' + formatId);
-
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
