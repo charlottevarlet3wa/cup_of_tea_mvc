@@ -12,7 +12,8 @@ html {font-size: 62.5%}
 
 body {
 	font-family: "Open Sans", Arial, sans-serif;
-	background-color: #F2F2F2;
+	/* background-color: #F2F2F2; */
+	background-color: white;
 	color: #666;
 	font-size: 1.6rem;
 }
@@ -146,6 +147,10 @@ form input[type=text], form input[type=password], form input[type=email]{
 
 .input-group{
 	margin: 5px 0px;
+}
+
+input:disabled {
+	background-color: #eee;
 }
 
 /* Changing the background color of input fields that have been autofilled by the browser */
@@ -440,7 +445,7 @@ header nav a:hover {
 }
 
 #tea article {
-	margin: 0 10px;
+	/* margin: 0 10px; */
 }
 
 .price strong {
@@ -471,6 +476,27 @@ header nav a:hover {
 	gap: 0 80px;
 }
 
+
+.tea-card {
+	box-shadow: 0px 1px 2px #c1b7ab;
+	padding: 2% 10px;
+	margin: 2% 2%;
+	display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tea-card img {
+	max-width: 300px;
+}
+.tea-card h2::after {
+	display: none;
+}
+
+main h2::after {
+	/* display: none; */
+}
 
 
 
@@ -716,19 +742,14 @@ footer {
 PAGE MON COMPTE
 **/
 
-.commande, table{
+table{
 	text-align:center;
 	width:100%;
 }
 
-.commande td{
-	/* width:30%; */
-	padding:10px;
-}
 
 table td{
-	padding:10px;
-	padding: 30px 10px;
+	padding: 20px 10px;
 }
 
 table th {
@@ -836,6 +857,11 @@ input {
 		border-radius: 0 50px 50px 0;
 		-webkit-box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
 		        box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+	}
+
+	#cart:hover {
+		/* TODO : delete original transform call */
+		transform: none;
 	}
 
 	#cart span {

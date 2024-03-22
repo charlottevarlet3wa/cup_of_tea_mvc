@@ -49,7 +49,7 @@ class CartController {
                 $cartHtml .= "</td>";
                 $cartHtml .= "<td>" . number_format(htmlspecialchars($format['price']), 2) . "€</td>";
                 $cartHtml .= "<td>" . number_format(htmlspecialchars($format['quantity'] * $format['price']), 2) . "€</td>";
-                $cartHtml .= '<td style="background-color: #F2F2F2"><button class="btn grey-btn" onclick="changeQuantity(' . htmlspecialchars($teaId) . ', ' . htmlspecialchars($formatId) . ', 0)">X</button></td>';
+                $cartHtml .= '<td><button class="btn grey-btn" onclick="changeQuantity(' . htmlspecialchars($teaId) . ', ' . htmlspecialchars($formatId) . ', 0)">X</button></td>';
                 $cartHtml .= "</tr>";
                 $formatIndex++;
                 $index++;
@@ -61,7 +61,7 @@ class CartController {
         $cartHtml .= "<tfoot>";
         $cartHtml .= "<tr class='total'>";
         // $cartHtml .= "<td>Total</td>";
-        $cartHtml .= "<td style='background-color:#F2F2F2' colspan='5'></td>";
+        $cartHtml .= "<td colspan='5'></td>";
         $cartHtml .= "<td>";
         $cartHtml .= number_format($total, 2) . "€";
         $cartHtml .= "</td>";

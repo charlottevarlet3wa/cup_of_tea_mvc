@@ -42,12 +42,12 @@
     </a>
 </section>
 <section id="tea">
-    <article id="new">
+    <article class="tea-card" id="new">
         <h2>
             <span>Notre nouveauté</span>
         </h2>
 
-        <img src="public/img/tea/<?=  htmlspecialchars($latest['category_id']) ?>.jpg" alt="<?=  htmlspecialchars($latest['name']) ?>" />
+        <img src="public/img/<?=  htmlspecialchars($latest['image']) ?>" alt="<?=  htmlspecialchars($latest['name']) ?>" />
 
         <h3><?=  htmlspecialchars($latest['name']) ?></h3>
 
@@ -62,11 +62,11 @@
             Voir ce produit
         </a>
     </article>
-    <article id="best">
+    <article class="tea-card" id="best">
         <h2>
             <span>Notre best-seller</span>
         </h2>
-        <img src="public/img/tea/<?=  htmlspecialchars($bestseller['category_id']) ?>.jpg" alt="<?=  htmlspecialchars($bestseller['name']) ?>" />
+        <img src="public/img/<?=  htmlspecialchars($bestseller['image']) ?>" alt="<?=  htmlspecialchars($bestseller['name']) ?>" />
         <h3><?=  htmlspecialchars($bestseller['name']) ?></h3>
 
         <p><?=  htmlspecialchars($bestseller['subtitle']) ?></p>
@@ -79,11 +79,11 @@
             Voir ce produit
         </a>
     </article>
-    <article id="crush">
+    <article class="tea-card" id="crush">
         <h2>
             <span>Notre coup de coeur</span>
         </h2>
-        <img src="public/img/tea/<?=  htmlspecialchars($favorite['category_id']) ?>.jpg" alt="<?=  htmlspecialchars($favorite['name']) ?>" />
+        <img src="public/img/<?=  htmlspecialchars($favorite['image']) ?>" alt="<?=  htmlspecialchars($favorite['name']) ?>" />
         <h3><?=  htmlspecialchars($favorite['name']) ?></h3>
 
         <p><?=  htmlspecialchars($favorite['subtitle']) ?></p>
