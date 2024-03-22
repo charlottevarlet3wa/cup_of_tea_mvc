@@ -441,7 +441,7 @@ header nav a:hover {
 
 #tea article {
 	margin: 0 10px;
-	width:33%;
+	/* width:33%; */
 }
 
 .price strong {
@@ -557,7 +557,8 @@ select {
 }
 
 #format-select {
-	width: 300px;
+	width: fit-content;
+	padding: 5px 10px;
 }
 
 
@@ -733,6 +734,7 @@ table td{
 
 table th {
 	padding: 15px 10px;
+	color: #96B011;
 }
 
 
