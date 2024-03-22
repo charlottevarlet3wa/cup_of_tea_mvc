@@ -10,13 +10,27 @@ class CartController {
     
     public function displayCart(){
         $cart = $_SESSION['cart'];
+        
         $cartHtml = "";
-
+        
         if(empty($cart)){
             echo "empty";
             return;
         }
 
+        $cartHtml .= "<thead>";
+        $cartHtml .= "<tr>";
+        $cartHtml .= "<th></th>";
+        $cartHtml .= "<th>Produit</th>";
+        $cartHtml .= "<th>Format</th>";
+        $cartHtml .= "<th>Quantité</th>";
+        $cartHtml .= "<th>Prix Unit.</th>";
+        $cartHtml .= "<th>Total</th>";
+        $cartHtml .= "<th></th>";
+        $cartHtml .= "</tr>";
+        $cartHtml .= "</thead>";
+        $cartHtml .= "<tbody>";
+        
         $total = 0;
         $index = 0;
         $teaIndex = 0;
@@ -45,6 +59,8 @@ class CartController {
             }
             $teaIndex++;
         }
+        $cartHtml .= "</tbody>";
+        $cartHtml .= "<tfoot>";
         $cartHtml .= "<tr class='total'>";
         // $cartHtml .= "<td>Total</td>";
         $cartHtml .= "<td style='background-color:#F2F2F2' colspan='5'></td>";
@@ -52,6 +68,7 @@ class CartController {
         $cartHtml .= number_format($total, 2) . "€";
         $cartHtml .= "</td>";
         $cartHtml .= "</tr>";
+        $cartHtml .= "</tfoot>";
     
         echo $cartHtml;
     }

@@ -9,58 +9,6 @@
 <p id="empty-message"><?php if (empty($cart)): ?>Le panier est vide.<?php endif; ?></p>
 <?php if (!empty($cart)): ?>
 
-    <!-- 
-<div>
-    <table class="commande" id="cart-table">
-        <thead>
-            <tr>
-                <th></th>
-                <th>Produit</th>
-                <th>Format</th>
-                <th>Quantité</th>
-                <th>Prix Unitaire</th>
-                <th>Total</th>
-                <th style="background-color: #F2F2F2"></th>
-            </tr>
-        </thead>
-        <tbody id="cart-body">
-            <?php 
-                $total = 0;
-                $index = 0;
-                $teaIndex = 0; 
-                foreach ($cart as $tea): ?>
-                <?php 
-                    $formatIndex = 0;
-                    foreach ($tea['formats'] as $format): ?>
-                    <tr>
-                        <td><?= $index ?></td>
-                        <td><?= $tea['name'] ?></td>
-                        <td><?= $format['format'] ?></td>
-                        <td>
-                            <select name="quantity-select" id="quantity-select" onchange="changeQuantity(<?= array_keys($cart)[$teaIndex]?>, <?= array_keys($tea['formats'])[$formatIndex] ?>, this.value)">
-                                <?php for($i=1; $i < 10; $i++): ?>
-                                    <option value=<?= $i ?> <?= $i == $format['quantity'] ? 'selected' : '' ?>><?= $i ?></option>
-                                <?php endfor; ?>
-                            </select>    
-                        </td>
-                        <td><?= number_format($format['price'], 2) ?>€</td>
-                        <td><?= number_format($format['quantity'] * $format['price'], 2) ?>€</td>
-                        <td style="background-color: #F2F2F2"><button class="grey-btn" onclick="changeQuantity(<?= array_keys($cart)[$teaIndex]?>, <?= array_keys($tea['formats'])[$formatIndex] ?>, 0)">X</button></td>
-                    </tr>
-                <?php 
-                $formatIndex++; $index++; $total += $format['price'] * $format['quantity']; endforeach ?>
-            <?php $teaIndex++; endforeach ?>
-            <tr class="total">
-                <td style="background-color:#F2F2F2" colspan="5"></td>
-                <td>
-                    <?= number_format($total, 2) . "€" ?>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
- -->
-
 <style>
     table {
         margin-top: 0;
@@ -112,7 +60,7 @@ thead {
 </style>
 
 <div class="center-container">
-<table>
+<table id="cart-table">
     <thead>
         <tr>
             <th></th>
@@ -124,44 +72,44 @@ thead {
             <th></th>
         </tr>
     </thead>
-    <tbody>
-        <tr>
-            <td>3</td>
-            <td>Thé Vert Bio</td>
-            <td>100g</td>
-            <td>1</td>
-            <td>5€</td>
-            <td>5€</td>
-            <td><button class="grey-btn" onclick="event.preventDefault()">X</button></td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>Thé Noir Classique</td>
-            <td>100g</td>
-            <td>2</td>
-            <td>4€</td>
-            <td>8€</td>
-            <td><button class="grey-btn" onclick="event.preventDefault()">X</button></td>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>Infusion Fruits Rouges</td>
-            <td>100g</td>
-            <td>1</td>
-            <td>6€</td>
-            <td>6€</td>
-            <td><button class="grey-btn" onclick="event.preventDefault()">X</button></td>
-        </tr>
-    </tbody>
-    <tfoot>
-        <tr>
-            <th></th>
-            <th colspan="4">Total</th>
-            <th>19€</th>
-            <th></th>
-        </tr>
-    </tfoot>
-</table>
+    <tbody id="cart-body">
+        <?php 
+            $total = 0;
+            $index = 0;
+            $teaIndex = 0; 
+            foreach ($cart as $tea): ?>
+            <?php
+                $formatIndex = 0;
+                foreach ($tea['formats'] as $format): ?>
+                <tr>
+                    <td><?= $index ?></td>
+                    <td><?= $tea['name'] ?></td>
+                    <td><?= $format['format'] ?></td>
+                    <td>
+                        <select name="quantity-select" id="quantity-select" onchange="changeQuantity(<?= array_keys($cart)[$teaIndex]?>, <?= array_keys($tea['formats'])[$formatIndex] ?>, this.value)">
+                            <?php for($i=1; $i < 10; $i++): ?>
+                                <option value=<?= $i ?> <?= $i == $format['quantity'] ? 'selected' : '' ?>><?= $i ?></option>
+                            <?php endfor; ?>
+                        </select>    
+                    </td>
+                    <td><?= number_format($format['price'], 2) ?>€</td>
+                        <td><?= number_format($format['quantity'] * $format['price'], 2) ?>€</td>
+                        <td style="background-color: #F2F2F2"><button class="grey-btn" onclick="changeQuantity(<?= array_keys($cart)[$teaIndex]?>, <?= array_keys($tea['formats'])[$formatIndex] ?>, 0)">X</button></td>
+                    </tr>
+                <?php 
+                $formatIndex++; $index++; $total += $format['price'] * $format['quantity']; endforeach ?>
+            <?php $teaIndex++; endforeach ?>
+        </tbody>
+        <tfoot>
+            <tr class="total">
+                <td style="background-color:#F2F2F2" colspan="5"></td>
+                <td>
+                    <?= number_format($total, 2) . "€" ?>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
 
 <br>
 
