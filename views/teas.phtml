@@ -14,7 +14,7 @@ foreach ($cats as $cat): ?>
                         <section class="price">
                             <p>À partir de <strong><?= htmlspecialchars($tea['price']) ?> €</strong></p>
                         </section>
-                        <a class="btn" href="http://localhost/cup_of_tea_php/?route=tea&id=<?= $tea['id'] ?>">Voir ce produit</a>
+                        <a class="btn" href="http://localhost/cup_of_tea_php/tea/<?= $tea['id'] ?>">Voir ce produit</a>
                     </article>
                 <?php endif; ?>
             <?php endforeach; ?>
