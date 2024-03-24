@@ -87,12 +87,60 @@ class TeaManager extends AbstractModel
         return $results[0];
     }
 
-    public function addTea($categoryId, $name, $subtitle, $imageName, $description, $reference, $stock=50, $favorite=0)
-    // public function addTea($ref, $name)
+    public function addTea($reference, $name, $subtitle, $description, $imagePath, $categoryId, $stock, $isFavorite, $formats)
     {
-        $stmt = $this->db->prepare("INSERT INTO `tea` (`category_id`, `name`, `subtitle`, `description`, `image`, `reference`, `stock`, `favorite`, `date`) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, CURRENT_DATE())");
-        $stmt->execute([$categoryId, $name, $subtitle, $description, $imageName, $reference, $stock, $favorite]);
+
+    // Begin transaction to ensure both tea and formats are added successfully
+    $this->db->beginTransaction();
+
+    try {
+        // Insert tea
+        $stmt = $this->db->prepare("INSERT INTO `tea` (`category_id`, `name`, `subtitle`, `description`, `image`, `reference`, `stock`, `favorite`, `date`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, CURRENT_DATE())");
+        $stmt->execute([$categoryId, $name, $subtitle, $description, $imagePath, $reference, $stock, $isFavorite]);
+        
+        // Get the last inserted tea ID
+        $teaId = $this->db->lastInsertId();
+        
+        // Prepare statement for inserting formats
+        $stmtFormat = $this->db->prepare("INSERT INTO `format` (`tea_id`, `price`, `conditioning`) VALUES (?, ?, ?)");
+        
+        // Insert each format for the tea
+        foreach ($formats as $format) {
+            $stmtFormat->execute([$teaId, $format['price'], $format['conditioning']]);
+        }
+
+        // If everything is fine, commit transaction
+        $this->db->commit();
+        
+        return $teaId;
+    } catch (Exception $e) {
+        // In case of error, rollback the transaction
+        $this->db->rollBack();
+        // Log error or handle it as per your application's requirement
+        error_log($e->getMessage());
+        return $e;
+    }
     }
 
+
+    public function addFormat($teaId, $price, $conditioning) {
+        try {
+            // Prepare the SQL statement
+            $stmt = $this->db->prepare("INSERT INTO `format` (`tea_id`, `price`, `conditioning`) VALUES (:teaId, :price, :conditioning)");
+    
+            // Bind the parameters
+            $stmt->bindParam(':teaId', $teaId, PDO::PARAM_INT);
+            $stmt->bindParam(':price', $price);
+            $stmt->bindParam(':conditioning', $conditioning);
+    
+            // Execute the statement and return the result
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            // Handle or log the error as needed
+            $error = "Failed to add format: " . $e->getMessage();
+            return $error;
+        }
+    }
 }
+
+

@@ -187,24 +187,75 @@ switch($_GET['route']){
         $controller = new TestController();
         $controller->showDetails($orderId);
         break;
-    
+
     case 'add-tea':
-        $ref = isset($_POST['ref']) ? $_POST['ref'] : null;
-        $name = isset($_POST['name']) ? $_POST['name'] : null;
-        $subtitle = isset($_POST['subtitle']) ? $_POST['subtitle'] : null;
-        $description = isset($_POST['description']) ? $_POST['description'] : null;
-        $image = isset($_POST['image']) ? $_POST['image'] : null;
-        $cat = isset($_POST['cat']) ? $_POST['cat'] : null;
-        $isFavorite = isset($_POST['isFavorite']) ? $_POST['isFavorite'] : 0;
+        $ref = $_POST['ref'] ?? null;
+        $name = $_POST['name'] ?? null;
+        $subtitle = $_POST['subtitle'] ?? null;
+        $description = $_POST['description'] ?? null;
+        $cat = $_POST['cat'] ?? null;
+        $stock = $_POST['stock'] ?? null;
+        $isFavorite = $_POST['isFavorite'] ?? 0;
+
+        // Assuming formats are provided as arrays
+        // $formatNames = $_POST['formatName'] ?? [];
+        // $formatPrices = $_POST['formatPrice'] ?? [];
+        // $formatConditionings = $_POST['formatConditioning'] ?? [];
+
+        $formats = [
+            ['price' => 12.99, 'conditioning' => 'Pochette de 100g'],
+            ['price' => 9.99, 'conditioning' => 'Boîte de 20 sachets']
+            // Add more formats as needed
+        ];
     
         if (isset($_FILES['image'])) {
             $imageName = $_FILES['image']['name'];
             $imageTmpName = $_FILES['image']['tmp_name'];
+            $target_dir = "public/img/product/"; // Make sure this directory exists and is writable.
+            $target_file = $target_dir . basename($imageName);
+            $imagePath = "product/" . basename($imageName);
+    
+            // Check if image file is an actual image or fake image
+            $check = getimagesize($imageTmpName);
+            if($check !== false) {
+                if (move_uploaded_file($imageTmpName, $target_file)) {
+                    // File is valid and was successfully uploaded.
+                    // Here, insert the image path along with other tea information into your database
+                    $controller = new AdminController();
+                    $teaId = $controller->addTea($ref, $name, $subtitle, $description, $imagePath, $cat, $stock, $isFavorite, $formats);
+                } else {
+                    echo "Sorry, there was an error uploading your file.";
+                }
+            } else {
+                echo "File is not an image.";
+            }
+        } else {
+            echo "No file selected.";
         }
-
-        $controller = new AdminController();
-        $controller->addTea($ref, $name, $subtitle, $description, $imageName, $cat, $isFavorite, $imageTmpName);
         break;
+        
+    
+    // case 'add-tea':
+    //     $ref = isset($_POST['ref']) ? $_POST['ref'] : null;
+    //     $name = isset($_POST['name']) ? $_POST['name'] : null;
+    //     $subtitle = isset($_POST['subtitle']) ? $_POST['subtitle'] : null;
+    //     $description = isset($_POST['description']) ? $_POST['description'] : null;
+    //     // $image = isset($_POST['image']) ? $_POST['image'] : null;
+    //     $cat = isset($_POST['cat']) ? $_POST['cat'] : null;
+    //     $isFavorite = isset($_POST['isFavorite']) ? $_POST['isFavorite'] : 0;
+        
+    //     // echo $ref . $name . $subtitle . $description . $cat . $isFavorite;
+
+    //     if (isset($_FILES['image'])) {
+    //         $imageName = $_FILES['image']['name'];
+    //         $imageTmpName = $_FILES['image']['tmp_name'];
+    //     }
+
+
+
+    //     $controller = new AdminController();
+    //     $controller->addTea($ref, $name, $subtitle, $description, $imageName, $cat, $isFavorite, $imageTmpName);
+    //     break;
 
     case 'add-to-cart':
         $teaId = isset($_POST['teaId']) ? $_POST['teaId'] : null;

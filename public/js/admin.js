@@ -56,7 +56,6 @@ function sayHello(){
 }
 
 let ordersElem = document.getElementById('orders');
-let orderDetailsElem = document.getElementById('order-details');
 let teasElem = document.getElementById('teas');
 let addTeaElem = document.getElementById('add-tea');
 
@@ -82,7 +81,7 @@ function showList(){
     orderDetailsElem.style.display = 'none';
 }
 
-const sections = [ordersElem, orderDetailsElem, teasElem, addTeaElem];
+const sections = [ordersElem, teasElem, addTeaElem];
 
 function displaySection(sectionIndex){
     for(let i=0; i<sections.length; i++){
@@ -92,26 +91,23 @@ function displaySection(sectionIndex){
 }
 
 
+function updateFileName(input) {
+    var fileName = input.value.split('\\').pop();
+    document.getElementById('file-name').textContent = fileName ? fileName : 'Aucun fichier choisi';
+}
 
 
 /* ADD TEA */
 
 function addTea() {
-    let formData = new FormData();
-    let image = document.getElementById('image').files[0];
+    let formData = new FormData(document.getElementById('add'));
     let isFavorite = document.getElementById('favorite').checked ? 1 : 0;
-
-    formData.append('ref', document.getElementById('ref').value);
-    formData.append('name', document.getElementById('name').value);
-    formData.append('subtitle', document.getElementById('subtitle').value);
-    formData.append('description', document.getElementById('description').value);
-    formData.append('image', image);
-    formData.append('cat', document.getElementById('cat').value);
     formData.append('isFavorite', isFavorite);
 
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
+            console.log("response!");
             console.log(this.responseText);
         }
     };

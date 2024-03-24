@@ -35,14 +35,14 @@ class AdminController {
     }
 
     /* ADD TEA */
-    public function addTea($ref, $name, $subtitle, $description, $imageName, $cat, $isFavorite, $imageTmpName) {
+    public function addTea($ref, $name, $subtitle, $description, $target_file, $cat, $stock, $isFavorite, $formats) {
 
         $teaManager = new TeaManager();
-        $teaManager->addTea($ref, $name, $subtitle, $description, $imageName, $cat, $isFavorite);
+        $teaId = $teaManager->addTea($ref, $name, $subtitle, $description, $target_file, $cat, $stock, $isFavorite, $formats);
 
-        $target_dir = "public/img/product/"; // Assurez-vous que ce dossier existe et est accessible en écriture.
-        $target_file = $target_dir . $imageName;
-        move_uploaded_file($imageTmpName, $target_file);
+        return $teaId;
+
+
 
 
 // $target_dir = "uploads/"; // Assurez-vous que ce dossier existe et est accessible en écriture.
@@ -100,6 +100,14 @@ class AdminController {
 
         // Redirect or display a success message
 
+    }
+
+    public function addFormat($teaId, $price, $conditioning) {
+
+        $teaManager = new TeaManager();
+        $error = $teaManager->addFormat($teaId, $price, $conditioning);
+
+        return $error;
     }
 
 }
