@@ -16,11 +16,19 @@ class TestController {
     //     $manager->updateStatus(2, $isStatus);
     // }
 
-    public function updateStatus($orderId, $isStatus){
+    public function updateStatus($orderId, $filter){
+        // echo "order id : " . $orderId .  " _ filter : " . $filter;
         $manager = new OrderManager();
-        $manager->updateStatus($orderId, $isStatus);
+        $manager->updateStatus($orderId);
+        $this->filterOrders($filter);
     }
 
+    // public function updateStatus($orderId, $isStatus){
+    //     $manager = new OrderManager();
+    //     $manager->updateStatus($orderId, $isStatus);
+    // }
+
+    // TODO : $filter = 0 "all", 1 "unchecked" ou 2 "checked"
     public function filterOrders($filter){
         $filteredOrdersHtml = '';
         
@@ -55,9 +63,10 @@ class TestController {
                 $filteredOrdersHtml .= "<td>" . htmlspecialchars(number_format((float)$order['total'], 2, '.', '')) . " €</td>";
                 $filteredOrdersHtml .= "<td>" . 
                 '<form id="statusForm" method="POST">
-                    <input type="checkbox" class="order-status" name="status" onchange=sayHello() ' . ($order['status'] == 1 ? "checked" : "" ) . ' >
+                    <input type="checkbox" class="order-status" name="status" onchange=updateStatus('. $order['id'] .') ' . ($order['status'] == 1 ? "checked" : "" ) . ' >
                     <input type="hidden" name="orderId" >
                 </form>' . "</td>";
+                $filteredOrdersHtml .= "<td><button onclick=showDetails(". $order['id'] .") class='btn'>Voir le détail</button></td>";
                 $filteredOrdersHtml .= "</tr>";
             }
         }

@@ -35,10 +35,10 @@ class AdminController {
     }
 
     /* ADD TEA */
-    public function addTea($ref, $name, $subtitle, $description, $target_file, $cat, $stock, $isFavorite, $formats) {
+    public function addTea($ref, $name, $subtitle, $description, $target_file, $cat, $stock, $isFavorite, $formatPrices, $formatConditionings) {
 
         $teaManager = new TeaManager();
-        $teaId = $teaManager->addTea($ref, $name, $subtitle, $description, $target_file, $cat, $stock, $isFavorite, $formats);
+        $teaId = $teaManager->addTea($ref, $name, $subtitle, $description, $target_file, $cat, $stock, $isFavorite, $formatPrices, $formatConditionings);
 
         return $teaId;
 

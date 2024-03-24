@@ -145,7 +145,15 @@ form>div>label{
 	width:200px;
 }
 
-form input[type=text], form input[type=password], form input[type=email]{
+#formats-container label {
+	display: inline-block;
+	width: 200px;
+}
+
+
+
+
+form input[type=text], form input[type=password], form input[type=email], form input[type=number]{
 	width:100%;
 	max-width:300px;
 	height:30px;
@@ -826,6 +834,10 @@ input::placeholder, textarea::placeholder{
 
 .error {
 	color: red;
+}
+
+.success {
+	color: green;
 }
 /* TODO : rempalacer par .error */
 #message {

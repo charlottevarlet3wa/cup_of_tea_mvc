@@ -97,7 +97,7 @@ switch($_GET['route']){
             exit;
         }
         break;
-              
+
     case 'cart':
         $controller = new CartController();
         $controller->display();
@@ -170,10 +170,10 @@ switch($_GET['route']){
 
 
     case 'order-status':
-        $isStatus = isset($_POST['status']) ? $_POST['status'] : null;
-        $orderId = isset($_POST['orderId']) ? $_POST['orderId'] : null;
+        $orderId = $_POST['orderId'] ??  null;
+        $filter = $_POST['filter'] ?? null;
         $controller = new TestController();
-        $controller->updateStatus($orderId, $isStatus);
+        $controller->updateStatus($orderId, $filter);
         break;
 
     case 'order-filter':
@@ -196,24 +196,38 @@ switch($_GET['route']){
         $cat = $_POST['cat'] ?? null;
         $stock = $_POST['stock'] ?? null;
         $isFavorite = $_POST['isFavorite'] ?? 0;
+        
+        if (empty($ref) || empty($name) || empty($subtitle) || empty($description) || empty($cat) || empty($stock) || !isset($_FILES['image'])) {
+            echo "All fields are required.";
+            break;
+        }
+        
+        $formatPrices = $_POST['formatPrice'] ?? [];
+        $formatConditionings = $_POST['formatConditioning'] ?? [];
 
-        // Assuming formats are provided as arrays
-        // $formatNames = $_POST['formatName'] ?? [];
-        // $formatPrices = $_POST['formatPrice'] ?? [];
-        // $formatConditionings = $_POST['formatConditioning'] ?? [];
+        $formats = 0;
+        for($i = 0; $i < count($formatPrices); $i++){
+            if(!empty($formatPrices[$i] && !empty($formatConditionings[$i]))){
+                $formats++;
+            }
+        }
+        if($formats == 0){
+            echo "Un format de thé est nécessaire au minimum.";
+            break;
+        }
 
-        $formats = [
-            ['price' => 12.99, 'conditioning' => 'Pochette de 100g'],
-            ['price' => 9.99, 'conditioning' => 'Boîte de 20 sachets']
-            // Add more formats as needed
-        ];
-    
+        if (!(isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK)) {
+            echo "No file was uploaded.";
+            break;
+        }
+
         if (isset($_FILES['image'])) {
             $imageName = $_FILES['image']['name'];
             $imageTmpName = $_FILES['image']['tmp_name'];
             $target_dir = "public/img/product/"; // Make sure this directory exists and is writable.
             $target_file = $target_dir . basename($imageName);
             $imagePath = "product/" . basename($imageName);
+
     
             // Check if image file is an actual image or fake image
             $check = getimagesize($imageTmpName);
@@ -222,15 +236,15 @@ switch($_GET['route']){
                     // File is valid and was successfully uploaded.
                     // Here, insert the image path along with other tea information into your database
                     $controller = new AdminController();
-                    $teaId = $controller->addTea($ref, $name, $subtitle, $description, $imagePath, $cat, $stock, $isFavorite, $formats);
+                    $teaId = $controller->addTea($ref, $name, $subtitle, $description, $imagePath, $cat, $stock, $isFavorite, $formatPrices, $formatConditionings);
                 } else {
-                    echo "Sorry, there was an error uploading your file.";
+                    echo "Une erreur est survenue lors du téléchargement de votre fichier.";
                 }
             } else {
-                echo "File is not an image.";
+                echo "Le fichier n'est pas une image.";
             }
         } else {
-            echo "No file selected.";
+            echo "Choisir un fichier.";
         }
         break;
         

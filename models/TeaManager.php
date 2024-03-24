@@ -87,7 +87,7 @@ class TeaManager extends AbstractModel
         return $results[0];
     }
 
-    public function addTea($reference, $name, $subtitle, $description, $imagePath, $categoryId, $stock, $isFavorite, $formats)
+    public function addTea($reference, $name, $subtitle, $description, $imagePath, $categoryId, $stock, $isFavorite, $formatPrices, $formatConditionings)
     {
 
     // Begin transaction to ensure both tea and formats are added successfully
@@ -105,8 +105,14 @@ class TeaManager extends AbstractModel
         $stmtFormat = $this->db->prepare("INSERT INTO `format` (`tea_id`, `price`, `conditioning`) VALUES (?, ?, ?)");
         
         // Insert each format for the tea
-        foreach ($formats as $format) {
-            $stmtFormat->execute([$teaId, $format['price'], $format['conditioning']]);
+        // foreach ($formats as $format) {
+        //     $stmtFormat->execute([$teaId, $format['price'], $format['conditioning']]);
+        // }
+
+        for($i = 0; $i < count($formatPrices); $i++){
+            if(!empty($formatPrices[$i] && !empty($formatConditionings[$i]))){
+                $stmtFormat->execute([$teaId, $formatPrices[$i], $formatConditionings[$i]]);
+            }
         }
 
         // If everything is fine, commit transaction

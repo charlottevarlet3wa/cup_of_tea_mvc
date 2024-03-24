@@ -1,59 +1,36 @@
 /* ORDERS */
 
-// TODO : which one to keep ? toggleStatus(orderIndex) or toggleStatus(status) ?
-// function toggleStatus(status){
-//     const xmlhttp = new XMLHttpRequest();
-//     xmlhttp.onload = function() {
-//         console.log(this.responseText);
-//     }
-//     xmlhttp.open("POST", "/cup_of_tea_php/?route=order-status");
-//     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-//     xmlhttp.send("status="+status);
-// }
-
-// function updateStatus(orderIndex){
-//     this.addEventListener('change', function() {
-//         if(this.checked){
-//             console.log("checked");
-//             toggleStatus(orderIndex, 1);
-//         } else {
-//             console.log("unchecked");
-//             toggleStatus(orderIndex, 0);
-//         }
-//     });
-// }
-
+// Test
 function updateStatus(orderId){
-    let checkbox = this;
-    const xmlhttp = new XMLHttpRequest();
-    xmlhttp.onload = function() {
-        console.log(this.responseText);
-    }
-    xmlhttp.open("POST", "/cup_of_tea_php/?route=order-status");
-    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xmlhttp.send("orderId="+orderId);
+    var filterValue = document.getElementById('filter-select').value;
+    const xttp = new XMLHttpRequest();
+    xttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            console.log("update status");
+            document.getElementById('orders-list').innerHTML = this.responseText;
+        }
+    };
+    xttp.open("POST", "/cup_of_tea_php/?route=order-status");
+    xttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xttp.send("orderId="+ orderId + "&filter=" + filterValue);
 }
 
-
-
-document.getElementById('filter-select').addEventListener('change', function() {
-    var filterValue = this.value;
-    
+function filterOrders() {
+    var filterValue = document.getElementById('filter-select').value;
+    console.log("filter value : " + filterValue);
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
+            console.log("filter orders  : ");
             document.getElementById('orders-list').innerHTML = this.responseText;
         }
     };
     xhttp.open("POST", "/cup_of_tea_php/?route=order-filter", true);
     xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhttp.send("filter=" + filterValue);
-});
-
-
-function sayHello(){
-    console.log("Hello dear");
 }
+
+
 
 let ordersElem = document.getElementById('orders');
 let teasElem = document.getElementById('teas');
@@ -109,8 +86,33 @@ function addTea() {
         if (this.readyState == 4 && this.status == 200) {
             console.log("response!");
             console.log(this.responseText);
+            document.getElementById("message").innerHTML = this.responseText;
         }
     };
     xhttp.open("POST", "/cup_of_tea_php/?route=add-tea", true);
     xhttp.send(formData);
+}
+
+
+let formatCount = 1; // Keep track of how many formats have been added
+
+function addFormat() {
+    formatCount++;
+    const container = document.getElementById('formats-container');
+    
+    const formatDiv = document.createElement('div');
+    formatDiv.className = 'format';
+    formatDiv.innerHTML = `
+        <br>
+        <div>
+            <label for="format-price-${formatCount}">Prix</label>
+            <input type="number" id="format-price-${formatCount}" name="formatPrice[]" placeholder="10.99" step="0.01" />
+        </div>
+        <div>
+            <label for="format-conditioning-${formatCount}">Conditionnement</label>
+            <input type="text" id="format-conditioning-${formatCount}" name="formatConditioning[]" placeholder="Sachet, Boîte, etc." />
+        </div>
+        `;
+
+    container.appendChild(formatDiv);
 }
