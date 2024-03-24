@@ -4,9 +4,6 @@
 <h1>Dashboard</h1>
 
 <nav>
-    <!-- <button class="btn" onClick={()=> setOnglet(1)}>Liste des commandes</button>
-    <button class="btn" onClick={()=> setOnglet(2)}>Liste des thés</button>
-    <button class="btn" onClick={()=> setOnglet(3)}>Ajouter un thé</button> -->
     <button class="btn" onclick="displaySection(0)">Liste des commandes</button>
     <button class="btn" onclick="displaySection(1)">Liste des thés</button>
     <button class="btn" onclick="displaySection(2)">Ajouter un thé</button>
@@ -15,7 +12,7 @@
 
 
 <section id="orders" style='display:none'>
-    <h2>Les commandes</h2>
+    <h2><span>Les commandes</span></h2>
     <p>
         Filtrer par
         <select name="filter" id="filter-select">
@@ -37,8 +34,6 @@
 
         </thead>
         <tbody id="orders-list">
-            <!-- {orders.map((order, i) => { -->
-            <!-- {(filtre == 'toutes' || filtre == order.statut) && -->
         <?php 
             foreach($orders as $order): ?>
             <tr key={i}>
@@ -62,10 +57,6 @@
     </table>
 </section>
 
-<section id="order-details">
-</section>
-
-
 
 <!-- <?php var_dump($teas); 
 // $tea = $teas[0]; ?> -->
@@ -73,7 +64,7 @@
 
 <section id="teas" style='display:none'>
     <!-- All Teas -->
-    <h2>Les thés</h2>
+    <h2><span>Les thés</span></h2>
     <table>
         <thead>
             <tr>
@@ -103,12 +94,9 @@
 </section>
 
 
-
-<!-- <?php var_dump($cats);?> -->
-
 <section id="add-tea">
     
-    <h2>Ajouter un thé</h2>
+    <h2><span>Ajouter un thé</span></h2>
     <!-- TODO : why script can't be recognized after the form ? -->
 
     <!-- <form id="add" encType="multipart/form-data"> -->
@@ -116,43 +104,60 @@
     <form id="add" method="POST" enctype="multipart/form-data">
         <!-- TODO : maybe automatically prefill according to the database . (ref = REF{lastref + 1}) -->
         <div>
-            <label htmlFor="ref">Référence</label>
+            <label for="ref">Référence</label>
             <input type="text" id="ref" name='ref' placeholder="REF0001" onChange="" />
         </div>
         <div>
-            <label htmlFor="cat">Catégorie</label>
+            <label for="cat">Catégorie</label>
             <select id="cat" name="cat" placeholder="Thé noir" onChange="">
-                <!-- {
-                cats.map((cat, i) => <option key={i} value={cat.id}>{cat.nom}</option>)
-                } -->
                 <?php foreach($cats as $cat): ?>
                     <option value=<?= htmlspecialchars($cat['id']) ?>><?= htmlspecialchars($cat['name']) ?></option>
                 <?php endforeach ?>
             </select>
         </div>
         <div>
-            <label htmlFor="name">Nom du thé</label>
-            <input type="text" id="name" name="name" placeholder="Thé Vert Matcha" onChange="" />
+            <label for="name">Nom du thé</label>
+            <input type="text" id="name" name="name" placeholder="Thé des lords" />
         </div>
         <div>
-            <label htmlFor="subtitle">Sous-titre</label>
-            <textarea id="subtitle" name="subtitle" placeholder="Pur et Puissant" onChange=""></textarea>
+            <label for="subtitle">Sous-titre</label>
+            <textarea id="subtitle" name="subtitle" placeholder="Thé noir (Sri Lanka, Chine) (97%), arôme bergamote (2%)..."></textarea>
         </div>
         <div>
-            <label htmlFor="description">Description</label>
-            <textarea id="description" name="description" placeholder="Le matcha offre un goût riche et une couleur éclatante." onChange=""></textarea>
+            <label for="description">Description</label>
+            <textarea id="description" name="description" placeholder="Le thé Des Lords est un emblématique..."></textarea>
         </div>
-        <!-- TODO : ajouter la colonne stock dans la table tea -->
-        <!-- <div>
-            <label htmlFor="stock">Stock</label>
-            <input type="text" id="stock" name="stock" value={stock} onChange="" />
-        </div> -->
+
+        <div id="formats-container">
+    <h3>Formats</h3>
+    <div class="format">
+        <label for="format-name-1">Nom du format</label>
+        <input type="text" id="format-name-1" name="formatName[]" placeholder="Pochette de 100g" />
+
+        <label for="format-price-1">Prix</label>
+        <input type="number" id="format-price-1" name="formatPrice[]" placeholder="10.99" step="0.01" />
+
+        <label for="format-conditioning-1">Conditionnement</label>
+        <input type="text" id="format-conditioning-1" name="formatConditioning[]" placeholder="Sachet, Boîte, etc." />
+    </div>
+</div>
+<button type="button" id="add-format" class="btn">Ajouter un format</button>
         <div>
-            <label htmlFor="image">Image</label>
-            <input type="file" id="image" name="image" />
+            <label for="stock">Stock</label>
+            <input type="number" id="stock" name="stock" placeholder="12" />
         </div>
+
+
+        <div class="file-upload">
+            <span>Image</span>
+            <label for="image" class="upload-btn">Choisir un fichier</label>
+            <input type="file" id="image" name="image" onchange="updateFileName(this)" style="display:none;"/>
+            <span id="file-name">Aucun fichier choisi</span>
+        </div>
+
+
         <div>
-            <label htmlFor="favorite">
+            <label for="favorite">
                 <input type="checkbox" id="favorite" name="favorite" onchange="" />
                 Coup de coeur</label>
         </div>
@@ -162,20 +167,32 @@
         </div>
     </form>
 
-<button onclick=addTea()>push</button>
 </section>
+<script>
+let formatCount = 1; // Keep track of how many formats have been added
 
+document.getElementById('add-format').addEventListener('click', function() {
+    formatCount++;
+    const container = document.getElementById('formats-container');
+    
+    const formatDiv = document.createElement('div');
+    formatDiv.className = 'format';
+    formatDiv.innerHTML = `
+        <label for="format-name-${formatCount}">Nom du format</label>
+        <input type="text" id="format-name-${formatCount}" name="formatName[]" placeholder="Pochette de 100g" />
 
+        <label for="format-price-${formatCount}">Prix</label>
+        <input type="number" id="format-price-${formatCount}" name="formatPrice[]" placeholder="10.99" step="0.01" />
 
+        <label for="format-conditioning-${formatCount}">Conditionnement</label>
+        <input type="text" id="format-conditioning-${formatCount}" name="formatConditioning[]" placeholder="Sachet, Boîte, etc." />
+    `;
 
+    container.appendChild(formatDiv);
+});
+</script>
 
-
-
-
-
-
-
-
+<script src="/cup_of_tea_php/public/js/admin.js"></script>
 
 
 
