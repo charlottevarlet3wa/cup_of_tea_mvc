@@ -844,6 +844,10 @@ input::placeholder, textarea::placeholder{
 	color: red;
 }
 
+li {
+	list-style: none;
+}
+
 @media screen and (max-width: 1024px) {
 	.ribbon {
 		width: 80px;

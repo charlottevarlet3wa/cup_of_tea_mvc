@@ -36,16 +36,7 @@
         <input type="password" id="new-password" name="new-password" disabled />
     </div>
 
-        <!-- <p id="message"><?= isset($message) ? $message : "" ?></p> -->
-    <?php if (!empty($errorMessage)): ?>
-        <p style="color:red" class="error"><?= htmlspecialchars($errorMessage) ?></p>
-    <?php endif; ?>
-    <?php if (!empty($successMessage)): ?>
-        <p style="color:green" class="sucess"><?= htmlspecialchars($successMessage) ?></p>
-    <?php endif; ?>
         <button id="enable-change-btn" class="btn" type="button" onclick="enableChange()">Modifier</button>
-        <!-- <p><a href=''>Changer le mot de passe</a></p> -->
-        <!-- <p><a href="/cup_of_tea_php/logout">Me déconnecter</a></p> -->
         <button id="change-btn" class="btn" type="submit" style="display:none">Valider les modifications</button>
     </form>
     

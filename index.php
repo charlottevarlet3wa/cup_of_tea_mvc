@@ -51,7 +51,6 @@ require_once 'controllers/CartComponentController.php';
 require_once 'controllers/SignupController.php';
 require_once 'controllers/HomeController.php';
 require_once 'controllers/LoginController.php';
-require_once 'controllers/LogoutController.php';
 require_once 'controllers/MyAccountController.php';
 require_once 'controllers/TeaController.php';
 require_once 'controllers/TeasController.php';
@@ -117,6 +116,7 @@ switch($_GET['route']){
         break; 
     case 'logout':
         unset($_SESSION['user_id']);
+        unset($_SESSION['is_admin']);
         session_regenerate_id(true);
         header('Location: ' . $_SERVER['HTTP_REFERER']);
         break;       
@@ -236,7 +236,13 @@ switch($_GET['route']){
                     // File is valid and was successfully uploaded.
                     // Here, insert the image path along with other tea information into your database
                     $controller = new AdminController();
-                    $teaId = $controller->addTea($ref, $name, $subtitle, $description, $imagePath, $cat, $stock, $isFavorite, $formatPrices, $formatConditionings);
+                    $message = $controller->addTea($ref, $name, $subtitle, $description, $imagePath, $cat, $stock, $isFavorite, $formatPrices, $formatConditionings);
+                    if($message == "success") {
+                        echo "Votre thé a été ajouté avec succès.";
+                        break;
+                    }
+                    echo $message;
+
                 } else {
                     echo "Une erreur est survenue lors du téléchargement de votre fichier.";
                 }

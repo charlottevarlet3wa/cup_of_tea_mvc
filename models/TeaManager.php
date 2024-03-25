@@ -118,7 +118,7 @@ class TeaManager extends AbstractModel
         // If everything is fine, commit transaction
         $this->db->commit();
         
-        return $teaId;
+        return "success";
     } catch (Exception $e) {
         // In case of error, rollback the transaction
         $this->db->rollBack();

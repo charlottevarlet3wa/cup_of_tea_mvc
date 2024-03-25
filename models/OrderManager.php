@@ -26,7 +26,7 @@ class OrderManager extends AbstractModel
 
             foreach ($teas as $tea) {
                 $stmt = $this->db->prepare('INSERT INTO order_details (order_id, product_id, cond, price) VALUES (?, ?, ?, ?)');
-                $stmt->execute([$orderId, $tea['id'], $tea['qte'], $tea['price']]);
+                $stmt->execute([$orderId, $tea['id'], $tea['cond'], $tea['price']]);
                 // TODO what is "qte" ? "quantity" ?
             }
 
