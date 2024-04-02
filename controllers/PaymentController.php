@@ -44,6 +44,12 @@ class PaymentController
             // $cvv = "123"; // CVC quelconque
 
             $amount = $this->calculateTotal() * 100;
+
+            $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+            $domainName = $_SERVER['HTTP_HOST'].'/';
+
+            // Construisez l'URL de retour en fonction de l'environnement de l'application
+            $returnUrl = $protocol . $domainName . "cup_of_tea_php/home";
     
             try {
                 // En mode test, Stripe fournit des cartes bancaires pré-tokenisées :
@@ -52,7 +58,8 @@ class PaymentController
                     'currency' => 'eur',
                     'payment_method' => 'pm_card_visa',
                     'confirm' => true,
-                    'return_url' => 'http://localhost/cup_of_tea_php/home',
+                    // 'return_url' => 'http://localhost/cup_of_tea_php/home',
+                    'return_url' => $returnUrl,
                 ]);
     
                 if ($paymentIntent->status == 'succeeded') {
