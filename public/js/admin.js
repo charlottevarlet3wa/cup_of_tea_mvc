@@ -37,8 +37,6 @@ let teasElem = document.getElementById('teas');
 let addTeaElem = document.getElementById('add-tea');
 
 function showDetails(orderId){
-    console.log(orderId);
-
     ordersElem.style.display = 'none';
     orderDetailsElem.style.display = 'block';
     

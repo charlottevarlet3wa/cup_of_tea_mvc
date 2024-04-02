@@ -66,7 +66,7 @@ class TestController {
                     <input type="checkbox" class="order-status" name="status" onchange=updateStatus('. $order['id'] .') ' . ($order['status'] == 1 ? "checked" : "" ) . ' >
                     <input type="hidden" name="orderId" >
                 </form>' . "</td>";
-                $filteredOrdersHtml .= "<td><button onclick=showDetails(". $order['id'] .") class='btn'>Voir le détail</button></td>";
+                $filteredOrdersHtml .= "<td><button onclick=showDetails(". $order['id'] .") class='detail-btn'><i class='fa fa-eye'></i></button></td>";
                 $filteredOrdersHtml .= "</tr>";
             }
         }

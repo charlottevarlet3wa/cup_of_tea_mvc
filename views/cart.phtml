@@ -9,61 +9,22 @@
 <p id="empty-message"><?php if (empty($cart)): ?>Le panier est vide.<?php endif; ?></p>
 <?php if (!empty($cart)): ?>
 
-<style>
-    table {
-        margin-top: 0;
-        margin-bottom: var(--typography-spacing-vertical);
-        color: var(--color);
-        font-style: normal;
-        font-weight: var(--font-weight);
-        font-size: var(--font-size);
-    }
 
-    :where(table) {
-        width: 100%;
-        border-collapse: collapse;
-        border-spacing: 0;
-        text-indent: 0;
-    }
-
-    tfoot td, tfoot th, thead td, thead th {
-        --border-width: 3px;
-    }
-
-
-tbody tr {
-    border-bottom: 1px solid grey;
-}
-
-tfoot {
-    border-top:3px solid grey;
-    font-weight: bold;
-    font-size: large;
-}
-
-thead {
-    font-weight: bold;
-    border-bottom: 3px solid grey;
-}
-
-
-
-</style>
-
+<!-- 
 <div>
-<table id="cart-table">
-    <thead>
-        <tr>
-            <th></th>
-            <th>Produit</th>
-            <th>Format</th>
-            <th>Quantité</th>
-            <th>Prix Unit.</th>
-            <th>Total</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody id="cart-body">
+    <table id="cart-table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Produit</th>
+                <th>Format</th>
+                <th>Quantité</th>
+                <th>Prix Unit.</th>
+                <th>Total</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
         <?php 
             $total = 0;
             $index = 0;
@@ -92,7 +53,7 @@ thead {
             <?php $teaIndex++; endforeach ?>
         </tbody>
         <tfoot>
-            <tr class="total">
+            <tr>
                 <td colspan="5"></td>
                 <td>
                     <?= number_format($total, 2) . "€" ?>
@@ -100,13 +61,63 @@ thead {
             </tr>
         </tfoot>
     </table>
-</div>
+</div> -->
+
+<?php if (empty($cart)): ?>
+    <p>Le panier est vide.</p>
+<?php else: ?>
+    <table id="cart-table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Produit</th>
+                <th>Format</th>
+                <th>Quantité</th>
+                <th>Prix Unit.</th>
+                <th>Total</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php 
+            $total = 0;
+            $index = 0;
+            foreach ($cart as $teaId => $tea): ?>
+                <?php foreach ($tea['formats'] as $formatId => $format): ?>
+                    <tr>
+                        <td><?= ++$index ?></td>
+                        <td><?= htmlspecialchars($tea['name']) ?></td>
+                        <td><?= htmlspecialchars($format['format']) ?></td>
+                        <td>
+                            <select name="quantity-select" onchange="changeQuantity(<?= $teaId ?>, <?= $formatId ?>, this.value)">
+                                <?php for($i = 1; $i <= 10; $i++): ?>
+                                    <option value="<?= $i ?>" <?= $i == $format['quantity'] ? 'selected' : '' ?>><?= $i ?></option>
+                                <?php endfor; ?>
+                            </select>
+                        </td>
+                        <td><?= number_format(htmlspecialchars($format['price']), 2) ?>€</td>
+                        <td><?= number_format(htmlspecialchars($format['quantity'] * $format['price']), 2) ?>€</td>
+                        <td><button class="btn grey-btn" onclick="changeQuantity(<?= $teaId ?>, <?= $formatId ?>, 0)">X</button></td>
+                    </tr>
+                <?php 
+                $total += $format['price'] * $format['quantity'];
+                endforeach; ?>
+            <?php endforeach; ?>
+        </tbody>
+        <tfoot>
+            <tr class='total'>
+                <td colspan='5'></td>
+                <td><?= number_format($total, 2) ?>€</td>
+            </tr>
+        </tfoot>
+    </table>
+<?php endif; ?>
 
 <br>
 
-<a href="http://localhost/cup_of_tea_php/address" class="btn">Valider la sélection</a>
+<a href="address" class="btn">Valider la sélection</a>
 </div>
 <?php endif; ?>
 </div>
 
-<script src="/cup_of_tea_php/public/js/cart.js"></script>
+<script src="public/js/cart.js"></script>

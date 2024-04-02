@@ -74,7 +74,7 @@ class PaymentController
                     // Appeler addOrder
                     if($manager->addOrder($_SESSION['user_id'], $teas)) {
                         unset($_SESSION['cart']);
-                        header('Location: http://localhost/cup_of_tea_php/success');
+                        header('Location: /cup_of_tea_php/success');
                         exit();
                     } else {
                         // Gérer l'échec de l'ajout de la commande

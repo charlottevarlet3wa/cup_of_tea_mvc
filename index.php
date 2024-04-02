@@ -1,39 +1,15 @@
 <?php
 
-
 declare(strict_types=1);
 
 session_start();
+
 
 if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = array();
 }
 
 
-/*
-require_once './services/routing.php'; 
-require_once './configs/settings.php';
-
-// Determine the requested page
-$route = $_GET['route'] ?? DEFAULT_ROUTE;
-$route = array_key_exists($route, AVAILABLE_ROUTES) ? $route : 'home';
-
-// Create router
-$router = new Router($route);
-
-// Include controller
-$router->autoloadController();
-
-// Instanciate controller
-$controllerInstance = $router->getController();
-
-// Depending on the page, handle accordingly
-// if ($page === 'toggle_pin') {
-//     $controllerInstance->togglePin();
-// } else {
-    $controllerInstance->display();
-// }
-*/
 
 // Stripe
 require 'vendor/autoload.php';
@@ -81,7 +57,7 @@ switch($_GET['route']){
         break; 
     case 'admin':
         if (!isset($_SESSION['user_id'])) {
-            header('Location: http://localhost/cup_of_tea_php/home');
+            header('Location: /cup_of_tea_php/about');
             exit;
         }
     
@@ -92,7 +68,7 @@ switch($_GET['route']){
             $controller = new AdminController();
             $controller->display();
         } else {
-            header('Location: http://localhost/cup_of_tea_php/home');
+            header('Location: /cup_of_tea_php/home');
             exit;
         }
         break;
@@ -107,7 +83,7 @@ switch($_GET['route']){
         break;        
     case 'login':
         if(isset($_SESSION['user_id'])){
-            header('Location: http://localhost/cup_of_tea_php/my-account');
+            header('Location: /cup_of_tea_php/my-account');
             exit;
             break;
         }
@@ -122,7 +98,7 @@ switch($_GET['route']){
         break;       
     case 'my-account':
         if(!isset($_SESSION['user_id'])){
-            header('Location: http://localhost/cup_of_tea_php/login');
+            header('Location: /cup_of_tea_php/login');
             exit;
             break;
         }
@@ -140,7 +116,7 @@ switch($_GET['route']){
         break; 
     case 'payment':
         if(!isset($_SESSION['user_id'])){
-            header('Location: http://localhost/cup_of_tea_php/login');
+            header('Location: /cup_of_tea_php/login');
             exit;
             break;
         }
@@ -149,7 +125,7 @@ switch($_GET['route']){
         break; 
     case 'success':
         if(!isset($_SESSION['user_id'])){
-            header('Location: http://localhost/cup_of_tea_php/login');
+            header('Location: /cup_of_tea_php/login');
             exit;
             break;
         }
@@ -158,7 +134,7 @@ switch($_GET['route']){
         break; 
     case 'address':
         if(!isset($_SESSION['user_id'])){
-            header('Location: http://localhost/cup_of_tea_php/login');
+            header('Location: /cup_of_tea_php/login');
             exit;
             break;
         }
@@ -323,7 +299,7 @@ switch($_GET['route']){
         
         break;
     default:
-        header('Location: http://localhost/cup_of_tea_php/home');
+        header('Location: /cup_of_tea_php/home');
         exit;
         break;
 }

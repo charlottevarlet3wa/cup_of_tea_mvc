@@ -53,7 +53,7 @@ class SignupController {
     
             if ($result) {
                 // Redirect on success
-                header('Location: http://localhost/cup_of_tea_php/login');
+                header('Location: /cup_of_tea_php/login');
                 exit;
             } else {
                 // Handle failure, e.g., email already exists
