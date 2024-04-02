@@ -57,7 +57,7 @@ switch($_GET['route']){
         break; 
     case 'admin':
         if (!isset($_SESSION['user_id'])) {
-            header('Location: /cup_of_tea_php/about');
+            header('Location: about');
             exit;
         }
     
@@ -68,7 +68,7 @@ switch($_GET['route']){
             $controller = new AdminController();
             $controller->display();
         } else {
-            header('Location: /cup_of_tea_php/home');
+            header('Location: home');
             exit;
         }
         break;
@@ -83,7 +83,7 @@ switch($_GET['route']){
         break;        
     case 'login':
         if(isset($_SESSION['user_id'])){
-            header('Location: /cup_of_tea_php/my-account');
+            header('Location: my-account');
             exit;
             break;
         }
@@ -98,7 +98,7 @@ switch($_GET['route']){
         break;       
     case 'my-account':
         if(!isset($_SESSION['user_id'])){
-            header('Location: /cup_of_tea_php/login');
+            header('Location: login');
             exit;
             break;
         }
@@ -116,7 +116,7 @@ switch($_GET['route']){
         break; 
     case 'payment':
         if(!isset($_SESSION['user_id'])){
-            header('Location: /cup_of_tea_php/login');
+            header('Location: login');
             exit;
             break;
         }
@@ -125,7 +125,7 @@ switch($_GET['route']){
         break; 
     case 'success':
         if(!isset($_SESSION['user_id'])){
-            header('Location: /cup_of_tea_php/login');
+            header('Location: login');
             exit;
             break;
         }
@@ -134,7 +134,7 @@ switch($_GET['route']){
         break; 
     case 'address':
         if(!isset($_SESSION['user_id'])){
-            header('Location: /cup_of_tea_php/login');
+            header('Location: login');
             exit;
             break;
         }
@@ -299,7 +299,7 @@ switch($_GET['route']){
         
         break;
     default:
-        header('Location: /cup_of_tea_php/home');
+        header('Location: home');
         exit;
         break;
 }

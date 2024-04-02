@@ -32,12 +32,12 @@ class LoginController {
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['is_admin'] = $user['admin'];
             session_regenerate_id();
-            header("Location: /cup_of_tea_php/my-account");
+            header("Location: my-account");
             exit;
         } else {
             // Login failed
             $_SESSION['error_message'] = "L'email et le mot de passe ne correspondent pas.";
-            header("Location: /cup_of_tea_php/login");
+            header("Location: login");
             exit;        
         }
     }

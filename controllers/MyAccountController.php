@@ -92,14 +92,14 @@ class MyAccountController {
     
             if (empty($errorMessage)) {
                 $_SESSION['success_message'] = "Les informations ont été mises à jour.";
-                header('Location: /cup_of_tea_php/my-account');
+                header('Location: my-account');
                 exit;
             }
         }
     
         // If there was an error, redirect back with an error message
         $_SESSION['error_message'] = $errorMessage;
-        header('Location: /cup_of_tea_php/my-account');
+        header('Location: my-account');
         exit;
     }
     

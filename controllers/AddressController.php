@@ -9,11 +9,11 @@ class AddressController {
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if (isset($_POST['street'], $_POST['postal-code'], $_POST['town'], $_POST['country'])) {
-                header("Location: /cup_of_tea_php/address");
+                header("Location: address");
                 $this->processAddressForm();
             } else {
                 $_SESSION['error_message'] = "Tous les champs sont requis.";
-                header("Location: /cup_of_tea_php/address");
+                header("Location: address");
                 exit;
             }
         }
@@ -37,7 +37,7 @@ class AddressController {
         $street = trim($_POST['street']);
         if (empty($street) || !preg_match('/^\d+\s+[\p{L}\s]+/u', $street)) {
             $_SESSION['error_message'] = 'Entrez un numéro et un nom de rue valide.';
-            header("Location: /cup_of_tea_php/address");
+            header("Location: address");
             exit;
         }
 
@@ -54,11 +54,11 @@ class AddressController {
         if ($manager->addAddress($userId, $streetNumber, $streetName, (int)$postalCode, $town, $country)) {
             // Redirect or show a success message after saving the address
             $_SESSION['success_message'] = "Address saved successfully.";
-            header("Location: /cup_of_tea_php/payment");
+            header("Location: payment");
         } else {
             // Handle saving error
             $_SESSION['error_message'] = "Error saving address.";
-            header("Location: /cup_of_tea_php/address");
+            header("Location: address");
         }
         exit;
     }
@@ -91,7 +91,7 @@ class AddressController {
 //         }
 //         else {
 //             $_SESSION['error_message'] = "Tous les champs sont requis.";
-//             header("Location: /cup_of_tea_php/address");
+//             header("Location: address");
 //             exit;
 //         }
 //     }

@@ -28,7 +28,7 @@ class SignupController {
             // Validate email format
             if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
                 $_SESSION['error_message'] = "Format de l'email invalide.";
-                header("Location: /cup_of_tea_php/signup");
+                header("Location: signup");
                 exit;
             }
     
@@ -36,7 +36,7 @@ class SignupController {
             $passwordRegex = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&_])[A-Za-z\d@$!%*?&]{8,}$/';
             if (!preg_match($passwordRegex, $_POST['password'])) {
                 $_SESSION['error_message'] = "Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.";
-                header("Location: /cup_of_tea_php/signup");
+                header("Location: signup");
                 exit;
             }
     
@@ -53,18 +53,18 @@ class SignupController {
     
             if ($result) {
                 // Redirect on success
-                header('Location: /cup_of_tea_php/login');
+                header('Location: login');
                 exit;
             } else {
                 // Handle failure, e.g., email already exists
                 $_SESSION['error_message'] = "Cette adresse e-mail est déjà utilisée.";
-                header("Location: /cup_of_tea_php/signup");
+                header("Location: signup");
                 exit;
             }
         } else {
             // Not all fields were filled in
             $_SESSION['error_message'] = "Tous les champs sont obligatoires";
-            header("Location: /cup_of_tea_php/signup");
+            header("Location: signup");
             exit;
         }
     }
