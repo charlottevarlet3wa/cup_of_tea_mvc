@@ -4,7 +4,6 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
 
-
 # Réécriture pour la route spécifique 'tea' avec un ID
 RewriteCond %{REQUEST_URI} !\.(css|js|png|jpg|jpeg|gif|svg|eot|otf|ttf|woff)$ [NC]
 RewriteRule ^tea/([0-9]+)$ index.php?route=tea&id=$1 [L,QSA]

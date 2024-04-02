@@ -1,4 +1,4 @@
-let ordersElem = document.getElementById('orders');
+let ordersElem = document.getElementById('past-orders');
 
 function showDetail(elemIndex, orderId){
     var xhttp = new XMLHttpRequest();
@@ -11,7 +11,7 @@ function showDetail(elemIndex, orderId){
                 toRemoveElem.parentNode.removeChild(toRemoveElem);
             }
             console.log("row index : " + elemIndex);
-            var selectedRow = document.querySelector('#orders tbody tr:nth-child(' + (elemIndex + 1) + ')');
+            var selectedRow = document.querySelector('#past-orders tbody tr:nth-child(' + (elemIndex + 1) + ')');
             var detailRow = '<tr id="order-details"><td colspan="3">' + this.responseText + '</td><td><button class="grey-btn" onclick=removeDetails()>x</button></td></tr><tr id="to-remove"></tr>';
             selectedRow.insertAdjacentHTML('afterend', detailRow);
         }

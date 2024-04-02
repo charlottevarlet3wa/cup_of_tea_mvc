@@ -25,7 +25,6 @@ function changeQuantity(teaId, formatId, quantity){
     xhttp.send("teaId=" + teaId + "&formatId=" + formatId + "&quantity=" + quantity);
 }
 
-let cartBody = document.getElementById('cart-body');
 let cartTable = document.getElementById('cart-table');
 let empty = document.getElementById('empty-message');
 
@@ -51,3 +50,6 @@ function updateCartDisplay(){
     xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhttp.send();
 }
+
+
+

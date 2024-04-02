@@ -6,69 +6,71 @@ class CartController {
         require_once "views/layout.phtml";
     }
     
-    public function displayCart(){
+
+    public function displayCart() {
         $cart = $_SESSION['cart'];
         
-        $cartHtml = "";
-        
-        if(empty($cart)){
+        if (empty($cart)) {
             echo "empty";
             return;
         }
-
-        $cartHtml .= "<thead>";
-        $cartHtml .= "<tr>";
-        $cartHtml .= "<th></th>";
-        $cartHtml .= "<th>Produit</th>";
-        $cartHtml .= "<th>Format</th>";
-        $cartHtml .= "<th>Quantité</th>";
-        $cartHtml .= "<th>Prix Unit.</th>";
-        $cartHtml .= "<th>Total</th>";
-        $cartHtml .= "<th></th>";
-        $cartHtml .= "</tr>";
-        $cartHtml .= "</thead>";
-        $cartHtml .= "<tbody>";
+        
+        $cartHtml = "<thead>
+            <tr>
+                <th></th>
+                <th>Produit</th>
+                <th>Format</th>
+                <th>Quantité</th>
+                <th>Prix Unit.</th>
+                <th>Total</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>";
         
         $total = 0;
         $index = 0;
-        $teaIndex = 0;
-        foreach ($cart as $teaId => $tea){
-            $formatIndex = 0;
-            foreach ($tea['formats'] as $formatId => $format){
-                $cartHtml .= "<tr>";
-                $cartHtml .= "<td>" . htmlspecialchars($index) . "</td>";
-                $cartHtml .= "<td>" . htmlspecialchars($tea['name']) . "</td>";
-                $cartHtml .= "<td>" . htmlspecialchars($format['format']) . "</td>";
-                $cartHtml .= "<td>";
-                $cartHtml .= '<select name="quantity-select" onchange="changeQuantity(' . htmlspecialchars($teaId) . ', ' . htmlspecialchars($formatId) . ', this.value)">';
-                for($i=1; $i <= 10; $i++){
+        $indexTable = 1;
+        foreach ($cart as $teaId => $tea) {
+            foreach ($tea['formats'] as $formatId => $format) {
+                $selectOptions = '';
+                for ($i = 1; $i <= 10; $i++) {
                     $selected = $i == $format['quantity'] ? 'selected' : '';
-                    $cartHtml .= '<option value="' . $i . '" ' . $selected . '>' . $i . '</option>';
+                    $selectOptions .= "<option value=\"{$i}\" {$selected}>{$i}</option>";
                 }
-                $cartHtml .= "</select>";
-                $cartHtml .= "</td>";
-                $cartHtml .= "<td>" . number_format(htmlspecialchars($format['price']), 2) . "€</td>";
-                $cartHtml .= "<td>" . number_format(htmlspecialchars($format['quantity'] * $format['price']), 2) . "€</td>";
-                $cartHtml .= '<td><button class="btn grey-btn" onclick="changeQuantity(' . htmlspecialchars($teaId) . ', ' . htmlspecialchars($formatId) . ', 0)">X</button></td>';
-                $cartHtml .= "</tr>";
-                $formatIndex++;
+                $teaName = htmlspecialchars($tea['name']);
+                $formatName = htmlspecialchars($format['format']);
+                $priceFormatted = number_format(htmlspecialchars($format['price']), 2);
+                $totalFormatted = number_format(htmlspecialchars($format['quantity'] * $format['price']), 2);
+    
+                $cartHtml .= "<tr>
+                    <td>{$indexTable}</td>
+                    <td>{$teaName}</td>
+                    <td>{$formatName}</td>
+                    <td><select name=\"quantity-select\" onchange=\"changeQuantity({$teaId}, {$formatId}, this.value)\">{$selectOptions}</select></td>
+                    <td>{$priceFormatted}€</td>
+                    <td>{$totalFormatted}€</td>
+                    <td><button class=\"btn grey-btn\" onclick=\"changeQuantity({$teaId}, {$formatId}, 0)\">X</button></td>
+                </tr>";
                 $index++;
+                $indexTable++;
                 $total += $format['price'] * $format['quantity'];
             }
-            $teaIndex++;
         }
-        $cartHtml .= "</tbody>";
-        $cartHtml .= "<tfoot>";
-        $cartHtml .= "<tr class='total'>";
-        // $cartHtml .= "<td>Total</td>";
-        $cartHtml .= "<td colspan='5'></td>";
-        $cartHtml .= "<td>";
-        $cartHtml .= number_format($total, 2) . "€";
-        $cartHtml .= "</td>";
-        $cartHtml .= "</tr>";
-        $cartHtml .= "</tfoot>";
+    
+        $totalFormatted = number_format($total, 2);
+    
+        $cartHtml .= "</tbody>
+        <tfoot>
+            <tr class='total'>
+                <td colspan='5'></td>
+                <td>{$totalFormatted}€</td>
+            </tr>
+        </tfoot>";
     
         echo $cartHtml;
     }
+    
+    
     
 }

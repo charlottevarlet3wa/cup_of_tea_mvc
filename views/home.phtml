@@ -4,7 +4,7 @@
     <br>
     <small>Pour toute commande effectuée avant le 20 décembre</small>
 </section>
-<section id="slider">
+<!-- <section id="slider">
     <div class="flexslider">
         <ul class="slides">
             <li>
@@ -14,6 +14,28 @@
                 <img src="public/img/slider/2.jpg" alt="Retrouvez toute la collection des thés numéro 25 et notre nouvelle édition limitée" />
             </li>
         </ul>
+    </div>
+</section> -->
+<section id="slider">
+    <div class="css-slider-wrapper">
+        <input type="radio" name="slider" class="slide-radio1" checked id="slider_1">
+        <input type="radio" name="slider" class="slide-radio2" id="slider_2">
+
+        <div class="slider-pagination">
+            <label for="slider_1" class="page1"></label>
+            <label for="slider_2" class="page2"></label>
+        </div>
+
+        <div class="slider-content">
+            <div class="slider-inner">
+                <div class="slide slide1">
+                    <img src="public/img/slider/1.jpg" alt="Retrouvez toute nos idées cadeaux pour les fêtes de noël">
+                </div>
+                <div class="slide slide2">
+                    <img src="public/img/slider/2.jpg" alt="Retrouvez toute la collection des thés numéro 25 et notre nouvelle édition limitée">
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 <section id="categorie">
@@ -58,7 +80,7 @@
             </p>
         </section>
             
-        <a class="btn" href="/cup_of_tea_php/tea/<?= $latest['id'] ?>">
+        <a class="btn" href="tea/<?= $latest['id'] ?>">
             Voir ce produit
         </a>
     </article>
@@ -75,7 +97,7 @@
                 À partir de <strong><?=  htmlspecialchars($bestseller['price']) ?> €</strong>
             </p>
         </section>
-        <a class="btn" href="/cup_of_tea_php/tea/<?= $bestseller['id'] ?>">
+        <a class="btn" href="tea/<?= $bestseller['id'] ?>">
             Voir ce produit
         </a>
     </article>
@@ -92,7 +114,7 @@
                 À partir de <strong><?=  htmlspecialchars($favorite['price']) ?> €</strong>
             </p>
         </section>
-        <a class="btn" href="/cup_of_tea_php/tea/<?= $favorite['id'] ?>">
+        <a class="btn" href="tea/<?= $favorite['id'] ?>">
             Voir ce produit
         </a>
     </article>

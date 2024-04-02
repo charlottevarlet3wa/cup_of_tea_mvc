@@ -9,8 +9,6 @@ class AddressController {
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if (isset($_POST['street'], $_POST['postal-code'], $_POST['town'], $_POST['country'])) {
-                echo "post";
-                $_SESSION['error_message'] = "post";
                 header("Location: /cup_of_tea_php/address");
                 $this->processAddressForm();
             } else {
