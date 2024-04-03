@@ -18,6 +18,10 @@ class MyAccountController {
 
 
     public function display() {
+        if(!isset($_SESSION['user_id'])){
+            header('Location: login');
+            exit;
+        }
         $userId = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
 
         if($userId){

@@ -20,6 +20,10 @@ class AddressController {
     }
 
     public function display() {
+        if(!isset($_SESSION['user_id'])){
+            header('Location: login');
+            exit;
+        }
         $error = $_SESSION['error_message'] ?? '';
         unset($_SESSION['error_message']);
         $success = $_SESSION['success_message'] ?? '';

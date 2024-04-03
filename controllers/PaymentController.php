@@ -18,6 +18,10 @@ class PaymentController
     }
 
     public function display(){
+        if(!isset($_SESSION['user_id'])){
+            header('Location: login');
+            exit;
+        }
         $amount = $this->calculateTotal();
         $template = "payment.phtml";
         $cart = "cartComponent.phtml";
@@ -58,12 +62,10 @@ class PaymentController
                     'currency' => 'eur',
                     'payment_method' => 'pm_card_visa',
                     'confirm' => true,
-                    // 'return_url' => 'http://localhost/cup_of_tea_php/home',
                     'return_url' => $returnUrl,
                 ]);
     
                 if ($paymentIntent->status == 'succeeded') {
-                    // Instancier OrderManager
                     $manager = new OrderManager();
                     
                     // Préparer les données des thés pour passer à addOrder
