@@ -17,11 +17,8 @@
         <label for="country">Pays</label>
         <input type="string" id="country" name="country" required>
     </div>
-    <?php if (!empty($errorMessage)): ?>
-        <p style="color:red" class="error"><?= htmlspecialchars($errorMessage) ?></p>
-    <?php endif; ?>
-    <?php if (!empty($successMessage)): ?>
-        <p style="color:green" class="sucess"><?= htmlspecialchars($successMessage) ?></p>
+    <?php if (!empty($message)): ?>
+        <p><?= htmlspecialchars($message) ?></p>
     <?php endif; ?>
     <button type="submit" class="btn">Confirmer</button>
 </form>

@@ -14,13 +14,6 @@ require_once 'models/OrderManager.php';
 
 
 class AdminController {    
-    
-    public function __construct()
-    {
-        if (!empty($_POST) && isset($_POST['orderId'])) {
-            $this->updateStatus();
-        }
-    }
 
 
     public function display() {
@@ -32,10 +25,7 @@ class AdminController {
         $userManager = new UserManager();
         $user = $userManager->getUserById($_SESSION['user_id']);
     
-        if ($user['admin']) {
-            $controller = new AdminController();
-            $controller->display();
-        } else {
+        if (!$user['admin']) {
             header('Location: home');
             exit;
         }
@@ -81,7 +71,7 @@ class AdminController {
         }
 
         if (!(isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK)) {
-            echo "No file was uploaded.";
+            echo "Choisir un fichier.";
             return;
         }
 

@@ -27,7 +27,6 @@ class OrderManager extends AbstractModel
             foreach ($teas as $tea) {
                 $stmt = $this->db->prepare('INSERT INTO order_details (order_id, product_id, cond, price) VALUES (?, ?, ?, ?)');
                 $stmt->execute([$orderId, $tea['id'], $tea['cond'], $tea['price']]);
-                // TODO what is "qte" ? "quantity" ?
             }
 
             $this->db->commit();
@@ -41,8 +40,6 @@ class OrderManager extends AbstractModel
 
     public function getAllOrders(): array
     {
-        // TODO check why doubles keys ('name' => 'John', 0 => 'John');
-        // TODO what is several orders in one ? and when you check one order, update status in db for all suborders
         $stmt = $this->db->query("SELECT `order`.status, user.last_name, user.name, `order`.date, `order`.id, SUM(`order_details`.price) as total FROM `order` INNER JOIN order_details ON `order`.id = order_details.order_id INNER JOIN user ON user.id = `order`.user_id GROUP BY `order`.id ORDER BY `order`.id DESC");
         return $stmt->fetchAll();
     }
@@ -55,15 +52,8 @@ class OrderManager extends AbstractModel
         return $stmt->fetchAll();
     }
 
-    // public function getOrderDetailsById($orderId): array
-    // {
-    //     $stmt = $this->db->prepare("SELECT * FROM `order_details` INNER JOIN tea ON product_id = tea.id WHERE order_id = ?");
-    //     $stmt->execute([$orderId]);
-    //     return $stmt->fetchAll();
-    // }
     public function getOrderDetailsById($orderId): array
     {
-        // $stmt = $this->db->prepare("SELECT * FROM `order_details` INNER JOIN tea ON product_id = tea.id WHERE order_id = ?");
         $stmt = $this->db->prepare("SELECT 
         order_details.*,
         tea.*,
@@ -97,7 +87,6 @@ class OrderManager extends AbstractModel
     public function updateStatus($orderId): bool
     {
         $status = $this->getOrderById($orderId)['status'];
-        // Meilleure manière d'inverser avec des booléens, une conversion et l'opposé ?
         $newStatus = $status == 1 ? 0 : 1;
         $stmt = $this->db->prepare("UPDATE `order` SET status = ? WHERE id = ?");
         return $stmt->execute([$newStatus, $orderId]);

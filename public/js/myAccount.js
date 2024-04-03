@@ -7,8 +7,6 @@ function showDetail(elemIndex, orderId){
             let detailsElem = document.getElementById('order-details');
             if(detailsElem){
                 detailsElem.parentNode.removeChild(detailsElem);
-                let toRemoveElem = document.getElementById('to-remove');
-                toRemoveElem.parentNode.removeChild(toRemoveElem);
             }
             console.log("row index : " + elemIndex);
             var selectedRow = document.querySelector('#past-orders tbody tr:nth-child(' + (elemIndex + 1) + ')');
@@ -28,8 +26,6 @@ function removeDetails(){
     let detailsElem = document.getElementById('order-details');
     if(detailsElem){
         detailsElem.parentNode.removeChild(detailsElem);
-        let toRemoveElem = document.getElementById('to-remove');
-        toRemoveElem.parentNode.removeChild(toRemoveElem);
         return;
     }
 }
@@ -55,8 +51,3 @@ function enableChange(){
     enableBtn.style.display = "none";
     changeBtn.style.display = "block";
 }
-
-// TODO : à faire directement en PHP avec un formulaire ? dans MyAccountController ? voir comment signup et/ou login ont été faits
-// function changeInfo(){
-
-// }

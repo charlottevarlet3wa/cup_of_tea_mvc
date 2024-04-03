@@ -11,7 +11,7 @@
 
 
 
-<section id="orders" style='display:none'>
+<section id="orders" >
     <h2><span>Les commandes</span></h2>
     <p>
         Filtrer par
@@ -41,14 +41,13 @@
                 <td><?= (new DateTime(htmlspecialchars($order['date']), new DateTimeZone('Europe/Paris')))->format('Y-m-d H:i:s'); ?></td>           
                 <td><?= htmlspecialchars($order['name']) . " " . htmlspecialchars($order['last_name']) ?></td>
                 <td><?= htmlspecialchars(number_format((float)$order['total'], 2, '.', '')) ?> €</td>
-<!-- TODO : format strings in another file ? -->
                 <td>
                     <form id="statusForm" method="POST">
                         <input type="checkbox" class="orderStatus" name="status" <?= $order['status'] == 1 ? "checked" : ""; ?> onchange="updateStatus(<?= $order['id'] ?>)" >
                         <input type="hidden" name="orderId" >
                     </form>
                 </td>
-                <td><button onclick="showDetails(<?=$order['id']?>)" class="detail-btn"><i class="fa fa-eye"></i></button></td>
+                <td><button onclick="" class="detail-btn"><i class="fa fa-eye"></i></button></td>
             </tr>
         <?php endforeach ?>
         </tbody>
@@ -92,7 +91,7 @@
 </section>
 
 
-<section id="add-tea">
+<section id="add-tea" style='display:none'>
     
     <h2><span>Ajouter un thé</span></h2>
 

@@ -1,6 +1,5 @@
 /* ORDERS */
 
-// Test
 function updateStatus(orderId){
     var filterValue = document.getElementById('filter-select').value;
     const xttp = new XMLHttpRequest();
@@ -82,8 +81,6 @@ function addTea() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            console.log("response!");
-            console.log(this.responseText);
             document.getElementById("message").innerHTML = this.responseText;
         }
     };

@@ -13,8 +13,8 @@ class SignupController {
     }
 
     public function display() {
-        $errorMessage = isset($_SESSION['error_message']) ? $_SESSION['error_message'] : '';
-        unset($_SESSION['error_message']);
+        $message = $_SESSION['message'] ?? '';
+        unset($_SESSION['message']);
         $template = "signup.phtml";
         require_once "views/layout.phtml";
     }
@@ -26,14 +26,14 @@ class SignupController {
             !empty($_POST['email']) && !empty($_POST['password'])) {
     
             if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-                $_SESSION['error_message'] = "Format de l'email invalide.";
+                $_SESSION['message'] = "Format de l'email invalide.";
                 header("Location: signup");
                 exit;
             }
     
             $passwordRegex = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&_])[A-Za-z\d@$!%*?&]{8,}$/';
             if (!preg_match($passwordRegex, $_POST['password'])) {
-                $_SESSION['error_message'] = "Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.";
+                $_SESSION['message'] = "Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.";
                 header("Location: signup");
                 exit;
             }
@@ -50,12 +50,12 @@ class SignupController {
                 header('Location: login');
                 exit;
             } else {
-                $_SESSION['error_message'] = "Cette adresse e-mail est déjà utilisée.";
+                $_SESSION['message'] = "Cette adresse e-mail est déjà utilisée.";
                 header("Location: signup");
                 exit;
             }
         } else {
-            $_SESSION['error_message'] = "Tous les champs sont obligatoires";
+            $_SESSION['message'] = "Tous les champs sont obligatoires";
             header("Location: signup");
             exit;
         }

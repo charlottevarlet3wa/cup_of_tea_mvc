@@ -30,10 +30,8 @@ class MyAccountController {
             $orderManager = new OrderManager();
             $orders = $orderManager->getOrderByUser($userId);
         }
-        $errorMessage = isset($_SESSION['error_message']) ? $_SESSION['error_message'] : '';
-        unset($_SESSION['error_message']);
-        $successMessage = isset($_SESSION['success_message']) ? $_SESSION['success_message'] : '';
-        unset($_SESSION['success_message']);
+        $message = $_SESSION['message'] ?? '';
+        unset($_SESSION['message']);
         $template = "myAccount.phtml";
         $cart = "cartComponent.phtml";
         require_once "views/layout.phtml";
@@ -61,29 +59,35 @@ class MyAccountController {
         $email = trim($_POST['email']);
         $oldPassword = trim($_POST['old-password']);
         $newPassword = trim($_POST['new-password']);
-        $errorMessage = "";
+        $message = "";
         
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $errorMessage = "Le format de l'email est invalide.";
+            $message = "Le format de l'email est invalide.";
         }
         
         $manager = new UserManager();
         $user = $manager->getUserById($_SESSION['user_id']);
     
         if (empty($lastName) || empty($name) || empty($email)) {
-            $errorMessage = "Le nom, le prénom et l'email sont obligatoires.";
+            $message = "Le nom, le prénom et l'email sont obligatoires.";
         }
     
-        if (empty($errorMessage)) {
+        if (empty($message)) {
             $updateInfo = $manager->updateUserInfo($id, $lastName, $name, $email);
+
+            if(!empty($oldPassword)){
+                if (!password_verify($oldPassword, $user['password'])) {
+                    $message = "L'ancien mot de passe ne correspond pas.";
+                }
+            }
     
             if (!empty($oldPassword) && !empty($newPassword)) {
                 if (!password_verify($oldPassword, $user['password'])) {
-                    $errorMessage = "L'ancien mot de passe ne correspond pas.";
+                    $message = "L'ancien mot de passe ne correspond pas.";
                 } else {
                     $passwordRegex = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&_])[A-Za-z\d@$!%*?&_]{8,}$/";
                     if (!preg_match($passwordRegex, $newPassword)) {
-                        $errorMessage = "Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.";
+                        $message = "Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.";
                     } else {
                         $passwordHash = password_hash($newPassword, PASSWORD_BCRYPT, ['cost' => 10]);
                         $updatePassword = $manager->updatePassword($id, $passwordHash);
@@ -91,14 +95,14 @@ class MyAccountController {
                 }
             }
     
-            if (empty($errorMessage)) {
-                $_SESSION['success_message'] = "Les informations ont été mises à jour.";
+            if (empty($message)) {
+                $_SESSION['message'] = "Les informations ont été mises à jour.";
                 header('Location: my-account');
                 exit;
             }
         }
     
-        $_SESSION['error_message'] = $errorMessage;
+        $_SESSION['message'] = $message;
         header('Location: my-account');
         exit;
     }

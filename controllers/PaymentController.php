@@ -21,6 +21,8 @@ class PaymentController
             exit;
         }
         $amount = $this->calculateTotal();
+        $message = $_SESSION['message'] ?? '';
+        unset($_SESSION['message']);
         $template = "payment.phtml";
         $cart = "cartComponent.phtml";
         require_once "views/layout.phtml";
@@ -70,7 +72,7 @@ class PaymentController
                         foreach ($teaDetails['formats'] as $format) {
                             $teas[] = [
                                 'id' => $teaId,
-                                'cond' => $format['format'], // Exemple: 'Pochette de 100g'
+                                'cond' => $format['format'],
                                 'price' => $format['price'] * $format['quantity'],
                             ];
                         }
@@ -78,14 +80,18 @@ class PaymentController
     
                     if($manager->addOrder($_SESSION['user_id'], $teas)) {
                         unset($_SESSION['cart']);
-                        header('Location: /cup_of_tea_php/success');
+                        header('Location: success');
                         exit();
                     } else {
-                        echo "Erreur lors de l'ajout de la commande.";
+                        $_SESSION['message'] = "Erreur lors de l'ajout de la commande.";
+                        header('Location: my-account');
+                        exit;
                     }
                 }
             } catch (Exception $e) {
-                echo "Erreur : " . $e->getMessage();
+                $_SESSION['message'] = $e->getMessage() ;
+                header('Location: my-account');
+                exit;
             }
         }
     }

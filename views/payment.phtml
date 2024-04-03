@@ -17,6 +17,9 @@
         <div class="input-group">
             <input type="text" name="cvv" placeholder="CVV">
         </div>
+        <?php if (!empty($message)): ?>
+            <p id="message"><?= htmlspecialchars($message) ?></p>
+        <?php endif; ?>
         <button type="submit" class="btn">Payer</button>
     </form>
 </div>

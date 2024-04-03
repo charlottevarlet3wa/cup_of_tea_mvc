@@ -4,60 +4,6 @@
 <p id="empty-message"><?php if (empty($cart)): ?>Le panier est vide.<?php endif; ?></p>
 <?php if (!empty($cart)): ?>
 
-
-<!-- 
-<div>
-    <table id="cart-table">
-        <thead>
-            <tr>
-                <th></th>
-                <th>Produit</th>
-                <th>Format</th>
-                <th>Quantité</th>
-                <th>Prix Unit.</th>
-                <th>Total</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-        <?php 
-            $total = 0;
-            $index = 0;
-            $teaIndex = 0; 
-            foreach ($cart as $tea): ?>
-            <?php
-                $formatIndex = 0;
-                foreach ($tea['formats'] as $format): ?>
-                <tr>
-                    <td><?= $index + 1 ?></td>
-                    <td><?= $tea['name'] ?></td>
-                    <td><?= $format['format'] ?></td>
-                    <td>
-                        <select name="quantity-select" id="quantity-select" onchange="changeQuantity(<?= array_keys($cart)[$teaIndex]?>, <?= array_keys($tea['formats'])[$formatIndex] ?>, this.value)">
-                            <?php for($i=1; $i < $tea['stock']; $i++): ?>
-                                <option value=<?= $i ?> <?= $i == $format['quantity'] ? 'selected' : '' ?>><?= $i ?></option>
-                            <?php endfor; ?>
-                        </select>    
-                    </td>
-                    <td><?= number_format($format['price'], 2) ?>€</td>
-                        <td><?= number_format($format['quantity'] * $format['price'], 2) ?>€</td>
-                        <td><button class="grey-btn" onclick="changeQuantity(<?= array_keys($cart)[$teaIndex]?>, <?= array_keys($tea['formats'])[$formatIndex] ?>, 0)">X</button></td>
-                    </tr>
-                <?php 
-                $formatIndex++; $index++; $total += $format['price'] * $format['quantity']; endforeach ?>
-            <?php $teaIndex++; endforeach ?>
-        </tbody>
-        <tfoot>
-            <tr>
-                <td colspan="5"></td>
-                <td>
-                    <?= number_format($total, 2) . "€" ?>
-                </td>
-            </tr>
-        </tfoot>
-    </table>
-</div> -->
-
 <?php if (empty($cart)): ?>
     <p>Le panier est vide.</p>
 <?php else: ?>

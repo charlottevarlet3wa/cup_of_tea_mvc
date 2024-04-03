@@ -117,10 +117,6 @@ switch($_GET['route']){
         $controller = new MyAccountController();
         $controller->showDetail();
         break;
-
-    case 'change-user-info':
-        // TODO : why empty ? 
-        break;
     default:
         header('Location: home');
         exit;

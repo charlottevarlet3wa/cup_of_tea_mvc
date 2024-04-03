@@ -17,8 +17,8 @@ class LoginController {
             header('Location: my-account');
             exit;
         }
-        $errorMessage = isset($_SESSION['error_message']) ? $_SESSION['error_message'] : '';
-        unset($_SESSION['error_message']);
+        $message = $_SESSION['message'] ?? '';
+        unset($_SESSION['message']);
         $template = "login.phtml";
         require_once "views/layout.phtml";
     }
@@ -26,11 +26,16 @@ class LoginController {
 
     function login()
     {
+        if (empty($_POST['email']) || empty($_POST['password'])) {
+            $_SESSION['message'] = "Veuillez remplir tous les champs.";
+            header("Location: login");
+            exit;
+        }
+
         $email = trim($_POST['email']);
         $password = trim($_POST['password']);
         $manager = new UserManager();
         $user = $manager->loginUser($email, $password);
-
         
         if ($user) {
             $_SESSION['user_id'] = $user['id'];
@@ -39,7 +44,7 @@ class LoginController {
             header("Location: my-account");
             exit;
         } else {
-            $_SESSION['error_message'] = "L'email et le mot de passe ne correspondent pas.";
+            $_SESSION['message'] = "L'email et le mot de passe ne correspondent pas.";
             header("Location: login");
             exit;        
         }
