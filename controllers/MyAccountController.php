@@ -39,7 +39,9 @@ class MyAccountController {
         require_once "views/layout.phtml";
     }
 
-    public function showDetail($orderId){
+    public function showDetail(){
+        $orderId = $_POST['orderId'];
+        
         $manager = new OrderManager();
         $details = $manager->getOrderDetailsById($orderId);
         $detailHtml = "";
@@ -61,7 +63,6 @@ class MyAccountController {
         $newPassword = trim($_POST['new-password']);
         $errorMessage = "";
         
-        // Validate email format
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $errorMessage = "Le format de l'email est invalide.";
         }
@@ -73,17 +74,13 @@ class MyAccountController {
             $errorMessage = "Le nom, le prénom et l'email sont obligatoires.";
         }
     
-        // If there are no errors, proceed with updating user information
         if (empty($errorMessage)) {
             $updateInfo = $manager->updateUserInfo($id, $lastName, $name, $email);
     
-            // Update password only if old and new passwords are set
             if (!empty($oldPassword) && !empty($newPassword)) {
-                // Validate old password
                 if (!password_verify($oldPassword, $user['password'])) {
                     $errorMessage = "L'ancien mot de passe ne correspond pas.";
                 } else {
-                    // Validate password strength
                     $passwordRegex = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&_])[A-Za-z\d@$!%*?&_]{8,}$/";
                     if (!preg_match($passwordRegex, $newPassword)) {
                         $errorMessage = "Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.";
@@ -101,7 +98,6 @@ class MyAccountController {
             }
         }
     
-        // If there was an error, redirect back with an error message
         $_SESSION['error_message'] = $errorMessage;
         header('Location: my-account');
         exit;

@@ -17,7 +17,7 @@ $dotenv->load();
 
 \Stripe\Stripe::setApiKey($_ENV['STRIPE_SECRET_KEY']);
 
-
+// Routeur
 require 'services/routing.php';
 
 

@@ -2,6 +2,7 @@
 
 class CartController {
     public function display() {
+        $cart = $_SESSION['cart'] ?? null;
         $template = "cart.phtml";
         require_once "views/layout.phtml";
     }

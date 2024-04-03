@@ -10,8 +10,6 @@ class PaymentController
 {
     public function __construct()
     {
-
-        // Si on est dans une requête post, alors on lance la méthode addRoom(). 
         if (!empty($_POST) && isset($_POST['card_number'])) {
             $this->processPayment();
         }
@@ -52,7 +50,6 @@ class PaymentController
             $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
             $domainName = $_SERVER['HTTP_HOST'].'/';
 
-            // Construisez l'URL de retour en fonction de l'environnement de l'application
             $returnUrl = $protocol . $domainName . "cup_of_tea_php/home";
     
             try {
@@ -68,25 +65,22 @@ class PaymentController
                 if ($paymentIntent->status == 'succeeded') {
                     $manager = new OrderManager();
                     
-                    // Préparer les données des thés pour passer à addOrder
-                    $teas = []; // Vous devez convertir votre $_SESSION['cart'] en un format attendu par addOrder
+                    $teas = [];
                     foreach($_SESSION['cart'] as $teaId => $teaDetails) {
                         foreach ($teaDetails['formats'] as $format) {
                             $teas[] = [
                                 'id' => $teaId,
                                 'cond' => $format['format'], // Exemple: 'Pochette de 100g'
-                                'price' => $format['price'] * $format['quantity'], // calcule le prix total pour ce format
+                                'price' => $format['price'] * $format['quantity'],
                             ];
                         }
                     }
     
-                    // Appeler addOrder
                     if($manager->addOrder($_SESSION['user_id'], $teas)) {
                         unset($_SESSION['cart']);
                         header('Location: /cup_of_tea_php/success');
                         exit();
                     } else {
-                        // Gérer l'échec de l'ajout de la commande
                         echo "Erreur lors de l'ajout de la commande.";
                     }
                 }

@@ -25,14 +25,12 @@ class SignupController {
             !empty($_POST['last_name']) && !empty($_POST['name']) && 
             !empty($_POST['email']) && !empty($_POST['password'])) {
     
-            // Validate email format
             if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
                 $_SESSION['error_message'] = "Format de l'email invalide.";
                 header("Location: signup");
                 exit;
             }
     
-            // Validate password strength
             $passwordRegex = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&_])[A-Za-z\d@$!%*?&]{8,}$/';
             if (!preg_match($passwordRegex, $_POST['password'])) {
                 $_SESSION['error_message'] = "Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.";
@@ -40,29 +38,23 @@ class SignupController {
                 exit;
             }
     
-            // Sanitize and trim input
             $lastName = htmlspecialchars(ucfirst(trim($_POST['last_name'])));
             $name = htmlspecialchars(ucfirst(trim($_POST['name'])));
             $email = htmlspecialchars(trim($_POST['email']));
             $password = htmlspecialchars(trim($_POST['password']));
     
             $manager = new UserManager();
-    
-            // Add the user
             $result = $manager->addUser($lastName, $name, $email, $password);
     
             if ($result) {
-                // Redirect on success
                 header('Location: login');
                 exit;
             } else {
-                // Handle failure, e.g., email already exists
                 $_SESSION['error_message'] = "Cette adresse e-mail est déjà utilisée.";
                 header("Location: signup");
                 exit;
             }
         } else {
-            // Not all fields were filled in
             $_SESSION['error_message'] = "Tous les champs sont obligatoires";
             header("Location: signup");
             exit;

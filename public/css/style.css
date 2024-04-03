@@ -12,7 +12,6 @@ html {font-size: 62.5%}
 
 body {
 	font-family: "Open Sans", Arial, sans-serif;
-	/* background-color: #F2F2F2; */
 	background-color: white;
 	color: #666;
 	font-size: 1.6rem;
@@ -106,8 +105,6 @@ main h3 {
 }
 
 .btn {
-	/* NEW */
-	/* background-color: #B09067; */ 
 	background-color: #919f46;
 	color: white;
 	text-transform: uppercase;
@@ -134,7 +131,6 @@ main h3 {
 	font-weight: 500;
 	text-align: center;
 	background-color:#f2f2f2;
-	/* color:#666; */
 	border: none;
 	box-shadow:0px 1px #B09067;
 	color: #B09067;
@@ -142,19 +138,16 @@ main h3 {
 }
 
 .grey-btn:hover {
-	/* background-color: rgba(0,0,0,0.4); */
 	background-color: #B09067;
 	color: #eee;
 }
 
-/* my-account */
 .detail-btn {
 	padding:4px 8px;
 	border-radius: 2px;
 	font-weight: 500;
 	text-align: center;
 	background-color: #f2f2f2;
-	/* color:#666; */
 	border: none;
 	box-shadow:0px 1px #B09067;
 	color: #B09067;
@@ -342,11 +335,8 @@ form input[type=checkbox]{
 }
 
 header {
-	/* background-image: url(../img/bg.jpg); */
 	background-repeat: no-repeat;
 	background-position: center bottom;
-	/* NEW */
-	/* background-color: #96B011; */
 	background-color: rgba(176,144,103,1);
 	color: white;
 }
@@ -391,13 +381,9 @@ header {
     font-family: "FontAwesome";
     font-size: 2rem;
     padding: 10px;
-    /* border: 2px solid #f8ffd4; */
     border: 2px solid #fff;
     border-radius: 1% 50% 0% 50%;
-	/* NEW */
-    /* background: linear-gradient(40deg, #ff0, transparent 40%); */
     background: linear-gradient(40deg, rgb(255, 255, 255, 0.7), transparent 40%);
-    /* color: #f8ffd4;      */
     color: #fff;     
   }
 
@@ -410,7 +396,6 @@ header {
     width:30px;
     height:30px;
     line-height: 10px;
-    /* background-color: #f8ffd4; */
     background-color: #fff;
     color:#96B011;
     font-weight: bold;
@@ -536,10 +521,6 @@ header nav a:hover {
 	text-align: center;
 }
 
-#tea article {
-	/* margin: 0 10px; */
-}
-
 .price strong {
 	display: block;
 	font-family: "Amaranth";
@@ -547,7 +528,7 @@ header nav a:hover {
 	font-weight: normal;
 }
 
-/* Partie Listing Product */
+/* Listing Product */
 .tea {
 	background-color: white;
 	padding: 25px;
@@ -586,13 +567,8 @@ header nav a:hover {
 	display: none;
 }
 
-main h2::after {
-	/* display: none; */
-}
 
-
-
-/* Partie Product */
+/* Product */
 #product {
 	background-color: white;
 	padding: 25px;
@@ -664,7 +640,6 @@ main h2::after {
 	text-align: right;
 }
 
-/* #product-quantity select { */
 select {
 	width: auto;
 	padding: 5px;
@@ -693,7 +668,7 @@ select {
 	text-align: left;
 }
 
-/* Partie About */
+/* About */
 #presentation {
 	background-color: white;
 	padding: 25px;
@@ -743,11 +718,8 @@ select {
 /* FOOTER */
 footer {
 	margin-top: 50px;
-	/* background-image: url(../img/bg.jpg); */
 	background-repeat: no-repeat;
 	background-position: center bottom;
-	/* NEW */
-	/* background-color: #96B011; */
 	background-color: rgba(176,144,103,1);
 	color: white;
 }
@@ -840,11 +812,6 @@ footer {
 	width: 50px;
 }
 
-/**
-PAGE MON COMPTE
-**/
-
-
 
 
 .flex{
@@ -855,16 +822,6 @@ PAGE MON COMPTE
 	margin-left:20px;
 }
 
-/* ADDRESS */
-/* 
-.address-form{
-	display: flex;
-	flex-direction: column;
-	gap: 0px;
-	width: 300px;
-}
-
-*/
 
 input {
 	color: rgba(0, 0, 0, 0.5);
@@ -879,22 +836,6 @@ input::placeholder, textarea::placeholder{
 	color:#ccc;
 }
 
-
-
-
-
-.error {
-	color: red;
-}
-
-.success {
-	color: green;
-}
-
-/* TODO : rempalacer par .error */
-#message {
-	color: red;
-}
 
 
 @media screen and (max-width: 1024px) {
@@ -950,7 +891,6 @@ input::placeholder, textarea::placeholder{
 	}
 
 	#cart:hover {
-		/* TODO : delete original transform call */
 		transform: none;
 	}
 
@@ -1025,7 +965,6 @@ input::placeholder, textarea::placeholder{
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		/* background-color: red; */
 	}
 
 	form>div {
@@ -1038,7 +977,6 @@ input::placeholder, textarea::placeholder{
 	}
 
 	label, input {
-		/* background-color: pink; */
 		max-width: 100% !important;
 		width: 100%;
 		text-align: center;

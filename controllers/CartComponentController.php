@@ -11,7 +11,7 @@ class CartComponentController {
         $formatId = $_POST['formatId'] ?? null;
         
         $manager = new TeaManager();
-        $tea = $manager->getTeaById($teaId); // Implement this function based on your database
+        $tea = $manager->getTeaById($teaId); 
         $formats = $manager->getFormatsByTea($teaId);
         $format = $formats[$formatId];
 

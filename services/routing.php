@@ -39,11 +39,7 @@ switch($_GET['route']){
     case 'login':
         $controller = new LoginController();
         $controller->display();
-        break; 
-    case 'logout':
-        $controller = new LoginController();
-        $controller->logout();
-        break;       
+        break;      
     case 'my-account':
         $controller = new MyAccountController();
         $controller->display();
@@ -70,7 +66,10 @@ switch($_GET['route']){
         break; 
 
 
-
+    case 'logout':
+        $controller = new LoginController();
+        $controller->logout();
+        break;  
     case 'order-status':
         $controller = new AdminController();
         $controller->updateStatus();
@@ -115,9 +114,8 @@ switch($_GET['route']){
         $controller->updateDisplayCartHeader();
         break;
     case 'account-show-detail';
-        $orderId = $_POST['orderId'];
         $controller = new MyAccountController();
-        $controller->showDetail($orderId);
+        $controller->showDetail();
         break;
 
     case 'change-user-info':
@@ -126,5 +124,4 @@ switch($_GET['route']){
     default:
         header('Location: home');
         exit;
-        break;
 }

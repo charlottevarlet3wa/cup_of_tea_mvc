@@ -35,7 +35,7 @@ class AddressController {
     }
 
     private function processAddressForm() {
-        $userId = $_SESSION['user_id'] ?? null; // Ensure you have this session set. Add validation for userId if needed.
+        $userId = $_SESSION['user_id'] ?? null;
 
         // Validation
         $street = trim($_POST['street']);
@@ -47,20 +47,17 @@ class AddressController {
 
         $parts = explode(' ', $street, 2);
         $streetNumber = $parts[0];
-        $streetName = $parts[1] ?? ''; // Provide a default empty string if the name part is missing
+        $streetName = $parts[1] ?? '';
 
         $postalCode = $_POST['postal-code'];
         $town = $_POST['town'];
         $country = $_POST['country'];
 
-        // Assuming AddressManager and its addAddress method handle these values correctly
         $manager = new AddressManager();
         if ($manager->addAddress($userId, $streetNumber, $streetName, (int)$postalCode, $town, $country)) {
-            // Redirect or show a success message after saving the address
             $_SESSION['success_message'] = "Address saved successfully.";
             header("Location: payment");
         } else {
-            // Handle saving error
             $_SESSION['error_message'] = "Error saving address.";
             header("Location: address");
         }

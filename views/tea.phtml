@@ -1,9 +1,3 @@
-<?php 
-    // var_dump($tea);
-    // echo "formats : ";
-    // var_dump($formats);
-?>
-
 <section id="product">
     <section id="product-detail">
         <div id="product-name">
@@ -33,37 +27,3 @@
 <input type="hidden" id="tea-id" value="<?= htmlspecialchars($tea['id']) ?>">
 <input type="hidden" id="formats" value="<?= htmlspecialchars(json_encode($formats)) ?>">
 <script src="public/js/tea.js"></script>
-
-
-
-
-
-
-<!--
-
-<section id="product">
-    <section id="product-detail">
-        <div id="product-name">
-            <h1>{ tea.nom }</h1>
-            <h2>{ tea.sous_titre }</h2>
-            <p>Ref : { tea.ref }</p>
-        </div>
-
-    </section>
-    <section id="product-quantity">
-        #<img src={ "/img/" + tea.image } alt={ tea.nom }
-        <img src="public/img/tea/1.jpg" />
-        <div class="price">
-            <select value={cond} name="quantity" onChange={change}>
-                { format.map((form, i ) => <option onClick={changePrice} data-price={form.prix} key={i}>{ form.conditionnement }</option>) }
-            </select>
-            <h3>{ price.toFixed(2) }€</h3>
-            <a class="btn" onClick={add} href="#">Ajouter au panier</a>
-            <a id="wishlist" href="#">Ajouter à ma liste d'envie</a>
-        </div>
-    </section>
-    <section id="product-description" dangerouslySetInnerHTML={{__html:tea.description}} />
-
-</section>
-
--->
