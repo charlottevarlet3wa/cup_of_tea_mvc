@@ -1,21 +1,9 @@
-<section id="noel">
+<section id="christmas">
     <h1>C'est noël chez Cup of Tea, profitez-en !</h1>
     <img src="public/img/offre-noel.jpg" alt="Offre spéciale pour noel ! Dès 45€ d'achat, le photophore de noël vous sera offert. Et dès 85€ un thé vert au prune et coing de 100 gramme vous sera offert" />
     <br>
     <small>Pour toute commande effectuée avant le 20 décembre</small>
 </section>
-<!-- <section id="slider">
-    <div class="flexslider">
-        <ul class="slides">
-            <li>
-                <img src="public/img/slider/1.jpg" alt="Retrouvez toute nos idées cadeaux pour les fêtes de noël" />
-            </li>
-            <li>
-                <img src="public/img/slider/2.jpg" alt="Retrouvez toute la collection des thés numéro 25 et notre nouvelle édition limitée" />
-            </li>
-        </ul>
-    </div>
-</section> -->
 <section id="slider">
     <div class="css-slider-wrapper">
         <input type="radio" name="slider" class="slide-radio1" checked id="slider_1">
@@ -38,7 +26,7 @@
         </div>
     </div>
 </section>
-<section id="categorie">
+<section id="categories">
     <h2>
         <span>Choisissez votre thé</span>
     </h2>
@@ -80,7 +68,7 @@
             </p>
         </section>
             
-        <a class="btn" href="tea/<?= $latest['id'] ?>">
+        <a class="btn" href="tea/<?= htmlspecialchars($latest['id']) ?>">
             Voir ce produit
         </a>
     </article>
@@ -97,7 +85,7 @@
                 À partir de <strong><?=  htmlspecialchars($bestseller['price']) ?> €</strong>
             </p>
         </section>
-        <a class="btn" href="tea/<?= $bestseller['id'] ?>">
+        <a class="btn" href="tea/<?= htmlspecialchars($bestseller['id']) ?>">
             Voir ce produit
         </a>
     </article>
@@ -114,7 +102,7 @@
                 À partir de <strong><?=  htmlspecialchars($favorite['price']) ?> €</strong>
             </p>
         </section>
-        <a class="btn" href="tea/<?= $favorite['id'] ?>">
+        <a class="btn" href="tea/<?= htmlspecialchars($favorite['id']) ?>">
             Voir ce produit
         </a>
     </article>

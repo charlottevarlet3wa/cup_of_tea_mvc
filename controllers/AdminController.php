@@ -156,10 +156,10 @@ class AdminController {
                 $filteredOrdersHtml .= "<td>" . htmlspecialchars(number_format((float)$order['total'], 2, '.', '')) . " €</td>";
                 $filteredOrdersHtml .= "<td>" . 
                 '<form id="statusForm" method="POST">
-                    <input type="checkbox" class="order-status" name="status" onchange=updateStatus('. $order['id'] .') ' . ($order['status'] == 1 ? "checked" : "" ) . ' >
+                    <input type="checkbox" class="order-status" name="status" onchange=updateStatus('. htmlspecialchars($order['id']) .') ' . ($order['status'] == 1 ? "checked" : "" ) . ' >
                     <input type="hidden" name="orderId" >
                 </form>' . "</td>";
-                $filteredOrdersHtml .= "<td><button onclick=showDetails(". $order['id'] .") class='detail-btn'><i class='fa fa-eye'></i></button></td>";
+                $filteredOrdersHtml .= "<td><button onclick=showDetails(". htmlspecialchars($order['id']) .") class='detail-btn'><i class='fa fa-eye'></i></button></td>";
                 $filteredOrdersHtml .= "</tr>";
             }
         }

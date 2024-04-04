@@ -10,7 +10,7 @@ function showDetail(elemIndex, orderId){
             }
             console.log("row index : " + elemIndex);
             var selectedRow = document.querySelector('#past-orders tbody tr:nth-child(' + (elemIndex + 1) + ')');
-            var detailRow = '<tr id="order-details"><td colspan="3">' + this.responseText + '</td><td><button class="grey-btn" onclick=removeDetails()>x</button></td></tr><tr id="to-remove"></tr>';
+            var detailRow = '<tr id="order-details"><td colspan="3">' + this.responseText + '</td><td><button class="grey-btn" onclick=removeDetails()>x</button></td></tr>';
             selectedRow.insertAdjacentHTML('afterend', detailRow);
         }
     };

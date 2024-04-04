@@ -242,9 +242,7 @@ main h3 {
 }
 
 
-/**
-FORMULAIRE
-**/
+/* FORM */
 #add-format {
 	display: inline-block;
 }
@@ -463,24 +461,24 @@ header nav a:hover {
 	border: 2px solid white;
 }
 
-#noel {
+#christmas {
 	text-align: center;
 }
 
-#noel h1 {
+#christmas h1 {
 	color: #96B011;
 }
 
-#noel small {
+#christmas small {
 	font-size: 1.2rem;
 }
 
-#categorie, #tea {
+#categories, #tea {
 	margin: 25px 0;
 	padding: 15px;
 }
 
-#categorie {
+#categories {
 	display: -webkit-box;
 	display: -ms-flexbox;
 	display: flex;
@@ -493,18 +491,18 @@ header nav a:hover {
 	background-color: white;
 }
 
-#categorie h2, #product h2 {
+#categories h2, #product h2 {
 	-ms-flex-preferred-size: 100%;
 	    flex-basis: 100%;
 }
 
-#categorie:hover > a {
+#categories:hover > a {
 	-webkit-transition: all 0.2s ease 0s;
 	transition: all 0.2s ease 0s;
 	opacity: 0.5;
 }
 
-#categorie:hover > a:hover {
+#categories:hover > a:hover {
 	-webkit-transition: all 0.2s ease 0s;
 	transition: all 0.2s ease 0s;
 	opacity: 1;
@@ -668,7 +666,7 @@ select {
 	text-align: left;
 }
 
-/* About */
+/* ABOUT */
 #presentation {
 	background-color: white;
 	padding: 25px;
@@ -850,7 +848,7 @@ input::placeholder, textarea::placeholder{
 		padding: 0 25px;
 	}
 
-	#categorie a {
+	#categories a {
 		-ms-flex-preferred-size: 50%;
 		    flex-basis: 50%;
 		margin: 0 auto;
@@ -921,7 +919,7 @@ input::placeholder, textarea::placeholder{
 		text-align: center;
 	}
 
-	.ribbon, #cart p::before, #noel, #slider {
+	.ribbon, #cart p::before, #christmas, #slider {
 		display: none;
 	}
 

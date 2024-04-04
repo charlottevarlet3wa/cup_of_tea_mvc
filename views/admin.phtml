@@ -1,6 +1,3 @@
-<!-- <?php var_dump($orders);
-?> -->
-
 <h1>Dashboard</h1>
 
 <nav>
@@ -42,8 +39,8 @@
                 <td><?= htmlspecialchars($order['name']) . " " . htmlspecialchars($order['last_name']) ?></td>
                 <td><?= htmlspecialchars(number_format((float)$order['total'], 2, '.', '')) ?> €</td>
                 <td>
-                    <form id="statusForm" method="POST">
-                        <input type="checkbox" class="orderStatus" name="status" <?= $order['status'] == 1 ? "checked" : ""; ?> onchange="updateStatus(<?= $order['id'] ?>)" >
+                    <form method="post">
+                        <input type="checkbox" class="orderStatus" name="status" <?= htmlspecialchars($order['status']) == 1 ? "checked" : ""; ?> onchange="updateStatus(htmlspecialchars(<?= $order['id'] ?>))" >
                         <input type="hidden" name="orderId" >
                     </form>
                 </td>
@@ -75,7 +72,7 @@
             foreach($teas as $tea): ?>
             <tr>
                 <td><?= $index + 1 ?></td>
-                <td><img style="max-width: 80px" src="public/img/<?= $tea['image'] ?>" /></td>
+                <td><img style="max-width: 80px" src="public/img/<?= htmlspecialchars($tea['image']) ?>" /></td>
                 <td><?= htmlspecialchars($tea['name']) ?></td>
                 <td><?= htmlspecialchars($tea['catName']) ?></td>
                 <td>
