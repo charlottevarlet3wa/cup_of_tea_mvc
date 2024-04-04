@@ -1,6 +1,6 @@
 <div class="center-container">
 <h1>Connexion</h1>
-<form id="loginForm" method="POST">
+<form id="loginForm" method="post">
     <div>
         <label for="email">Votre email</label>
         <input type="email" id="email" name="email" required />
@@ -9,8 +9,8 @@
         <label for="password">Votre mot de passe</label>
         <input type="password" id="password" name="password" required />
     </div>
-    <?php if (!empty($errorMessage)): ?>
-        <p style="color:red" class="error" id="message"><?= htmlspecialchars($errorMessage) ?></p>
+    <?php if (!empty($message)): ?>
+        <p id="message"><?= htmlspecialchars($message) ?></p>
     <?php endif; ?>
     <button class="btn" type="submit">Se connecter</button>
 </form>

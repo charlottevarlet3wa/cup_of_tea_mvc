@@ -8,18 +8,18 @@
 
 
     <form method="post">
-
-    <div class="input-group">
-        <input type="text" name="card_number" placeholder="Numéro de carte">
-    </div>
-    <div class="input-group">
-        <input type="text" name="exp_date" placeholder="Date d'expiration (MM/AAAA)">
-    </div>
-    <div class="input-group">
-        <input type="text" name="cvv" placeholder="CVV">
-    </div>
-    <button type="submit" class="btn">Payer</button>
-
-
+        <div class="input-group">
+            <input type="text" name="card_number" placeholder="Numéro de carte">
+        </div>
+        <div class="input-group">
+            <input type="text" name="exp_date" placeholder="Date d'expiration (MM/AAAA)">
+        </div>
+        <div class="input-group">
+            <input type="text" name="cvv" placeholder="CVV">
+        </div>
+        <?php if (!empty($message)): ?>
+            <p id="message"><?= htmlspecialchars($message) ?></p>
+        <?php endif; ?>
+        <button type="submit" class="btn">Payer</button>
     </form>
 </div>

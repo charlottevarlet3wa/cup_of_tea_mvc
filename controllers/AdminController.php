@@ -6,17 +6,30 @@ require_once 'models/OrderManager.php';
 require_once 'models/Tea.php';
 require_once 'models/TeaManager.php';
 
+require_once 'models/User.php';
+require_once 'models/UserManager.php';
+
+require_once 'models/Order.php';
+require_once 'models/OrderManager.php';
+
+
 class AdminController {    
-    
-    public function __construct()
-    {
-        if (!empty($_POST) && isset($_POST['orderId'])) {
-            $this->updateStatus($_POST['orderId'], $_POST['status']);
-        }
-    }
 
 
     public function display() {
+        if (!isset($_SESSION['user_id'])) {
+            header('Location: login');
+            exit;
+        }
+
+        $userManager = new UserManager();
+        $user = $userManager->getUserById($_SESSION['user_id']);
+    
+        if (!$user['admin']) {
+            header('Location: home');
+            exit;
+        }
+    
         $manager = new OrderManager();
         $orders = $manager->getAllOrders();
         
@@ -28,78 +41,68 @@ class AdminController {
         require_once "views/layout.phtml";
     }
 
+    
+    public function addTea(){
+        $ref = $_POST['ref'] ?? null;
+        $name = $_POST['name'] ?? null;
+        $subtitle = $_POST['subtitle'] ?? null;
+        $description = $_POST['description'] ?? null;
+        $cat = $_POST['cat'] ?? null;
+        $stock = $_POST['stock'] ?? null;
+        $isFavorite = $_POST['isFavorite'] ?? 0;
+        
+        if (empty($ref) || empty($name) || empty($subtitle) || empty($description) || empty($cat) || empty($stock) || !isset($_FILES['image'])) {
+            echo "All fields are required.";
+            return;
+        }
+        
+        $formatPrices = $_POST['formatPrice'] ?? [];
+        $formatConditionings = $_POST['formatConditioning'] ?? [];
 
-    public function updateStatus($orderId, $status){
-        $manager = new OrderManager();
-        // $status = $manager
-    }
+        $formats = 0;
+        for($i = 0; $i < count($formatPrices); $i++){
+            if(!empty($formatPrices[$i] && !empty($formatConditionings[$i]))){
+                $formats++;
+            }
+        }
+        if($formats == 0){
+            echo "Un format de thé est nécessaire au minimum.";
+            return;
+        }
 
-    /* ADD TEA */
-    public function addTea($ref, $name, $subtitle, $description, $target_file, $cat, $stock, $isFavorite, $formatPrices, $formatConditionings) {
+        if (!(isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK)) {
+            echo "Choisir un fichier.";
+            return;
+        }
 
-        $teaManager = new TeaManager();
-        $success = $teaManager->addTea($ref, $name, $subtitle, $description, $target_file, $cat, $stock, $isFavorite, $formatPrices, $formatConditionings);
+        if (isset($_FILES['image'])) {
+            $imageName = $_FILES['image']['name'];
+            $imageTmpName = $_FILES['image']['tmp_name'];
+            $targetDir = "public/img/product/";
+            $targetFile = $targetDir . basename($imageName);
+            $imagePath = "product/" . basename($imageName);
 
-        return $success;
+            // vérifier si le fichier est une image
+            $check = getimagesize($imageTmpName);
+            if($check !== false) {
+                if (move_uploaded_file($imageTmpName, $targetFile)) {
+                    $controller = new AdminController();
+                    $message = $controller->addTea($ref, $name, $subtitle, $description, $imagePath, $cat, $stock, $isFavorite, $formatPrices, $formatConditionings);
+                    if($message == "success") {
+                        echo "Votre thé a été ajouté avec succès.";
+                        return;
+                    }
+                    echo $message;
 
-
-
-
-// $target_dir = "uploads/"; // Assurez-vous que ce dossier existe et est accessible en écriture.
-// $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
-// $uploadOk = 1;
-// $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-
-// Vérifiez si le fichier est une image réelle ou une fausse image
-// if(isset($_POST["submit"])) {
-//     $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
-//     if($check !== false) {
-//         echo "Le fichier est une image - " . $check["mime"] . ".";
-//         $uploadOk = 1;
-//     } else {
-//         echo "Le fichier n'est pas une image.";
-//         $uploadOk = 0;
-//     }
-// }
-
-// // Vérifiez si le fichier existe déjà
-// if (file_exists($target_file)) {
-//     echo "Désolé, le fichier existe déjà.";
-//     $uploadOk = 0;
-// }
-
-// Vérifiez la taille du fichier
-// if ($_FILES["fileToUpload"]["size"] > 500000) { // 500 KB pour cet exemple
-//     echo "Désolé, votre fichier est trop volumineux.";
-//     $uploadOk = 0;
-// }
-
-// Autoriser certains formats de fichier
-// if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-// && $imageFileType != "gif" ) {
-//     echo "Désolé, seuls les fichiers JPG, JPEG, PNG & GIF sont autorisés.";
-//     $uploadOk = 0;
-// }
-
-// Vérifiez si $uploadOk est défini sur 0 par une erreur
-// if ($uploadOk == 0) {
-//     echo "Désolé, votre fichier n'a pas été téléchargé.";
-// // si tout est ok, essayez de télécharger le fichier
-// } else {
-    // if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-        // echo "Le fichier ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " a été téléchargé.";
-
-        // Ici, ajoutez le code pour enregistrer le chemin du fichier dans votre base de données.
-        // $filePath = $target_file; // Chemin à enregistrer dans la base de données.
-
-    // } else {
-    //     echo "Désolé, il y a eu une erreur lors du téléchargement de votre fichier.";
-    // }
-
-
-
-        // Redirect or display a success message
-
+                } else {
+                    echo "Une erreur est survenue lors du téléchargement de votre fichier.";
+                }
+            } else {
+                echo "Le fichier n'est pas une image.";
+            }
+        } else {
+            echo "Choisir un fichier.";
+        }
     }
 
     public function addFormat($teaId, $price, $conditioning) {
@@ -109,5 +112,83 @@ class AdminController {
 
         return $error;
     }
+
+
+    
+    public function updateStatus(){
+        $orderId = $_POST['orderId'] ??  null;
+        $filter = $_POST['filter'] ?? null;
+        $manager = new OrderManager();
+        $manager->updateStatus($orderId);
+        $this->filterOrders($filter);
+    }
+
+    public function filterOrders(){
+        $filter = $_POST['filter'] ?? null;
+        $filteredOrdersHtml = '';
+        
+        $manager = new OrderManager();
+        $orders = $manager->getAllOrders();
+        
+        foreach ($orders as $order) {
+            $includeOrder = false;
+            switch ($filter) {
+                case 'all':
+                    $includeOrder = true;
+                    break;
+                case 'processed':
+                    if ($order['status'] == 1) {
+                        $includeOrder = true;
+                    }
+                    break;
+                case 'unprocessed':
+                    if ($order['status'] == 0) {
+                        $includeOrder = true;
+                    }
+                    break;
+            }
+            
+            if ($includeOrder) {
+                $filteredOrdersHtml .= "<tr>";
+                $filteredOrdersHtml .= "<td>" . htmlspecialchars($order['id']) . "</td>";
+                $filteredOrdersHtml .= "<td>" . (new DateTime($order['date']))->format('Y-m-d H:i:s') . "</td>";
+                $filteredOrdersHtml .= "<td>" . htmlspecialchars($order['name']) . " " . htmlspecialchars($order['last_name']) . "</td>";
+                $filteredOrdersHtml .= "<td>" . htmlspecialchars(number_format((float)$order['total'], 2, '.', '')) . " €</td>";
+                $filteredOrdersHtml .= "<td>" . 
+                '<form id="statusForm" method="POST">
+                    <input type="checkbox" class="order-status" name="status" onchange=updateStatus('. htmlspecialchars($order['id']) .') ' . ($order['status'] == 1 ? "checked" : "" ) . ' >
+                    <input type="hidden" name="orderId" >
+                </form>' . "</td>";
+                $filteredOrdersHtml .= "<td><button onclick=showDetails(". htmlspecialchars($order['id']) .") class='detail-btn'><i class='fa fa-eye'></i></button></td>";
+                $filteredOrdersHtml .= "</tr>";
+            }
+        }
+        
+        echo $filteredOrdersHtml;
+    }
+
+    public function showDetails(){
+        $orderId = $_POST['orderId'] ?? null;
+        $manager = new OrderManager();
+        $details = $manager->getOrderDetailsById($orderId);
+        $detail = $details[0];
+
+
+        $detailsHtml = "";
+
+        $detailsHtml .= "<h2>Détail de la commande n° " . htmlspecialchars($detail['order_id']) . "</h2>";
+        $detailsHtml .= "<p>Passée le " . (new DateTime($detail['date']))->format('Y-m-d H:i:s') . "</p>";
+        $detailsHtml .= "<p><strong>Informations client : </strong>" . htmlspecialchars($detail['user_name']) . " " . htmlspecialchars($detail['user_last_name']) . "</p>";
+        $detailsHtml .= "<p>Statut:" . $detail['order_status'] == 1 ? 'Traitée' : 'Non traitée' . "</p>";
+        $detailsHtml .= "<p><strong>Details : </strong></p>";
+        foreach($details as $detail){
+            $detailsHtml .= "<p>". $detail['name'] . " - " . $detail['cond'] . " - " . $detail['price'] ."€</p>";
+        }
+        $detailsHtml .= "<button class='btn' onclick=showList()>Retour à la liste</button>";
+
+        echo $detailsHtml;
+    }
+        
+
 
 }

@@ -14,12 +14,6 @@
 
 
 <body>
-<?php 
-// var_dump($_SESSION['cart']); 
-// var_dump(isset($_SESSION['user_id']) ? $_SESSION['user_id'] : "no user id"); 
-?>
-
-  <!-- TODO : where place scripts ? -->
   <header>
     <img class="ribbon" src="public/img/ribbon.svg" alt="élu meilleur thé en 2016" />
     <section id="topbar">Livraison offerte à partir de 65€ d'achat !</section>
@@ -29,15 +23,14 @@
           <img src="public/img/logo.png" alt="Logo de Cup of Tea" />
         </a>
         <section style="display:<?= isset($cart)? 'block' : 'none' ?>" id="cart">
-          <?php if(isset($cart)) require_once $cart; ?>
+          <!-- <?php if(isset($cart)) require_once $cart; ?> -->
         </section>
       </section>
       <nav>
-        <!-- <a href="/teas">Thés</a> -->
         <a href="teas">Thés</a>
         <a href="about">Notre histoire</a>
         <?php if(isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1): ?>
-         <a href="/cup_of_tea_php/admin">Admin</a>
+         <a href="admin">Admin</a>
        <?php endif ?>
         <?php if(!isset($_SESSION['user_id'])): ?>
           <a href="login">Me connecter</a>

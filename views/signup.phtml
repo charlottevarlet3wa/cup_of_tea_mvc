@@ -17,9 +17,8 @@
         <label for="password">Votre mot de passe</label>
         <input type="password" id="password" name="password" required />
     </div>
-    <!-- <p id="message"></p> -->
-    <?php if (!empty($errorMessage)): ?>
-        <p style="color:red" class="error" id="message"><?= htmlspecialchars($errorMessage) ?></p>
+    <?php if (!empty($message)): ?>
+        <p id="message"><?= htmlspecialchars($message) ?></p>
     <?php endif; ?>
     <button type="submit" class="btn">
         Créer un compte

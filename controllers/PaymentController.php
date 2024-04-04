@@ -10,15 +10,19 @@ class PaymentController
 {
     public function __construct()
     {
-
-        // Si on est dans une requête post, alors on lance la méthode addRoom(). 
         if (!empty($_POST) && isset($_POST['card_number'])) {
             $this->processPayment();
         }
     }
 
     public function display(){
+        if(!isset($_SESSION['user_id'])){
+            header('Location: login');
+            exit;
+        }
         $amount = $this->calculateTotal();
+        $message = $_SESSION['message'] ?? '';
+        unset($_SESSION['message']);
         $template = "payment.phtml";
         $cart = "cartComponent.phtml";
         require_once "views/layout.phtml";
@@ -48,7 +52,6 @@ class PaymentController
             $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
             $domainName = $_SERVER['HTTP_HOST'].'/';
 
-            // Construisez l'URL de retour en fonction de l'environnement de l'application
             $returnUrl = $protocol . $domainName . "cup_of_tea_php/home";
     
             try {
@@ -58,38 +61,37 @@ class PaymentController
                     'currency' => 'eur',
                     'payment_method' => 'pm_card_visa',
                     'confirm' => true,
-                    // 'return_url' => 'http://localhost/cup_of_tea_php/home',
                     'return_url' => $returnUrl,
                 ]);
     
                 if ($paymentIntent->status == 'succeeded') {
-                    // Instancier OrderManager
                     $manager = new OrderManager();
                     
-                    // Préparer les données des thés pour passer à addOrder
-                    $teas = []; // Vous devez convertir votre $_SESSION['cart'] en un format attendu par addOrder
+                    $teas = [];
                     foreach($_SESSION['cart'] as $teaId => $teaDetails) {
                         foreach ($teaDetails['formats'] as $format) {
                             $teas[] = [
                                 'id' => $teaId,
-                                'cond' => $format['format'], // Exemple: 'Pochette de 100g'
-                                'price' => $format['price'] * $format['quantity'], // calcule le prix total pour ce format
+                                'cond' => $format['format'],
+                                'price' => $format['price'] * $format['quantity'],
                             ];
                         }
                     }
     
-                    // Appeler addOrder
                     if($manager->addOrder($_SESSION['user_id'], $teas)) {
                         unset($_SESSION['cart']);
-                        header('Location: /cup_of_tea_php/success');
+                        header('Location: success');
                         exit();
                     } else {
-                        // Gérer l'échec de l'ajout de la commande
-                        echo "Erreur lors de l'ajout de la commande.";
+                        $_SESSION['message'] = "Erreur lors de l'ajout de la commande.";
+                        header('Location: my-account');
+                        exit;
                     }
                 }
             } catch (Exception $e) {
-                echo "Erreur : " . $e->getMessage();
+                $_SESSION['message'] = $e->getMessage() ;
+                header('Location: my-account');
+                exit;
             }
         }
     }
