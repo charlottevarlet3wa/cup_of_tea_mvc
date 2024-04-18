@@ -1,0 +1,8 @@
+<?php if (!empty($details)): ?>
+    <h3>Commande n° <?= htmlspecialchars($orderId) ?></h3>
+    <?php foreach ($details as $detail): ?>
+        <p><?= htmlspecialchars($detail['name']) . " - " . htmlspecialchars($detail['cond']) . " - " . number_format($detail['price'], 2) . " €" ?></p>
+    <?php endforeach; ?>
+<?php else: ?>
+    <p>Aucun détail de commande trouvé.</p>
+<?php endif; ?>

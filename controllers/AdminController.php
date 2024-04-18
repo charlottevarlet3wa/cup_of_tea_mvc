@@ -147,47 +147,21 @@ class AdminController {
                     }
                     break;
             }
-            
             if ($includeOrder) {
-                $filteredOrdersHtml .= "<tr>";
-                $filteredOrdersHtml .= "<td>" . htmlspecialchars($order['id']) . "</td>";
-                $filteredOrdersHtml .= "<td>" . (new DateTime($order['date']))->format('Y-m-d H:i:s') . "</td>";
-                $filteredOrdersHtml .= "<td>" . htmlspecialchars($order['name']) . " " . htmlspecialchars($order['last_name']) . "</td>";
-                $filteredOrdersHtml .= "<td>" . htmlspecialchars(number_format((float)$order['total'], 2, '.', '')) . " €</td>";
-                $filteredOrdersHtml .= "<td>" . 
-                '<form id="statusForm" method="POST">
-                    <input type="checkbox" class="order-status" name="status" onchange=updateStatus('. htmlspecialchars($order['id']) .') ' . ($order['status'] == 1 ? "checked" : "" ) . ' >
-                    <input type="hidden" name="orderId" >
-                </form>' . "</td>";
-                $filteredOrdersHtml .= "<td><button onclick=showDetails(". htmlspecialchars($order['id']) .") class='detail-btn'><i class='fa fa-eye'></i></button></td>";
-                $filteredOrdersHtml .= "</tr>";
+                $filteredOrders[] = $order;
             }
         }
         
-        echo $filteredOrdersHtml;
+        include "views/ajax/admin_filteredOrders.phtml";
     }
 
     public function showDetails(){
         $orderId = $_POST['orderId'] ?? null;
         $manager = new OrderManager();
         $details = $manager->getOrderDetailsById($orderId);
-        $detail = $details[0];
-
-
-        $detailsHtml = "";
-
-        $detailsHtml .= "<h2>Détail de la commande n° " . htmlspecialchars($detail['order_id']) . "</h2>";
-        $detailsHtml .= "<p>Passée le " . (new DateTime($detail['date']))->format('Y-m-d H:i:s') . "</p>";
-        $detailsHtml .= "<p><strong>Informations client : </strong>" . htmlspecialchars($detail['user_name']) . " " . htmlspecialchars($detail['user_last_name']) . "</p>";
-        $detailsHtml .= "<p>Statut:" . $detail['order_status'] == 1 ? 'Traitée' : 'Non traitée' . "</p>";
-        $detailsHtml .= "<p><strong>Details : </strong></p>";
-        foreach($details as $detail){
-            $detailsHtml .= "<p>". $detail['name'] . " - " . $detail['cond'] . " - " . $detail['price'] ."€</p>";
-        }
-        $detailsHtml .= "<button class='btn' onclick=showList()>Retour à la liste</button>";
-
-        echo $detailsHtml;
+        include "views/ajax/admin_orderDetails.phtml";
     }
+    
         
 
 

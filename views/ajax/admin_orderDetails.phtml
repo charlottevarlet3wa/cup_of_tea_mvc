@@ -1,0 +1,15 @@
+<div id=order-details style="text-align: left;">
+<?php if (!empty($details)): ?>
+    <h2>Détail de la commande n° <?= htmlspecialchars($details[0]['order_id']) ?></h2>
+    <p>Passée le <?= (new DateTime($details[0]['date']))->format('Y-m-d H:i:s') ?></p>
+    <p><strong>Informations client : </strong><?= htmlspecialchars($details[0]['user_name']) . " " . htmlspecialchars($details[0]['user_last_name']) ?></p>
+    <p>Statut: <?= $details[0]['order_status'] == 1 ? 'Traitée' : 'Non traitée' ?></p>
+    <p><strong>Details : </strong></p>
+    <?php foreach($details as $detail): ?>
+        <p><?= htmlspecialchars($detail['name']) . " - " . htmlspecialchars($detail['cond']) . " - " . htmlspecialchars($detail['price']) . "€" ?></p>
+    <?php endforeach; ?>
+    <button class='btn' onclick="showList()">Retour à la liste</button>
+<?php else: ?>
+    <p>Aucune commande trouvée.</p>
+<?php endif; ?>
+</div>

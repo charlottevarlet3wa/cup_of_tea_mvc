@@ -5,7 +5,6 @@ function updateStatus(orderId){
     const xttp = new XMLHttpRequest();
     xttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            console.log("update status");
             document.getElementById('orders-list').innerHTML = this.responseText;
         }
     };
@@ -20,7 +19,6 @@ function filterOrders() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            console.log("filter orders  : ");
             document.getElementById('orders-list').innerHTML = this.responseText;
         }
     };
@@ -35,20 +33,20 @@ let ordersElem = document.getElementById('orders');
 let teasElem = document.getElementById('teas');
 let addTeaElem = document.getElementById('add-tea');
 
-function showDetails(orderId){
-    ordersElem.style.display = 'none';
-    orderDetailsElem.style.display = 'block';
-    
+function showDetails(orderId, buttonElement){
+    let detailsRow = document.getElementById('details-' + orderId);
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            document.getElementById('order-details').innerHTML = this.responseText;
+            detailsRow.querySelector('td').innerHTML = this.responseText;
+            detailsRow.style.display = detailsRow.style.display === 'none' ? '' : 'none'; // Toggle visibility
         }
     };
     xhttp.open("POST", "/cup_of_tea_php/?route=show-details", true);
     xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhttp.send("orderId=" + orderId);
 }
+
 
 function showList(){
     ordersElem.style.display = 'block';
@@ -89,7 +87,7 @@ function addTea() {
 }
 
 
-let formatCount = 1; // Keep track of how many formats have been added
+let formatCount = 1; 
 
 function addFormat() {
     formatCount++;

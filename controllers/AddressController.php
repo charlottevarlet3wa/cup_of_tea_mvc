@@ -3,7 +3,10 @@
 require_once 'models/Address.php';
 require_once 'models/AddressManager.php';
 
-class AddressController {
+require_once 'controllers/AbstractController.php';
+
+
+class AddressController extends AbstractController {
 
     public function __construct()
     {
@@ -24,7 +27,7 @@ class AddressController {
         unset($_SESSION['message']);
 
         $template = "address.phtml";
-        $cart = "cartComponent.phtml";
+        $cartHeader = "cartComponent.phtml";
         require_once "views/layout.phtml";
     }
 

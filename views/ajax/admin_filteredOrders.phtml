@@ -1,0 +1,15 @@
+<?php foreach ($filteredOrders as $order): ?>
+    <tr>
+        <td><?= htmlspecialchars($order['id']) ?></td>
+        <td><?= (new DateTime($order['date']))->format('Y-m-d H:i:s') ?></td>
+        <td><?= htmlspecialchars($order['name']) . " " . htmlspecialchars($order['last_name']) ?></td>
+        <td><?= htmlspecialchars(number_format((float)$order['total'], 2, '.', '')) ?> €</td>
+        <td>
+            <form id="statusForm" method="POST">
+                <input type="checkbox" class="order-status" name="status" onchange="updateStatus(<?= htmlspecialchars($order['id']) ?>)" <?= ($order['status'] == 1 ? "checked" : "") ?>>
+                <input type="hidden" name="orderId">
+            </form>
+        </td>
+        <td><button onclick="showDetails(<?= htmlspecialchars($order['id']) ?>)" class="detail-btn"><i class="fa fa-eye"></i></button></td>
+    </tr>
+<?php endforeach; ?>

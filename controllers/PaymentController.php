@@ -6,7 +6,9 @@ require_once 'models/Order.php';
 require_once 'models/OrderDetails.php';
 require_once 'models/OrderManager.php';
 
-class PaymentController
+require_once 'controllers/AbstractController.php';
+
+class PaymentController extends AbstractController
 {
     public function __construct()
     {
@@ -24,7 +26,7 @@ class PaymentController
         $message = $_SESSION['message'] ?? '';
         unset($_SESSION['message']);
         $template = "payment.phtml";
-        $cart = "cartComponent.phtml";
+        $cartHeader = "cartComponent.phtml";
         require_once "views/layout.phtml";
     }
 
