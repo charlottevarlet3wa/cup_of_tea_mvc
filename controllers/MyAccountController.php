@@ -35,7 +35,7 @@ class MyAccountController extends AbstractController {
         $message = $_SESSION['message'] ?? '';
         unset($_SESSION['message']);
         $template = "myAccount.phtml";
-        $cartHeader = "cartComponent.phtml";
+        $cartHeader = "cartHeader.phtml";
         require_once "views/layout.phtml";
     }
 

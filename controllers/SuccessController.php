@@ -9,7 +9,7 @@ class SuccessController extends AbstractController {
             exit;
         }
         $template = "success.phtml";
-        $cartHeader = "cartComponent.phtml";
+        $cartHeader = "cartHeader.phtml";
         require_once "views/layout.phtml";
     }
 }

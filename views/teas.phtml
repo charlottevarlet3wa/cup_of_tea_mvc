@@ -1,7 +1,7 @@
 <?php 
 foreach ($cats as $cat): ?>
     <section class="tea">
-        <img src="public/img/tea/<?= htmlspecialchars($cat['id']) ?>" alt="<?= htmlspecialchars($cat['name']) ?>" />
+        <img src="public/img/<?= htmlspecialchars($cat['image']) ?>" alt="<?= htmlspecialchars($cat['name']) ?>" />
         <h2><span><?= htmlspecialchars($cat['name']) ?></span></h2>
         <p class="clear"><?= htmlspecialchars($cat['description']) ?></p>
         <section class="listing-product">

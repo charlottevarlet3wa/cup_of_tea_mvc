@@ -12,7 +12,7 @@ class TeasController extends AbstractController {
         $cats = $manager->getAllCategories();
 
         $template = "teas.phtml";
-        $cartHeader = "cartComponent.phtml";
+        $cartHeader = "cartHeader.phtml";
         require_once "views/layout.phtml";
     }   
 }

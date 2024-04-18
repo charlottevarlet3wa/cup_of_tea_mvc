@@ -3,7 +3,7 @@
 require_once 'controllers/AboutController.php';
 require_once 'controllers/AdminController.php';
 require_once 'controllers/CartController.php';
-require_once 'controllers/CartComponentController.php';
+require_once 'controllers/CartHeaderController.php';
 require_once 'controllers/SignupController.php';
 require_once 'controllers/HomeController.php';
 require_once 'controllers/LoginController.php';
@@ -91,17 +91,17 @@ switch($_GET['route']){
         break;
         
     case 'add-to-cart':
-        $controller = new CartComponentController();
+        $controller = new CartHeaderController();
         $controller->addToCart();
         break;
 
     case 'remove-from-cart':
-        $controller = new CartComponentController();
+        $controller = new CartHeaderController();
         $controller->removeFromCart();
         break;
 
     case 'change-cart-quantity':
-        $controller = new CartComponentController();
+        $controller = new CartHeaderController();
         $controller->changeCartQuantity();
         break;
 
@@ -110,7 +110,7 @@ switch($_GET['route']){
         $controller->displayCart();
         break;
     case 'display-cart-header':
-        $controller = new CartComponentController();
+        $controller = new CartHeaderController();
         $controller->updateDisplayCartHeader();
         break;
     case 'account-show-detail';

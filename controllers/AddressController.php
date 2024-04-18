@@ -27,7 +27,7 @@ class AddressController extends AbstractController {
         unset($_SESSION['message']);
 
         $template = "address.phtml";
-        $cartHeader = "cartComponent.phtml";
+        $cartHeader = "cartHeader.phtml";
         require_once "views/layout.phtml";
     }
 

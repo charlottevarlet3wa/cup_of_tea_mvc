@@ -13,7 +13,7 @@ class HomeController extends AbstractController {
         $latest = $manager->getLatest();
         $bestseller = $manager->getBestseller();
         $template = "home.phtml";
-        $cartHeader = "cartComponent.phtml";
+        $cartHeader = "cartHeader.phtml";
         require_once "views/layout.phtml";
     }
 }

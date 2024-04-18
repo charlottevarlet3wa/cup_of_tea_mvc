@@ -3,7 +3,7 @@
 require_once 'models/Tea.php';
 require_once 'models/TeaManager.php';
 
-class CartComponentController {
+class CartHeaderController {
 
 
     function addToCart() {
@@ -77,7 +77,6 @@ class CartComponentController {
     
 
     function calculateTotal() {
-        return 4;
         $total = 0;
         foreach($_SESSION['cart'] as $tea){
             foreach($tea['formats'] as $format){
@@ -88,7 +87,6 @@ class CartComponentController {
     }
 
     function calculateCount() {
-        return 2;
         $count = 0;
         foreach($_SESSION['cart'] as $tea){
             foreach($tea['formats'] as $format){

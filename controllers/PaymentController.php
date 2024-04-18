@@ -26,7 +26,7 @@ class PaymentController extends AbstractController
         $message = $_SESSION['message'] ?? '';
         unset($_SESSION['message']);
         $template = "payment.phtml";
-        $cartHeader = "cartComponent.phtml";
+        $cartHeader = "cartHeader.phtml";
         require_once "views/layout.phtml";
     }
 
