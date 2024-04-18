@@ -1,8 +1,5 @@
-<div class="center-container">
-<h1>Mon panier</h1>
 
-<p id="empty-message"><?php if (empty($cart)): ?>Le panier est vide.<?php endif; ?></p>
-<?php if (!empty($cart)): ?>
+<?php if (empty($cart)): ?>
     <table id="cart-table">
         <thead>
             <tr>
@@ -19,8 +16,8 @@
             <?php 
             $total = 0;
             $index = 0;
-            foreach ($cart as $teaId => $tea): ?>
-                <?php foreach ($tea['formats'] as $formatId => $format): ?>
+            foreach ($cart as $teaId => $tea):
+                foreach ($tea['formats'] as $formatId => $format): ?>
                     <tr>
                         <td><?= ++$index ?></td>
                         <td><?= htmlspecialchars($tea['name']) ?></td>
@@ -32,14 +29,14 @@
                                 <?php endfor; ?>
                             </select>
                         </td>
-                        <td><?= number_format(htmlspecialchars($format['price']), 2) ?>€</td>
-                        <td><?= number_format(htmlspecialchars($format['quantity'] * $format['price']), 2) ?>€</td>
+                        <td><?= number_format($format['price'], 2) ?>€</td>
+                        <td><?= number_format($format['quantity'] * $format['price'], 2) ?>€</td>
                         <td><button class="btn grey-btn" onclick="changeQuantity(<?= $teaId ?>, <?= $formatId ?>, 0)">X</button></td>
                     </tr>
-                <?php 
-                $total += $format['price'] * $format['quantity'];
-                endforeach; ?>
-            <?php endforeach; ?>
+                    <?php 
+                    $total += $format['price'] * $format['quantity'];
+                endforeach;
+            endforeach; ?>
         </tbody>
         <tfoot>
             <tr class='total'>
@@ -48,10 +45,4 @@
             </tr>
         </tfoot>
     </table>
-
-<a id="next-btn" href="address" class="btn">Valider la sélection</a>
-</div>
 <?php endif; ?>
-</div>
-
-<script src="public/js/cart.js"></script>

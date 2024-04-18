@@ -1,32 +1,11 @@
-<?php 
-    function calculateTotal() {
-      $total = 0;
-      foreach($_SESSION['cart'] as $tea){
-        foreach($tea['formats'] as $format){
-            $total += $format['price'] * $format['quantity'];
-        }
-    }
-      return number_format($total, 2);
-  }
-
-  function getCartCount(){
-    $count = 0;
-    foreach($_SESSION['cart'] as $tea){
-      foreach($tea['formats'] as $format){
-        $count += $format['quantity'];
-      }
-    }
-    return $count;
-  }
-?>
 
 
 <a href="cart">
 <div id="cart" class="flex">
   <div id="cart-count-container">
     <div id="cart-count-icon"><i class="fa fa-shopping-cart"></i></div>
-    <div id="cart-count"><?= getCartCount() ?></div>
+    <div id="cart-count"><?= $this->getCartCount() ?></div>
   </div>
-  <p id="cart-total"><?= calculateTotal() . " €" ?></p>
+  <p id="cart-total"><?= $this->calculateTotal() . " €" ?></p>
 </div>
 </a>

@@ -5,7 +5,9 @@ require_once 'models/UserManager.php';
 require_once 'models/Order.php';
 require_once 'models/OrderManager.php';
 
-class MyAccountController {
+require_once 'controllers/AbstractController.php';
+
+class MyAccountController extends AbstractController {
     public function __construct()
     {
         if (!empty($_POST)) {
@@ -33,7 +35,7 @@ class MyAccountController {
         $message = $_SESSION['message'] ?? '';
         unset($_SESSION['message']);
         $template = "myAccount.phtml";
-        $cart = "cartComponent.phtml";
+        $cartHeader = "cartComponent.phtml";
         require_once "views/layout.phtml";
     }
 
@@ -42,14 +44,8 @@ class MyAccountController {
         
         $manager = new OrderManager();
         $details = $manager->getOrderDetailsById($orderId);
-        $detailHtml = "";
-        
-        $detailHtml .= "<h3>Commande n° " . $orderId . "</h3>";
 
-        foreach($details as $detail){
-            $detailHtml .= "<p>" . $detail['name'] . " - " . $detail['cond'] . " - " . number_format($detail['price'], 2) . " €</p>";
-        }
-        echo $detailHtml;
+        include "views/ajax/myAccount_orderDetails.phtml";
     }
     public function changeUserInfo()
     {

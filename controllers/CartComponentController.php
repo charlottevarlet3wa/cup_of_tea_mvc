@@ -77,6 +77,7 @@ class CartComponentController {
     
 
     function calculateTotal() {
+        return 4;
         $total = 0;
         foreach($_SESSION['cart'] as $tea){
             foreach($tea['formats'] as $format){
@@ -87,6 +88,7 @@ class CartComponentController {
     }
 
     function calculateCount() {
+        return 2;
         $count = 0;
         foreach($_SESSION['cart'] as $tea){
             foreach($tea['formats'] as $format){
@@ -97,7 +99,8 @@ class CartComponentController {
     }
 
     function displayCartHeader(){
-        $total = calculateTotal();
+        $total = $this->calculateTotal();
+        $count = $this->calculateCount();
         return $total;
     }
 

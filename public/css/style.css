@@ -706,6 +706,10 @@ select {
 	text-align: left;
 }
 
+#order-details h2:after {
+	display: none;
+}
+
 #order-details td:last-child{
 	text-align: center;
 	vertical-align: top;
@@ -984,6 +988,4 @@ input::placeholder, textarea::placeholder{
 	}
 
 }
-
-
 

@@ -9,6 +9,8 @@ if (!isset($_SESSION['cart'])) {
 }
 
 
+
+
 // Stripe
 require 'vendor/autoload.php';
 

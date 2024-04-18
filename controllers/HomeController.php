@@ -3,7 +3,9 @@
 require_once 'models/Tea.php';
 require_once 'models/TeaManager.php';
 
-class HomeController {
+require_once 'controllers/AbstractController.php';
+
+class HomeController extends AbstractController {
 
     public function display() {
         $manager = new TeaManager();
@@ -11,7 +13,7 @@ class HomeController {
         $latest = $manager->getLatest();
         $bestseller = $manager->getBestseller();
         $template = "home.phtml";
-        $cart = "cartComponent.phtml";
+        $cartHeader = "cartComponent.phtml";
         require_once "views/layout.phtml";
     }
 }

@@ -6,8 +6,6 @@
     <button class="btn" onclick="displaySection(2)">Ajouter un thé</button>
 </nav>
 
-
-
 <section id="orders" >
     <h2><span>Les commandes</span></h2>
     <p>
@@ -18,7 +16,7 @@
             <option value="processed">Traitées</option>
         </select>
     </p>
-    <table>
+    <table id="orders-table">
         <thead>
             <tr>
                 <th>Numéro de commande</th>
@@ -28,28 +26,29 @@
                 <th>Traitée</th>
                 <th>Détail</th>
             </tr>
-
         </thead>
         <tbody id="orders-list">
-        <?php 
-            foreach($orders as $order): ?>
-            <tr key={i}>
+        <?php foreach($orders as $order): ?>
+            <tr id="order-row-<?= htmlspecialchars($order['id']) ?>">
                 <td><?= htmlspecialchars($order['id']) ?></td>
-                <td><?= (new DateTime(htmlspecialchars($order['date']), new DateTimeZone('Europe/Paris')))->format('Y-m-d H:i:s'); ?></td>           
+                <td><?= (new DateTime($order['date']))->format('Y-m-d H:i:s'); ?></td>
                 <td><?= htmlspecialchars($order['name']) . " " . htmlspecialchars($order['last_name']) ?></td>
                 <td><?= htmlspecialchars(number_format((float)$order['total'], 2, '.', '')) ?> €</td>
                 <td>
                     <form method="post">
-                        <input type="checkbox" class="orderStatus" name="status" <?= htmlspecialchars($order['status']) == 1 ? "checked" : ""; ?> onchange="updateStatus(htmlspecialchars(<?= $order['id'] ?>))" >
-                        <input type="hidden" name="orderId" >
+                        <input type="checkbox" class="orderStatus" name="status" <?= $order['status'] == 1 ? "checked" : ""; ?> onchange="updateStatus(<?= $order['id'] ?>)" >
                     </form>
                 </td>
-                <td><button onclick="" class="detail-btn"><i class="fa fa-eye"></i></button></td>
+                <td><button onclick="showDetails(<?= $order['id'] ?>, this)" class="detail-btn"><i class="fa fa-eye"></i></button></td>
+            </tr>
+            <tr id="details-<?= htmlspecialchars($order['id']) ?>" class="order-details" style="display:none;">
+                <td colspan="6"></td> <!-- Placeholder for the details -->
             </tr>
         <?php endforeach ?>
         </tbody>
     </table>
 </section>
+
 
 
 <section id="teas" style='display:none'>
